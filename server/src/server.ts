@@ -5,7 +5,7 @@ import cors from 'cors'
 dotenv.config()
 
 const app = express()
-const port = process.env.PORT !== null || 8000
+const port = 8000
 app.use(express.json())
 app.use(cors())
 
