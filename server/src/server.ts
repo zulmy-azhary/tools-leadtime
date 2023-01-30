@@ -13,8 +13,12 @@ app.use('/products', (req: Request, res: Response) => {
   res.status(200).send({ product: 'product 1' })
 })
 
+app.use('/users', (req: Request, res: Response) => {
+  res.status(200).send({ user: 'user 1' })
+})
+
 app.use('/', (req: Request, res: Response) => {
-  res.status(200).send({ status: 200, list: { allProducts: '/products' } })
+  res.status(200).send({ status: 200, list: { allProducts: '/products', users: '/users' } })
 })
 
 app.listen(port, () => console.log(`Server listening on: http://localhost:${port}`))
