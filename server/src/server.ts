@@ -1,24 +1,41 @@
-import express, { type Request, type Response } from 'express'
+import express, { type Request, type Response, type NextFunction } from 'express'
 import dotenv from 'dotenv'
 import cors from 'cors'
+import mongoose from 'mongoose'
+import config from './config/environment'
+import { logger } from './utils/logger'
+import bodyParser from 'body-parser'
+import { routes } from './routes'
 
 dotenv.config()
 
+mongoose.set('strictQuery', true)
+mongoose
+  .connect(config.db as string)
+  .then(() => {})
+  .catch((err) => logger.error(err))
+
 const app = express()
-const port = 8000
-app.use(express.json())
+const port = process.env.PORT ?? 8000
+
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
 app.use(cors())
-
-app.use('/products', (req: Request, res: Response) => {
-  res.status(200).send({ product: 'product 1' })
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.setHeader('Access-Control-Allow-Origin', '*')
+  res.setHeader('Access-Control-Allow-Methods', '*')
+  res.setHeader('Access-Control-Allow-Headers', '*')
+  next()
 })
 
-app.use('/users', (req: Request, res: Response) => {
-  res.status(200).send({ user: 'user 1' })
-})
+routes(app)
 
 app.use('/', (req: Request, res: Response) => {
-  res.status(200).send({ status: 200, list: { allProducts: '/products', users: '/users' } })
+  res.status(200).send({ status: true, statusCode: 200, data: { allProducts: '/product', users: '/user' } })
 })
 
-app.listen(port, () => console.log(`Server listening on: http://localhost:${port}`))
+app.listen(port, () => {
+  logger.info('Connected to MongoDB')
+  logger.info(`Server listening on port ${port}, url: http://localhost:${port}`)
+})
