@@ -4,12 +4,17 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "server": "npm run dev --prefix server",
+    "client": "npm run dev --prefix client",
+    "all": "npm run server & npm run client",
     "format": "prettier --write .",
     "prepare": "husky install",
-    "check-types": "cd server && tsc --pretty --noEmit && cd ../client && tsc --pretty --noEmit",
+    "check-types": "cd server & tsc --pretty --noEmit & cd ../client & tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "build": "cd server && npm run build && cd ../client && npm run build"
+    "build-server": "npm run build --prefix server",
+    "build-client": "npm run build --prefix client",
+    "build": "npm run build-server & npm run build-client"
   },
   "husky": {
     "hooks": {
