@@ -6,7 +6,7 @@
   "scripts": {
     "start": "npx tsc -w",
     "dev": "npx nodemon",
-    "build": "rm -rf ./build && tsc"
+    "build": "rm -rf ./build & tsc"
   },
   "author": "",
   "license": "MIT",
