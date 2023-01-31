@@ -12,7 +12,7 @@ dotenv.config()
 mongoose.set('strictQuery', true)
 mongoose
   .connect(config.db as string)
-  .then(() => {})
+  .then(() => logger.info('Connected to MongoDB'))
   .catch((err) => logger.error(err))
 
 const app = express()
@@ -36,6 +36,5 @@ app.use('/', (req: Request, res: Response) => {
 })
 
 app.listen(port, () => {
-  logger.info('Connected to MongoDB')
   logger.info(`Server listening on port ${port}, url: http://localhost:${port}`)
 })
