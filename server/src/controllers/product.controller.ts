@@ -6,10 +6,7 @@ import type { Product } from '../types'
 
 export const getProduct = async (req: Request, res: Response) => {
   const products: any = await fetchProduct()
-
-  const {
-    params: { name }
-  } = req
+  const { name } = req.params
 
   if (name) {
     const filteredProduct = products.filter((product: Product) => product.name === name && product)

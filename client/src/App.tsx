@@ -1,5 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
+import axios from 'axios'
 import { BASE_URL } from './helpers/constant'
+import { useQuery } from 'react-query'
 
 interface Product {
   _id: string
@@ -7,28 +9,20 @@ interface Product {
   price: number
 }
 
+const getProducts = async (): Promise<Product[]> => {
+  return await axios.get(`${BASE_URL}/product`).then(({ data }) => data.data)
+}
+
 const App: React.FC = () => {
-  const [products, setProducts] = useState<Product[]>([])
-
-  useEffect(() => {
-    const fetchProduct = async () => {
-      try {
-        const res = await fetch(`${BASE_URL}/product`)
-        const data = await res.json()
-        setProducts(data.data)
-      } catch (err) {
-        console.log(err)
-      }
-    }
-
-    fetchProduct().catch((err) => console.error(err))
-  }, [])
+  const products = useQuery<Product[]>('products', getProducts)
+  console.log('Base Url: ', BASE_URL)
 
   return (
     <div className="flex flex-col gap-y-8 justify-center items-center min-h-screen">
       <h2 className="text-4xl">Product List :</h2>
       <div className="flex flex-col gap-y-3">
-        {products.map((product: Product) => (
+        {products.isLoading && <p>Loading...</p>}
+        {products.data?.map((product: Product) => (
           <div key={product._id}>
             <p>{product.name}</p>
             <p>{product.price}</p>
