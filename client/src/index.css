@@ -3,6 +3,12 @@
 @tailwind utilities;
 
 :root {
-  background-color: #232323;
+  background-color: #202637;
   color: white;
+}
+
+:focus {
+  outline: 2px solid #ee55ae;
+  outline-offset: 1px;
+  outline-style: dashed;
 }

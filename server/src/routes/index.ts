@@ -3,7 +3,7 @@ import { UserRouter } from './user.route'
 import { ProductRouter } from './product.route'
 
 const _routes: Array<[string, Router]> = [
-  ['/user', UserRouter],
+  ['/users', UserRouter],
   ['/product', ProductRouter]
 ]
 

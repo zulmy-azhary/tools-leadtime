@@ -5,7 +5,10 @@ const { Schema } = mongoose
 
 const productSchema = new Schema(
   {
-    _id: Schema.Types.ObjectId,
+    product_id: {
+      type: String,
+      unique: true
+    },
     name: String,
     price: Number
   },

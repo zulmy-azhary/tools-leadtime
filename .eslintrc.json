@@ -17,6 +17,8 @@
         "@typescript-eslint/restrict-template-expressions": "off",
         "@typescript-eslint/strict-boolean-expressions": "off",
         "@typescript-eslint/explicit-function-return-type": "off",
-        "@typescript-eslint/no-misused-promises": "off" // i'll remove later
+        "@typescript-eslint/no-misused-promises": "off", // i'll remove later
+        "indent": "off",
+        "@typescript-eslint/indent": "warn"
     }
 }

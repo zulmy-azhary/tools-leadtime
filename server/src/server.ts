@@ -32,7 +32,7 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 routes(app)
 
 app.use('/', (req: Request, res: Response) => {
-  res.status(200).send({ status: true, statusCode: 200, data: { allProducts: '/product', users: '/user' } })
+  res.status(200).send({ status: true, statusCode: 200, data: { allProducts: '/product', users: '/users' } })
 })
 
 app.listen(port, () => {

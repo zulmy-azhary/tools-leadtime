@@ -1,5 +1,10 @@
+export interface User {
+  username: string
+  password: string
+}
+
 export interface Product {
-  _id: string
+  product_id: string
   name: string
   price: number
 }

@@ -1,7 +1,7 @@
-import { type Request, type Response, Router } from 'express'
+import { Router } from 'express'
+import { createUser, getAllUsers } from '../controllers/user.controller'
 
 export const UserRouter: Router = Router()
 
-UserRouter.get('/', (req: Request, res: Response) => {
-  res.status(200).send({ user: 'user 1' })
-})
+UserRouter.get('/', getAllUsers)
+UserRouter.post('/', createUser)
