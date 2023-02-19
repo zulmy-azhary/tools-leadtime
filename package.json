@@ -14,7 +14,8 @@
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
     "build-server": "npm run build --prefix server",
     "build-client": "npm run build --prefix client",
-    "build": "npm run build-server & npm run build-client"
+    "build": "npm run build-server & npm run build-client",
+    "install-all": "npm i && concurrently \"cd ./client && npm i\" \"cd ./server && npm i\""
   },
   "husky": {
     "hooks": {
