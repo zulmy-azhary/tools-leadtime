@@ -3,8 +3,15 @@
 @tailwind utilities;
 
 :root {
-  background-color: #202637;
-  color: white;
+  --bgDark: #202637;
+  --bgLight: #ebf0ff;
+  --cardDark: #2c3551;
+  --cardLight: #ffffff;
+  --primaryTextDark: #c8e0f6;
+  --primaryTextLight: #3d4e5e;
+
+  background-color: var(--bgDark);
+  color: var(--primaryTextDark);
 }
 
 :focus {

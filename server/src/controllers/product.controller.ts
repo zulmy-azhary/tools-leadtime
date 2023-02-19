@@ -50,9 +50,9 @@ export const createProduct = async (req: Request, res: Response) => {
 
     logger.info('Success add new product')
 
-    return res.status(200).send({
+    return res.status(201).send({
       status: true,
-      statusCode: 200,
+      statusCode: 201,
       message: 'Add product successfully',
       data: value
     })

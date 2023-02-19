@@ -19,6 +19,7 @@
         "@typescript-eslint/explicit-function-return-type": "off",
         "@typescript-eslint/no-misused-promises": "off", // i'll remove later
         "indent": "off",
-        "@typescript-eslint/indent": "warn"
+        "@typescript-eslint/indent": "warn",
+        "@typescript-eslint/no-floating-promises": "off"
     }
 }

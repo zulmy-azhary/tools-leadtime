@@ -11,13 +11,7 @@ const InputForm: React.ForwardRefRenderFunction<HTMLInputElement, Props> = (prop
   return (
     <div className="flex flex-col">
       <label htmlFor={id}>{label}</label>
-      <input
-        id={id}
-        name={id}
-        ref={ref}
-        className="border-[1px] border-black text-black px-3 py-2 outline-none"
-        {...rest}
-      />
+      <input id={id} name={id} className="border-[1px] border-black text-black px-3 py-2 outline-none" {...rest} />
     </div>
   )
 }
