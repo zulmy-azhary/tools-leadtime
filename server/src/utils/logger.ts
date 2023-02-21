@@ -1,5 +1,5 @@
-import pino from 'pino'
-import pretty from 'pino-pretty'
+import pino from 'pino';
+import pretty from 'pino-pretty';
 
 export const logger = pino(
   {
@@ -8,4 +8,4 @@ export const logger = pino(
     }
   },
   pretty()
-)
+);

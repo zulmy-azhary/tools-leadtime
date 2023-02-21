@@ -1,7 +1,7 @@
-import mongoose from 'mongoose'
-import type { Product } from '../types'
+import mongoose from 'mongoose';
+import type { Product } from '../types';
 
-const { Schema } = mongoose
+const { Schema } = mongoose;
 
 const productSchema = new Schema(
   {
@@ -13,8 +13,8 @@ const productSchema = new Schema(
     price: Number
   },
   { timestamps: true }
-)
+);
 
-const ProductModel = mongoose.model<Product>('Product', productSchema, 'product')
+const ProductModel = mongoose.model<Product>('Product', productSchema);
 
-export default ProductModel
+export default ProductModel;
