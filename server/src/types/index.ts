@@ -1,13 +1,8 @@
-export interface User {
+export interface TUser {
   firstName: string;
   lastName: string;
-  email: string;
+  nik: string;
   password: string;
   picturePath: string;
-}
-
-export interface Product {
-  product_id: string;
-  name: string;
-  price: number;
+  role: "default" | "admin";
 }

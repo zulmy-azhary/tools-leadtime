@@ -1,8 +1,8 @@
-import multer from 'multer';
+import multer from "multer";
 // FILE STORAGE
 const storage = multer.diskStorage({
   destination: (req, file, callback) => {
-    callback(null, 'public/assets');
+    callback(null, "public/assets");
   },
   filename: (req, file, callback) => {
     callback(null, file.originalname);

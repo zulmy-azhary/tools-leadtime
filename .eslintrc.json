@@ -29,6 +29,9 @@
     "@typescript-eslint/no-misused-promises": "off", // i'll remove later
     "@typescript-eslint/no-floating-promises": "off",
     "multiline-ternary": "off",
+    // Quotes
+    "quotes": [2, "double", { "avoidEscape": true }],
+    "@typescript-eslint/quotes": "off",
     // Indent
     "indent": "warn",
     "@typescript-eslint/indent": "off",

@@ -9,13 +9,15 @@
   --cardLight: #ffffff;
   --primaryTextDark: #c8e0f6;
   --primaryTextLight: #3d4e5e;
+  --secondary: #75eb9d;
+  --accent: #ecdc4b;
 
   background-color: var(--bgDark);
   color: var(--primaryTextDark);
 }
 
-:focus {
-  outline: 2px solid #ee55ae;
+/* :focus {
+  outline: 2px solid var(--secondary);
   outline-offset: 1px;
   outline-style: dashed;
-}
+} */
