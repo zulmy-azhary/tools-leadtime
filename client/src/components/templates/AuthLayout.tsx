@@ -10,10 +10,10 @@ const AuthLayout: React.FC<React.PropsWithChildren<Props>> = props => {
   const { url, headerTitle, description, children } = props;
   return (
     <main className="min-h-screen grid grid-cols-1 lg:grid-cols-5 place-items-center w-full py-20 lg:py-0">
-      <div className="w-full bg-cardDark p-4 md:p-6 lg:p-8 xl:p-12 flex flex-col justify-center items-center gap-y-3 col-span-2 h-full">
+      <div className="w-full bg-cardLight dark:bg-cardDark p-4 md:p-6 lg:p-8 xl:p-12 flex flex-col justify-center items-center gap-y-3 col-span-2 h-full">
         <div className="mb-5 xl:max-w-lg text-center">
-          <h1 className="text-3xl">{headerTitle}</h1>
-          <p className="text-sm mt-3 text-primaryTextDark/60">{description}</p>
+          <h1 className="text-3xl font-semibold">{headerTitle}</h1>
+          <p className="text-sm mt-3 text-primaryTextLight/75 dark:text-primaryTextDark/60">{description}</p>
         </div>
         {children}
       </div>

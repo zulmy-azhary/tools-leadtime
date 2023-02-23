@@ -1,7 +1,5 @@
 export type TUserProps = "firstName" | "lastName" | "nik" | "password" | "confirmPassword" | "picturePath" | "role";
 
-// export type TUser = Record<TUserProps, string>;
-
 export interface TUser {
   firstName: string;
   lastName: string;
@@ -43,3 +41,5 @@ export interface TRegister {
     };
   };
 }
+
+export type TLogin = Pick<TUser, "nik" | "password">;

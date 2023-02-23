@@ -26,8 +26,8 @@ const InputForm: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (props,
           id={inputName}
           {...register(inputName)}
           className={clsx(
-            "border-[1px] text-primaryTextDark bg-bgDark px-5 py-3 outline-none text-sm w-full",
-            errors[inputName] ? "border-red-500" : "border-black"
+            "border-[1px] text-primaryTextLight dark:text-primaryTextDark bg-bgLight dark:bg-bgDark px-5 py-3 outline-none text-sm w-full",
+            errors[inputName] ? "border-red-500" : "border-gray-400 dark:border-gray-900"
           )}
           autoComplete="off"
           type={type}

@@ -3,59 +3,33 @@ import { AuthLayout } from "../templates";
 import { Button, ButtonIcon, InputForm } from "../atoms";
 import { FormProvider, useForm } from "react-hook-form";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { useMutation, useQueryClient } from "react-query";
-import axios, { type AxiosError } from "axios";
-import { BASE_URL } from "../../helpers/constant";
-import { object, string, ref } from "yup";
+import { useMutation } from "react-query";
+import { type AxiosError } from "axios";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link, useNavigate } from "react-router-dom";
 import type { TResponseError, TUser } from "../../types";
 import { AiFillEyeInvisible, AiFillEye } from "react-icons/ai";
-
-const registerSchema = object({
-  firstName: string()
-    .required("Firstname is required.")
-    .min(4, "Firstname must contain at least 4 characters.")
-    .max(16, "Maximum length of firstname is 16 characters."),
-  lastName: string()
-    .required("Lastname is required.")
-    .min(4, "Lastname must contain at least 4 characters.")
-    .max(16, "Maximum length of lastname is 16 characters."),
-  nik: string()
-    .required("NIK is required.")
-    .matches(/^[0-9]+$/, "NIK must be only digits.")
-    .length(9, "NIK must be exactly 9 characters."),
-  picturePath: string(),
-  password: string()
-    .required("Password is required.")
-    .min(6, "Password must contain at least 6 characters.")
-    .max(24, "Maximum length of password is 24 characters."),
-  confirmPassword: string()
-    .required("Confirm Password is required.")
-    .oneOf([ref("password")], "Password does not match.")
-});
-
-const createUser = async (data: Omit<TUser, "confirmPassword" | "role">) => {
-  return await axios.post(`${BASE_URL}/auth/register`, data);
-};
+import { registerUser } from "../../api/auth";
+import { registerSchema } from "../../schemas/authSchema";
+import { toast } from "react-hot-toast";
 
 const Register: React.FC = () => {
   useDocumentTitle("Register");
   const navigate = useNavigate();
   const methods = useForm<Omit<TUser, "role">>({ resolver: yupResolver(registerSchema) });
-  const queryClient = useQueryClient();
   const [passwordType, setPasswordType] = useState<"password" | "text">("password");
 
-  const { mutate, isLoading } = useMutation({
-    mutationFn: createUser,
+  const { mutate: mutateRegister, isLoading } = useMutation({
+    mutationFn: registerUser,
     onSuccess: data => {
-      queryClient.invalidateQueries(["users"]);
-      console.log(data.data.message);
       methods.reset();
+      console.log(data.data.message);
+      toast.success(data.data.message);
       navigate("/");
     },
     onError: ({ response }: AxiosError<TResponseError>) => {
       console.log(response?.data.message);
+      toast.error(response?.data.message as string);
     }
   });
 
@@ -65,7 +39,7 @@ const Register: React.FC = () => {
 
   const onSubmit = methods.handleSubmit(data => {
     const { firstName, lastName, nik, password, picturePath } = data;
-    mutate({
+    mutateRegister({
       firstName,
       lastName,
       nik,
@@ -110,8 +84,8 @@ const Register: React.FC = () => {
             placeholder="Enter password..."
             className="col-span-full"
             renderButton={
-              <ButtonIcon onClick={togglePassword}>
-                {passwordType === "password" ? <AiFillEyeInvisible /> : <AiFillEye />}
+              <ButtonIcon onClick={togglePassword} className="text-lg">
+                {passwordType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
               </ButtonIcon>
             }
           />

@@ -7,7 +7,7 @@ const ButtonIcon: React.FC<React.PropsWithChildren<Props>> = props => {
   const { children, className, ...rest } = props;
 
   return (
-    <button type="button" className={clsx("absolute right-3 bottom-0 -translate-y-1/2 p-1", className)} {...rest}>
+    <button type="button" className={clsx("absolute right-3 inset-y-2 p-1", className)} {...rest}>
       {children}
     </button>
   );

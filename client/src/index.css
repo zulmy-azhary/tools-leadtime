@@ -12,7 +12,6 @@
   --secondary: #75eb9d;
   --accent: #ecdc4b;
 
-  background-color: var(--bgDark);
   color: var(--primaryTextDark);
 }
 
