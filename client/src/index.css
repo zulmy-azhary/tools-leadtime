@@ -14,9 +14,3 @@
 
   color: var(--primaryTextDark);
 }
-
-/* :focus {
-  outline: 2px solid var(--secondary);
-  outline-offset: 1px;
-  outline-style: dashed;
-} */

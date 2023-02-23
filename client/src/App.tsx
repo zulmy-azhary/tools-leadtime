@@ -1,8 +1,9 @@
 import React, { Suspense } from "react";
-import { Login } from "./components/pages";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { Custom404, Login } from "./components/pages";
+import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import { Loading, Toast as CustomToast } from "./components/atoms";
 import { type Toast, Toaster } from "react-hot-toast";
+import { MainLayout } from "./components/templates";
 
 const Register = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Register })));
 
@@ -10,15 +11,9 @@ const App: React.FC = () => {
   return (
     <>
       <div className="flex flex-col gap-y-8 justify-center items-center min-h-screen bg-bgLight text-primaryTextLight dark:bg-bgDark dark:text-primaryTextDark">
-        <BrowserRouter>
-          <Suspense fallback={<Loading />}>
-            <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="*" element={<Login />} />
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
+        <Suspense fallback={<Loading />}>
+          <RouterProvider router={router} />
+        </Suspense>
       </div>
       <Toaster
         position="bottom-left"
@@ -32,5 +27,15 @@ const App: React.FC = () => {
     </>
   );
 };
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route element={<MainLayout />}>
+      <Route path="/" element={<Login />} />
+      <Route path="/register" element={<Register />} />
+      <Route path="*" element={<Custom404 />} />
+    </Route>
+  )
+);
 
 export default App;

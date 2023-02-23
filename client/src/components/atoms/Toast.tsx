@@ -17,7 +17,9 @@ const Toast: React.FC<Props> = props => {
       toast={toast}
       style={{
         display: "flex",
-        alignItems: "center"
+        alignItems: "center",
+        backgroundColor: "var(--bgDark)",
+        color: "var(--primaryTextDark)"
       }}
       position="bottom-left"
     >
