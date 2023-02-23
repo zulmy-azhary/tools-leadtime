@@ -47,8 +47,8 @@ export const login = async (req: Request, res: Response) => {
 
     const isMatch = await bcrypt.compare(password, fetchedUser.password as string);
     if (!isMatch) {
-      logger.error("USER -> LOGIN = Invalid NIK and password.");
-      return res.status(400).send({ status: false, statusCode: 400, message: "Invalid NIK and password." });
+      logger.error("USER -> LOGIN = Invalid credentials.");
+      return res.status(400).send({ status: false, statusCode: 400, message: "Invalid credentials." });
     }
 
     const token = jwt.sign({ id: fetchedUser._id }, process.env.JWT_SECRET as string);
