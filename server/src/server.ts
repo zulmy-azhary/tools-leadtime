@@ -8,6 +8,8 @@ import { routes } from "./routes";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
+import cookieParser from "cookie-parser";
+import { deserializedToken } from "./middleware/auth.middleware";
 
 dotenv.config();
 
@@ -22,6 +24,7 @@ const port = process.env.PORT ?? 8000;
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 // Middleware
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -40,6 +43,8 @@ app.use((req: Request, res: Response, next: NextFunction) => {
   res.setHeader("Access-Control-Allow-Headers", "*");
   next();
 });
+
+app.use(deserializedToken);
 
 // All routes
 routes(app);

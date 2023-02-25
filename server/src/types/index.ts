@@ -6,3 +6,8 @@ export interface TUser {
   picturePath: string;
   role: "default" | "admin";
 }
+
+export interface TToken {
+  accessToken: string;
+  refreshToken: string;
+}

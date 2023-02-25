@@ -1,20 +1,36 @@
 import type { NextFunction, Request, Response } from "express";
-import jwt from "jsonwebtoken";
+import { verifyJWT } from "../utils/jwt";
 
-export const verifyToken = async (req: Request, res: Response, next: NextFunction) => {
+export const requireUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    let token = req.header("Authorization");
+    const user = res.locals.user;
 
-    if (!token) return res.status(403).send({ status: false, statusCode: 403, message: "Access Denied." });
-    if (token.startsWith("Bearer ")) {
-      token = token.slice(7, token.length).trimStart();
+    if (!user) {
+      return res.status(403).send({ status: false, statusCode: 403, message: "Access Denied." });
     }
-
-    const verified = jwt.verify(token, process.env.JWT_SECRET as string);
-    (req as any).user = verified;
 
     next();
   } catch (err) {
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
   }
+};
+
+// Token
+export const deserializedToken = async (req: Request, res: Response, next: NextFunction) => {
+  const accessToken = req.headers.authorization?.replace(/^Bearer\s/, "");
+  if (!accessToken) {
+    return next();
+  }
+
+  const token = verifyJWT(accessToken);
+  if (token.decoded) {
+    res.locals.user = token.decoded;
+    return next();
+  }
+
+  if (token.expired) {
+    next();
+  }
+
+  next();
 };
