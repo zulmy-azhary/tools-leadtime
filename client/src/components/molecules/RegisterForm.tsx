@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button, ButtonIcon, InputForm } from "../atoms";
 import { useNavigate } from "react-router-dom";
-import type { TResponseError, TUser } from "../../types";
+import type { TResponse, TUser } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../../schemas/authSchema";
 import { useMutation } from "react-query";
@@ -18,14 +18,12 @@ const RegisterForm: React.FC = () => {
 
   const { mutate: mutateRegister, isLoading } = useMutation({
     mutationFn: registerUser,
-    onSuccess: data => {
+    onSuccess: res => {
       methods.reset();
-      console.log(data.data.message);
-      toast.success(data.data.message);
+      toast.success(res.data.message);
       navigate("/");
     },
-    onError: ({ response }: AxiosError<TResponseError>) => {
-      console.log(response?.data.message);
+    onError: ({ response }: AxiosError<TResponse>) => {
       toast.error(response?.data.message as string);
     }
   });

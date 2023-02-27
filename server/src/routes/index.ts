@@ -1,7 +1,11 @@
 import type { Application, Router } from "express";
 import { AuthRouter } from "./auth.route";
+import { UserRouter } from "./user.route";
 
-const _routes: Array<[string, Router]> = [["/auth", AuthRouter]];
+const _routes: Array<[string, Router]> = [
+  ["/auth", AuthRouter],
+  ["/user", UserRouter]
+];
 
 export const routes = (app: Application): void => {
   _routes.map(route => {

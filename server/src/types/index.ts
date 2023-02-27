@@ -4,7 +4,7 @@ export interface TUser {
   nik: string;
   password: string;
   picturePath: string;
-  role: "default" | "admin";
+  role: "admin" | "foreman" | "teknisi";
 }
 
 export interface TToken {

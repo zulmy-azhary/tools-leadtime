@@ -1,11 +1,13 @@
 import type { NextFunction, Request, Response } from "express";
-import { verifyJWT } from "../utils/jwt";
+import { verifyToken } from "../utils/jwt";
+import { logger } from "../utils/logger";
 
 export const requireUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
     const user = res.locals.user;
 
     if (!user) {
+      logger.error("AUTH -> REQUIRE USER = Access Denied.");
       return res.status(403).send({ status: false, statusCode: 403, message: "Access Denied." });
     }
 
@@ -22,7 +24,7 @@ export const deserializedToken = async (req: Request, res: Response, next: NextF
     return next();
   }
 
-  const token = verifyJWT(accessToken);
+  const token = verifyToken(accessToken);
   if (token.decoded) {
     res.locals.user = token.decoded;
     return next();

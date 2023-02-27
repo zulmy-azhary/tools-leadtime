@@ -36,9 +36,13 @@ const _dirname = path.dirname(_filename);
 app.use("/assets", express.static(path.join(_dirname, "public/assets")));
 
 // Cors
-app.use(cors());
+app.use(
+  cors({
+    origin: ["http://127.0.0.1:5173", "https://leadtime-server.vercel.app", "*"],
+    credentials: true
+  })
+);
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
   next();
@@ -50,7 +54,7 @@ app.use(deserializedToken);
 routes(app);
 
 app.use("/", (req: Request, res: Response) => {
-  res.status(200).send({ status: true, statusCode: 200, data: { users: "/auth" } });
+  res.status(200).send({ status: true, statusCode: 200, message: `Server is running on port ${port}.` });
 });
 
 app.listen(port, () => {

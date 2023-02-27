@@ -6,7 +6,7 @@ export const signJWT = (payload: Record<string, unknown>, options?: jwt.SignOpti
   return jwt.sign(payload, CONFIG.jwt_private as jwt.Secret, { ...(options && options), algorithm: "RS256" });
 };
 
-export const verifyJWT = (token: string) => {
+export const verifyToken = (token: string) => {
   try {
     const decoded = jwt.verify(token, CONFIG.jwt_public as jwt.Secret);
     return {
@@ -24,7 +24,7 @@ export const verifyJWT = (token: string) => {
 };
 
 export const reIssueAccessToken = async (refreshToken: string) => {
-  const { decoded }: any = verifyJWT(refreshToken);
+  const { decoded }: any = verifyToken(refreshToken);
   const user = await findUser(decoded?._doc.nik);
   if (!user) return false;
 

@@ -35,7 +35,7 @@ const Toast: React.FC<Props> = props => {
             {toast.type === "success" && <FiCheck />}
             {toast.type === "error" && <AiOutlineStop />}
           </div>
-          <p className="ml-3 text-sm font-normal">{message}</p>
+          <span className="ml-3 text-sm font-normal">{message}</span>
           {toast.type !== "loading" && (
             <button type="button" className="ml-auto" onClick={() => toastFn.dismiss(toast.id)}>
               <IoMdClose className="w-5 h-5 text-primaryTextDark" />
