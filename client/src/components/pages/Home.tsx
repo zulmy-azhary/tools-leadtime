@@ -41,8 +41,8 @@ const Home: React.FC = () => {
         <p>Role: {user?.role}</p>
       </div>
       <h2>Home Page</h2>
-      <div className="flex justify-evenly w-full">
-        <button className={"px-5 py-2 bg-cardDark/60 hover:bg-cardDark rounded-sm"} onClick={onClick}>
+      <div className="flex w-full justify-evenly">
+        <button className={"bg-cardDark/60 hover:bg-cardDark rounded-sm px-5 py-2"} onClick={onClick}>
           Refresh Token
         </button>
       </div>

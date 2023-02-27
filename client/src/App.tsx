@@ -20,7 +20,7 @@ const Employees = React.lazy(
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <div className="flex flex-col gap-y-8 justify-center items-center min-h-screen bg-bgLight text-primaryTextLight dark:bg-bgDark dark:text-primaryTextDark">
+      <div className="bg-bgLight text-primaryTextLight dark:bg-bgDark dark:text-primaryTextDark flex min-h-screen flex-col items-center justify-center gap-y-8">
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>

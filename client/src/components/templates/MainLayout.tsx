@@ -7,7 +7,7 @@ const MainLayout: React.FC = () => {
     return <Navigate to={"/dashboard"} />;
   }
   return (
-    <main className="min-h-screen grid grid-cols-1 lg:grid-cols-5 place-items-center w-full pt-20 lg:py-0">
+    <main className="grid min-h-screen w-full grid-cols-1 place-items-center pt-20 lg:grid-cols-5 lg:py-0">
       <Outlet />
     </main>
   );

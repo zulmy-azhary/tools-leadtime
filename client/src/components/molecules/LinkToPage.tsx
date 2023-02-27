@@ -11,7 +11,7 @@ interface Props extends React.HTMLAttributes<HTMLParagraphElement> {
 const LinkToPage: React.FC<React.PropsWithChildren<Props>> = props => {
   const { desc, to, linkClassName, children, className, ...rest } = props;
   return (
-    <p className={clsx("text-sm flex items-center gap-x-1", className)} {...rest}>
+    <p className={clsx("flex items-center gap-x-1 text-sm", className)} {...rest}>
       {desc}
       <Link to={to} className={clsx("text-blue-500", linkClassName)}>
         {children}

@@ -14,7 +14,7 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="hidden md:col-span-4 lg:col-span-3 xl:col-span-2 bg-cardDark w-full h-full md:flex flex-col justify-between py-12 px-5">
+    <aside className="bg-cardDark hidden h-full w-full flex-col justify-between py-12 px-5 md:col-span-4 md:flex lg:col-span-3 xl:col-span-2">
       <div className="flex flex-col gap-y-4">
         {navLinks.map(({ to, title }, idx) => (
           <NavLink key={idx} to={to} className={({ isActive }) => (isActive ? "text-teal-400" : undefined)}>

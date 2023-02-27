@@ -8,7 +8,7 @@ const ImageBanner: React.FC<Props> = props => {
     <img
       src={src}
       alt={"Image Banner"}
-      className="md:max-w-2xl lg:max-w-xl xl:max-w-3xl 2xl:max-w-4xl select-none"
+      className="select-none md:max-w-2xl lg:max-w-xl xl:max-w-3xl 2xl:max-w-4xl"
       {...rest}
     />
   );

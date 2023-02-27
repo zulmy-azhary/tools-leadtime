@@ -27,8 +27,8 @@ const Toast: React.FC<Props> = props => {
         <>
           <div
             className={clsx(
-              "inline-flex items-center justify-center flex-shrink-0 w-8 h-8 text-blue-500 bg-blue-100 rounded-lg",
-              toast.type === "success" && "dark:bg-blue-800 dark:text-primaryTextDark",
+              "inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-500",
+              toast.type === "success" && "dark:text-primaryTextDark dark:bg-blue-800",
               toast.type === "error" && "dark:bg-red-600 dark:text-black"
             )}
           >
@@ -38,7 +38,7 @@ const Toast: React.FC<Props> = props => {
           <span className="ml-3 text-sm font-normal">{message}</span>
           {toast.type !== "loading" && (
             <button type="button" className="ml-auto" onClick={() => toastFn.dismiss(toast.id)}>
-              <IoMdClose className="w-5 h-5 text-primaryTextDark" />
+              <IoMdClose className="text-primaryTextDark h-5 w-5" />
             </button>
           )}
         </>

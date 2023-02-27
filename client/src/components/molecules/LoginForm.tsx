@@ -46,7 +46,7 @@ const LoginForm: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit} className="grid grid-cols-2 gap-y-4 gap-x-6 w-full xl:max-w-lg">
+      <form onSubmit={onSubmit} className="grid w-full grid-cols-2 gap-y-4 gap-x-6 xl:max-w-lg">
         <InputForm
           type="text"
           inputName="nik"

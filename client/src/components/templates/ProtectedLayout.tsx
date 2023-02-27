@@ -41,7 +41,7 @@ const ProtectedLayout: React.FC = () => {
   return (
     <>
       <Navbar />
-      <main className="w-full min-h-screen place-items-center grid grid-cols-12">
+      <main className="grid min-h-screen w-full grid-cols-12 place-items-center">
         <Sidebar />
         <div className="col-span-full md:col-span-8 lg:col-span-9 xl:col-span-10">
           <Outlet />
