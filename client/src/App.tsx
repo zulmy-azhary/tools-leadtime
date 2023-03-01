@@ -12,7 +12,9 @@ const Custom404 = React.lazy(
 );
 
 // Protected Pages
-const Home = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Home })));
+const Dashboard = React.lazy(
+  async () => await import("./components/pages").then(comp => ({ default: comp.Dashboard }))
+);
 const Employees = React.lazy(
   async () => await import("./components/pages").then(comp => ({ default: comp.Employees }))
 );
@@ -20,7 +22,7 @@ const Employees = React.lazy(
 const App: React.FC = () => {
   return (
     <AuthProvider>
-      <div className="bg-bgLight text-primaryTextLight dark:bg-bgDark dark:text-primaryTextDark flex min-h-screen flex-col items-center justify-center gap-y-8">
+      <div className="bg-bgLight text-primaryTextLight dark:bg-bgDark dark:text-primaryTextDark flex min-h-screen flex-col items-center justify-center gap-y-8 transition-colors">
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>
@@ -29,7 +31,7 @@ const App: React.FC = () => {
         position="bottom-left"
         reverseOrder={false}
         toastOptions={{
-          className: "rounded-lg shadow dark:text-primaryTextDark dark:bg-bgDark max-w-xs w-full",
+          className: "rounded-lg shadow-md max-w-xs w-full bg-bgLight dark:bg-bgDark",
           success: {
             duration: 5000
           }
@@ -50,8 +52,8 @@ const router = createBrowserRouter(
         <Route path="*" element={<Custom404 />} />
       </Route>
       <Route element={<ProtectedLayout />}>
-        <Route path="/dashboard" element={<Home />} />
-        <Route path="/employees" element={<Employees />} />
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/karyawan" element={<Employees />} />
       </Route>
     </>
   )

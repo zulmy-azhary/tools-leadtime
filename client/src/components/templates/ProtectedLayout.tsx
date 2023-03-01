@@ -39,15 +39,15 @@ const ProtectedLayout: React.FC = () => {
   }
 
   return (
-    <>
-      <Navbar />
-      <main className="grid min-h-screen w-full grid-cols-12 place-items-center">
+    <main className="min-h-screen w-full flex px-6 lg:px-12 xl:px-16 gap-x-6 lg:gap-x-12 xl:gap-x-16">
+      <aside className="md:basis-48 lg:basis-52 xl:basis-56 relative">
         <Sidebar />
-        <div className="col-span-full md:col-span-8 lg:col-span-9 xl:col-span-10">
-          <Outlet />
-        </div>
-      </main>
-    </>
+      </aside>
+      <section className="min-h-screen h-[2000px] col-span-full md:col-span-8 lg:col-span-9 xl:col-span-10 grow py-5 flex flex-col">
+        <Navbar />
+        <Outlet />
+      </section>
+    </main>
   );
 };
 

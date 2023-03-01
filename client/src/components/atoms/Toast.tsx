@@ -17,9 +17,7 @@ const Toast: React.FC<Props> = props => {
       toast={toast}
       style={{
         display: "flex",
-        alignItems: "center",
-        backgroundColor: "var(--bgDark)",
-        color: "var(--primaryTextDark)"
+        alignItems: "center"
       }}
       position="bottom-left"
     >
@@ -27,18 +25,16 @@ const Toast: React.FC<Props> = props => {
         <>
           <div
             className={clsx(
-              "inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg bg-blue-100 text-blue-500",
-              toast.type === "success" && "dark:text-primaryTextDark dark:bg-blue-800",
-              toast.type === "error" && "dark:bg-red-600 dark:text-black"
+              "inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-bgLight dark:text-bgDark bg-indigo-500 dark:bg-teal-400"
             )}
           >
             {toast.type === "success" && <FiCheck />}
             {toast.type === "error" && <AiOutlineStop />}
           </div>
-          <span className="ml-3 text-sm font-normal">{message}</span>
+          <span className="ml-3 text-sm font-normal text-indigo-500 dark:text-teal-400">{message}</span>
           {toast.type !== "loading" && (
             <button type="button" className="ml-auto" onClick={() => toastFn.dismiss(toast.id)}>
-              <IoMdClose className="text-primaryTextDark h-5 w-5" />
+              <IoMdClose className="text-indigo-500 dark:text-teal-400 h-5 w-5" />
             </button>
           )}
         </>

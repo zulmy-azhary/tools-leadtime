@@ -21,6 +21,7 @@ mongoose
 
 const app = express();
 const port = process.env.PORT ?? 8000;
+const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL ?? "http://127.0.0.1:5173";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,7 +39,7 @@ app.use("/assets", express.static(path.join(_dirname, "public/assets")));
 // Cors
 app.use(
   cors({
-    origin: ["http://127.0.0.1:5173", "https://leadtime-server.vercel.app", "*"],
+    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "https://leadtime-server.vercel.app", "*"],
     credentials: true
   })
 );

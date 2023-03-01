@@ -58,3 +58,5 @@ export interface TRegister {
 }
 
 export type TLogin = Pick<TUser, "nik" | "password">;
+
+export type Theme = "light" | "dark";

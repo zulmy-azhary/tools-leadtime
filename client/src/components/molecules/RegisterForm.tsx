@@ -74,7 +74,7 @@ const RegisterForm: React.FC = () => {
           placeholder="Enter password..."
           className="col-span-full"
           renderButton={
-            <ButtonIcon onClick={togglePassword} className="text-lg">
+            <ButtonIcon onClick={togglePassword} className="text-lg text-indigo-500 dark:text-teal-400">
               {passwordType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
             </ButtonIcon>
           }
