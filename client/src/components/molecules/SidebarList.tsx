@@ -12,12 +12,12 @@ const SidebarList: React.FC = () => {
           to={to}
           className={({ isActive }) =>
             isActive
-              ? "group text-indigo-500 dark:text-teal-400 bg-cardLight dark:bg-cardDark rounded-md shadow-sm"
+              ? "bg-cardLight dark:bg-cardDark group rounded-md text-indigo-500 shadow-sm dark:text-teal-400"
               : undefined
           }
         >
-          <div className="px-6 py-3 flex items-center gap-x-4 text-indigo-500 dark:text-teal-400">
-            <div className="p-2 bg-cardLight dark:bg-cardDark group-visited:bg-indigo-500 dark:group-visited:bg-teal-400 group-visited:text-bgLight dark:group-visited:text-bgDark rounded-md">
+          <div className="flex items-center gap-x-4 px-6 py-3 text-indigo-500 dark:text-teal-400">
+            <div className="bg-cardLight dark:bg-cardDark group-visited:text-bgLight dark:group-visited:text-bgDark rounded-md p-2 group-visited:bg-indigo-500 dark:group-visited:bg-teal-400">
               <Icon className="text-lg" />
             </div>
             {title}

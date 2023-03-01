@@ -26,7 +26,7 @@ const InputForm: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (props,
           id={inputName}
           {...register(inputName)}
           className={clsx(
-            "text-primaryTextLight dark:text-primaryTextDark bg-bgLight dark:bg-bgDark w-full border-[1px] px-5 py-3 text-sm outline-none tracking-wider",
+            "bg-bgLight dark:bg-bgDark w-full border-[1px] px-5 py-3 text-sm tracking-wider text-slate-600 outline-none dark:text-blue-200",
             errors[inputName] ? "border-red-500" : "border-gray-400 dark:border-gray-900"
           )}
           autoComplete="off"
@@ -36,7 +36,7 @@ const InputForm: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (props,
         {renderButton}
       </div>
       {errors[inputName]?.message && (
-        <span className="text-xs text-red-500 tracking-wide">{`${errors[inputName]?.message}`}</span>
+        <span className="text-xs tracking-wide text-red-500">{`${errors[inputName]?.message}`}</span>
       )}
     </div>
   );

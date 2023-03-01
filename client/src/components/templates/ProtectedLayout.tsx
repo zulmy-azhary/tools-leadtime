@@ -39,11 +39,11 @@ const ProtectedLayout: React.FC = () => {
   }
 
   return (
-    <main className="min-h-screen w-full flex px-6 lg:px-12 xl:px-16 gap-x-6 lg:gap-x-12 xl:gap-x-16">
-      <aside className="md:basis-48 lg:basis-52 xl:basis-56 relative">
+    <main className="flex min-h-screen w-full gap-x-6 px-6 lg:gap-x-12 lg:px-12 xl:gap-x-16 xl:px-16">
+      <aside className="relative md:basis-48 lg:basis-52 xl:basis-56">
         <Sidebar />
       </aside>
-      <section className="min-h-screen h-[2000px] col-span-full md:col-span-8 lg:col-span-9 xl:col-span-10 grow py-5 flex flex-col">
+      <section className="col-span-full flex h-[2000px] min-h-screen grow flex-col py-5 md:col-span-8 lg:col-span-9 xl:col-span-10">
         <Navbar />
         <Outlet />
       </section>

@@ -25,7 +25,7 @@ const Toast: React.FC<Props> = props => {
         <>
           <div
             className={clsx(
-              "inline-flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-lg text-bgLight dark:text-bgDark bg-indigo-500 dark:bg-teal-400"
+              "text-bgLight dark:text-bgDark inline-flex h-8 w-8 shrink-0 items-center justify-center rounded-lg bg-indigo-500 dark:bg-teal-400"
             )}
           >
             {toast.type === "success" && <FiCheck />}
@@ -34,7 +34,7 @@ const Toast: React.FC<Props> = props => {
           <span className="ml-3 text-sm font-normal text-indigo-500 dark:text-teal-400">{message}</span>
           {toast.type !== "loading" && (
             <button type="button" className="ml-auto" onClick={() => toastFn.dismiss(toast.id)}>
-              <IoMdClose className="text-indigo-500 dark:text-teal-400 h-5 w-5" />
+              <IoMdClose className="h-5 w-5 text-indigo-500 dark:text-teal-400" />
             </button>
           )}
         </>
