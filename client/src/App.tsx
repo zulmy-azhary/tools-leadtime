@@ -1,40 +1,50 @@
 import React, { Suspense } from "react";
-import { Custom404, Login } from "./components/pages";
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
-import { Loading, Toast as CustomToast } from "./components/atoms";
-import { type Toast, Toaster } from "react-hot-toast";
-import { MainLayout } from "./components/templates";
+import { Loading } from "./components/atoms";
+import { MainLayout, ProtectedLayout } from "./components/templates";
+import { Login } from "./components/pages";
+import { AuthProvider } from "./context";
+import { Toaster } from "./components/molecules";
 
 const Register = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Register })));
+const Custom404 = React.lazy(
+  async () => await import("./components/pages").then(comp => ({ default: comp.Custom404 }))
+);
+
+// Protected Pages
+const Dashboard = React.lazy(
+  async () => await import("./components/pages").then(comp => ({ default: comp.Dashboard }))
+);
+const Employees = React.lazy(
+  async () => await import("./components/pages").then(comp => ({ default: comp.Employees }))
+);
 
 const App: React.FC = () => {
   return (
-    <>
-      <div className="flex flex-col gap-y-8 justify-center items-center min-h-screen bg-bgLight text-primaryTextLight dark:bg-bgDark dark:text-primaryTextDark">
+    <AuthProvider>
+      <div className="bg-bgLight dark:bg-bgDark flex min-h-screen flex-col items-center justify-center gap-y-8 text-slate-600 transition-colors dark:text-blue-200">
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>
       </div>
-      <Toaster
-        position="bottom-left"
-        reverseOrder={false}
-        toastOptions={{
-          className: "rounded-lg shadow dark:text-primaryTextDark dark:bg-bgDark max-w-xs w-full"
-        }}
-      >
-        {(toast: Toast) => <CustomToast toast={toast} />}
-      </Toaster>
-    </>
+      <Toaster />
+    </AuthProvider>
   );
 };
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route element={<MainLayout />}>
-      <Route path="/" element={<Login />} />
-      <Route path="/register" element={<Register />} />
-      <Route path="*" element={<Custom404 />} />
-    </Route>
+    <>
+      <Route element={<MainLayout />}>
+        <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="*" element={<Custom404 />} />
+      </Route>
+      <Route element={<ProtectedLayout />}>
+        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/karyawan" element={<Employees />} />
+      </Route>
+    </>
   )
 );
 

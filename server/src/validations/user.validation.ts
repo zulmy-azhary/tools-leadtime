@@ -1,7 +1,7 @@
 import Joi from "joi";
 import type { TUser } from "../types";
 
-export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser> => {
+export const getUserValidation = (payload: Omit<TUser, "password">): Joi.ValidationResult<Omit<TUser, "password">> => {
   const schema = Joi.object({
     firstName: Joi.string().required().min(4).max(16),
     lastName: Joi.string().required().min(4).max(16),
@@ -10,7 +10,6 @@ export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser
       .regex(/^[0-9]+$/)
       .length(9),
     picturePath: Joi.string(),
-    password: Joi.string().required().min(6),
     role: Joi.string().valid("default", "admin")
   });
 

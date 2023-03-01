@@ -1,5 +1,6 @@
 import React from "react";
 import { FormWrapper, ImageWrapper } from "../molecules";
+import { Toggle } from "../atoms";
 
 interface Props {
   src: string;
@@ -13,6 +14,7 @@ const FormContainer: React.FC<React.PropsWithChildren<Props>> = props => {
     <>
       <FormWrapper headerTitle={headerTitle} description={description}>
         {children}
+        <Toggle className="mt-5" />
       </FormWrapper>
       <ImageWrapper src={src} />
     </>

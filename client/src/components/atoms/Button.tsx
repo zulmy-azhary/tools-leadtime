@@ -6,7 +6,10 @@ interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
 const Button: React.FC<React.PropsWithChildren<Props>> = ({ children, className, ...rest }) => {
   return (
     <button
-      className={clsx("bg-secondary text-bgDark font-medium px-5 py-2 disabled:bg-gray-700", className)}
+      className={clsx(
+        "text-bgLight dark:text-bgDark bg-indigo-500 px-5 py-2 font-medium disabled:bg-indigo-500/75 dark:bg-teal-400 dark:disabled:bg-teal-400/75",
+        className
+      )}
       {...rest}
     >
       {children}

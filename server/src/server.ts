@@ -8,6 +8,8 @@ import { routes } from "./routes";
 import helmet from "helmet";
 import morgan from "morgan";
 import path from "path";
+import cookieParser from "cookie-parser";
+import { deserializedToken } from "./middleware/auth.middleware";
 
 dotenv.config();
 
@@ -19,9 +21,11 @@ mongoose
 
 const app = express();
 const port = process.env.PORT ?? 8000;
+const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL ?? "http://127.0.0.1:5173";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 // Middleware
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
@@ -33,19 +37,25 @@ const _dirname = path.dirname(_filename);
 app.use("/assets", express.static(path.join(_dirname, "public/assets")));
 
 // Cors
-app.use(cors());
+app.use(
+  cors({
+    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "https://leadtime-server.vercel.app", "*"],
+    credentials: true
+  })
+);
 app.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
   res.setHeader("Access-Control-Allow-Methods", "*");
   res.setHeader("Access-Control-Allow-Headers", "*");
   next();
 });
 
+app.use(deserializedToken);
+
 // All routes
 routes(app);
 
 app.use("/", (req: Request, res: Response) => {
-  res.status(200).send({ status: true, statusCode: 200, data: { users: "/auth" } });
+  res.status(200).send({ status: true, statusCode: 200, message: `Server is running on port ${port}.` });
 });
 
 app.listen(port, () => {

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button, ButtonIcon, InputForm } from "../atoms";
 import { useNavigate } from "react-router-dom";
-import type { TResponseError, TUser } from "../../types";
+import type { TResponse, TUser } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../../schemas/authSchema";
 import { useMutation } from "react-query";
@@ -18,14 +18,12 @@ const RegisterForm: React.FC = () => {
 
   const { mutate: mutateRegister, isLoading } = useMutation({
     mutationFn: registerUser,
-    onSuccess: data => {
+    onSuccess: res => {
       methods.reset();
-      console.log(data.data.message);
-      toast.success(data.data.message);
+      toast.success(res.data.message);
       navigate("/");
     },
-    onError: ({ response }: AxiosError<TResponseError>) => {
-      console.log(response?.data.message);
+    onError: ({ response }: AxiosError<TResponse>) => {
       toast.error(response?.data.message as string);
     }
   });
@@ -47,7 +45,7 @@ const RegisterForm: React.FC = () => {
 
   return (
     <FormProvider {...methods}>
-      <form onSubmit={onSubmit} className="grid grid-cols-2 gap-y-4 gap-x-6 w-full xl:max-w-lg">
+      <form onSubmit={onSubmit} className="grid w-full grid-cols-2 gap-y-4 gap-x-6 xl:max-w-lg">
         <InputForm
           type="text"
           inputName="firstName"
@@ -76,7 +74,7 @@ const RegisterForm: React.FC = () => {
           placeholder="Enter password..."
           className="col-span-full"
           renderButton={
-            <ButtonIcon onClick={togglePassword} className="text-lg">
+            <ButtonIcon onClick={togglePassword} className="text-lg text-indigo-500 dark:text-teal-400">
               {passwordType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
             </ButtonIcon>
           }

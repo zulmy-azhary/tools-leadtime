@@ -17,7 +17,7 @@ const InputForm: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (props,
   } = useFormContext();
 
   return (
-    <div className={clsx("flex flex-col h-fit", className)} ref={forwardRef}>
+    <div className={clsx("flex h-fit flex-col", className)} ref={forwardRef}>
       <label htmlFor={inputName} className="text-sm">
         {label}
       </label>
@@ -26,7 +26,7 @@ const InputForm: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (props,
           id={inputName}
           {...register(inputName)}
           className={clsx(
-            "border-[1px] text-primaryTextLight dark:text-primaryTextDark bg-bgLight dark:bg-bgDark px-5 py-3 outline-none text-sm w-full",
+            "bg-bgLight dark:bg-bgDark w-full border-[1px] px-5 py-3 text-sm tracking-wider text-slate-600 outline-none dark:text-blue-200",
             errors[inputName] ? "border-red-500" : "border-gray-400 dark:border-gray-900"
           )}
           autoComplete="off"
@@ -35,7 +35,9 @@ const InputForm: React.ForwardRefRenderFunction<HTMLDivElement, Props> = (props,
         />
         {renderButton}
       </div>
-      {errors[inputName]?.message && <span className="text-red-500 text-xs">{`${errors[inputName]?.message}`}</span>}
+      {errors[inputName]?.message && (
+        <span className="text-xs tracking-wide text-red-500">{`${errors[inputName]?.message}`}</span>
+      )}
     </div>
   );
 };
