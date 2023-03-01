@@ -1,3 +1,4 @@
+export { default as Toaster } from "./Toaster";
 export { default as FormWrapper } from "./FormWrapper";
 export { default as ImageWrapper } from "./ImageWrapper";
 export { default as RegisterForm } from "./RegisterForm";

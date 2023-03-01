@@ -16,6 +16,18 @@ export const useTheme = () => useContext(ThemeContext);
 const ThemeProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [theme, setTheme] = useState<Theme>("light");
 
+  // Set to Dark Theme
+  const setDark = () => {
+    document.documentElement.setAttribute("class", "dark");
+    localStorage.setItem("theme", "dark");
+  };
+
+  // Set to Light Theme
+  const setLight = () => {
+    document.documentElement.removeAttribute("class");
+    localStorage.setItem("theme", "light");
+  };
+
   // Theme toggle handler
   const themeChange = useCallback(() => {
     setTheme(prev => {
@@ -28,18 +40,6 @@ const ThemeProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
       return "light";
     });
   }, []);
-
-  // Set to Dark Theme
-  const setDark = () => {
-    document.documentElement.setAttribute("class", "dark");
-    localStorage.setItem("theme", "dark");
-  };
-
-  // Set to Light Theme
-  const setLight = () => {
-    document.documentElement.removeAttribute("class");
-    localStorage.setItem("theme", "light");
-  };
 
   useEffect(() => {
     // Get initial theme

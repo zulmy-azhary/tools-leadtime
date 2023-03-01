@@ -1,10 +1,10 @@
 import React, { Suspense } from "react";
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
-import { Loading, Toast as CustomToast } from "./components/atoms";
+import { Loading } from "./components/atoms";
 import { MainLayout, ProtectedLayout } from "./components/templates";
 import { Login } from "./components/pages";
-import { type Toast, Toaster } from "react-hot-toast";
 import { AuthProvider } from "./context";
+import { Toaster } from "./components/molecules";
 
 const Register = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Register })));
 const Custom404 = React.lazy(
@@ -27,18 +27,7 @@ const App: React.FC = () => {
           <RouterProvider router={router} />
         </Suspense>
       </div>
-      <Toaster
-        position="bottom-left"
-        reverseOrder={false}
-        toastOptions={{
-          className: "rounded-lg shadow-md max-w-xs w-full bg-bgLight dark:bg-bgDark",
-          success: {
-            duration: 5000
-          }
-        }}
-      >
-        {(toast: Toast) => <CustomToast toast={toast} />}
-      </Toaster>
+      <Toaster />
     </AuthProvider>
   );
 };
