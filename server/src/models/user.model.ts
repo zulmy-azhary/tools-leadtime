@@ -34,8 +34,12 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["admin", "foreman", "teknisi"],
-      default: "teknisi"
+      enum: ["Admin", "Foreman", "Teknisi"],
+      default: "Teknisi"
+    },
+    isOnline: {
+      type: Boolean,
+      default: false
     }
   },
   { timestamps: true }

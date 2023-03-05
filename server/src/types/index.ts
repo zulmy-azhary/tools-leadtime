@@ -4,7 +4,8 @@ export interface TUser {
   nik: string;
   password: string;
   picturePath: string;
-  role: "admin" | "foreman" | "teknisi";
+  role: "Admin" | "Foreman" | "Teknisi";
+  isOnline: boolean;
 }
 
 export interface TToken {

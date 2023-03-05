@@ -19,18 +19,17 @@ const ProtectedLayout: React.FC = () => {
     onError: err => {
       toast.error((err as AxiosError<TResponse>).response?.data.message as string);
       Cookies.remove("accessToken");
-      Cookies.remove("refreshToken");
       navigate("/");
     }
   });
 
   useEffect(() => {
-    const currentUser = parseJwt(Cookies.get("accessToken") as string)?._doc as TUserProfile;
+    const jwtParsed = parseJwt(Cookies.get("accessToken") as string);
+    const currentUser = jwtParsed?._doc as TUserProfile;
     setUser(currentUser);
   }, []);
 
   if (!Cookies.get("accessToken")) {
-    Cookies.remove("refreshToken");
     return <Navigate to="/" />;
   }
 

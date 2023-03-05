@@ -8,7 +8,7 @@ export interface TUser {
   password: string;
   confirmPassword: string;
   picturePath: string;
-  role: "admin" | "foreman" | "teknisi";
+  role: "Admin" | "Foreman" | "Teknisi";
 }
 
 // User authenticated
@@ -18,11 +18,16 @@ export type TUserProfile = Omit<TUser, "password" | "confirmPassword"> & {
   updated_at: string;
 };
 
-export type Token = "accessToken" | "refreshToken";
-export type TToken = Record<Token, string>;
+export interface Token {
+  accessToken: string;
+}
+export interface TJwtInfos {
+  iat: number;
+  exp: number;
+}
 
 export type TUserToken = TResponse & {
-  data: Record<Token, string>;
+  data: Token;
 };
 
 export interface TResponseSuccess<T> {

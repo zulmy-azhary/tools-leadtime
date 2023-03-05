@@ -10,7 +10,7 @@ const Home: React.FC = () => {
   // const { mutate } = useMutation({
   //   mutationFn: refreshToken,
   //   onSuccess: res => {
-  //     Cookies.set("accessToken", (res.data.data as Pick<TToken, "accessToken">).accessToken);
+  //     Cookies.set("accessToken", (res.data.data as Token).accessToken);
   //     toast.success(res.data.message);
   //   },
   //   onError: err => {
@@ -18,8 +18,7 @@ const Home: React.FC = () => {
   //   }
   // });
   // const onClick = () => {
-  //   const refreshToken = Cookies.get("refreshToken") as string;
-  //   mutate({ refreshToken });
+  //   mutate();
   // };
 
   return (
@@ -35,6 +34,7 @@ const Home: React.FC = () => {
         <p>NIK: {user?.nik}</p>
         <p>Role: {user?.role}</p>
       </div>
+      {/* <button onClick={onClick}>Refresh Token</button> */}
     </div>
   );
 };

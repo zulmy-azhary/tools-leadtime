@@ -9,3 +9,11 @@ export const createUser = async (payload: TUser) => {
 export const findUser = async (nik: string): Promise<HydratedDocument<Partial<TUser>> | null> => {
   return await UserModel.findOne({ nik });
 };
+
+export const updateOnline = async (nik: string, isOnline: boolean) => {
+  return await UserModel.updateOne({ nik }, { isOnline });
+};
+
+export const checkOnline = async (nik: string) => {
+  return await UserModel.findOne({ nik, isOnline: true });
+};

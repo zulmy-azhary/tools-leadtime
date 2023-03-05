@@ -40,3 +40,14 @@ export const refreshTokenValidation = (
 
   return schema.validate(payload);
 };
+
+export const logoutValidation = (payload: Pick<TUser, "nik">): Joi.ValidationResult<Pick<TUser, "nik">> => {
+  const schema = Joi.object({
+    nik: Joi.string()
+      .required()
+      .regex(/^[0-9]+$/)
+      .length(9)
+  });
+
+  return schema.validate(payload);
+};
