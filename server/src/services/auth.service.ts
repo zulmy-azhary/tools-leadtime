@@ -10,6 +10,10 @@ export const findUser = async (nik: string): Promise<HydratedDocument<Partial<TU
   return await UserModel.findOne({ nik });
 };
 
+export const findAndUpdateUser = async (nik: string, payload: Partial<Omit<TUser, "nik">>) => {
+  return await UserModel.findOneAndUpdate({ nik }, payload, { new: true });
+};
+
 export const updateOnline = async (nik: string, isOnline: boolean) => {
   return await UserModel.updateOne({ nik }, { isOnline });
 };

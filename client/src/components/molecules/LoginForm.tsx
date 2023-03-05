@@ -34,7 +34,6 @@ const LoginForm: React.FC = () => {
     },
     onError: err => {
       toast.error((err as AxiosError<TResponse>).response?.data.message as string);
-      console.log((err as AxiosError<TResponse>).response?.data.message);
     }
   });
 

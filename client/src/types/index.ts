@@ -9,6 +9,7 @@ export interface TUser {
   confirmPassword: string;
   picturePath: string;
   role: "Admin" | "Foreman" | "Teknisi";
+  isOnline?: boolean;
 }
 
 // User authenticated

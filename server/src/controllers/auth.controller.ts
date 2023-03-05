@@ -1,5 +1,5 @@
 import type { CookieOptions, Request, Response } from "express";
-import { createUser, findUser, checkOnline, updateOnline } from "../services/auth.service";
+import { createUser, findUser, checkOnline, updateOnline, findAndUpdateUser } from "../services/auth.service";
 import {
   createUserValidation,
   loginValidation,
@@ -50,17 +50,6 @@ export const login = async (req: Request, res: Response) => {
   }
 
   try {
-    const fetchedUser = await findUser(value.nik);
-    if (!fetchedUser) {
-      logger.error("AUTH -> LOGIN = User does not exist.");
-      return res.status(401).send({ status: false, statusCode: 401, message: "User does not exist." });
-    }
-
-    const isMatch = checkPassword(value.password, fetchedUser.password as string);
-    if (!isMatch) {
-      logger.error("AUTH -> LOGIN = Invalid credentials.");
-      return res.status(401).send({ status: false, statusCode: 401, message: "Invalid credentials." });
-    }
     // Check if the user is already logged in
     const isOnline = await checkOnline(value.nik);
     if (isOnline) {
@@ -68,12 +57,29 @@ export const login = async (req: Request, res: Response) => {
       return res.status(401).send({ status: false, statusCode: 401, message: "User already logged in." });
     }
 
+    // Find and update online status of an user
+    const fetchedUser = await findAndUpdateUser(value.nik, { isOnline: true });
+
+    // Check if user doesn't exist
+    if (!fetchedUser) {
+      logger.error("AUTH -> LOGIN = User does not exist.");
+      return res.status(401).send({ status: false, statusCode: 401, message: "User does not exist." });
+    }
+
+    // Check if password are match
+    const isMatch = checkPassword(value.password, fetchedUser.password);
+    if (!isMatch) {
+      logger.error("AUTH -> LOGIN = Invalid credentials.");
+      return res.status(401).send({ status: false, statusCode: 401, message: "Invalid credentials." });
+    }
+
+    // Delete password before create token
     delete (fetchedUser as any)?._doc.password;
 
+    // Create accessToken & refreshToken
     const accessToken = signJWT({ ...fetchedUser }, { expiresIn: 1000 * 60 * 60 * 24 }); // 1 Day
-    const refreshToken = signJWT({ ...fetchedUser }, { expiresIn: "30d" });
+    const refreshToken = signJWT({ ...fetchedUser }, { expiresIn: 1000 * 60 * 60 * 24 * 30 }); // 30 Days
 
-    logger.info(`AUTH -> LOGIN = Login successfully with NIK ${fetchedUser.nik}.`);
     // Set cookie for accessToken & refreshToken
     const config: CookieOptions = {
       httpOnly: true,
@@ -81,22 +87,19 @@ export const login = async (req: Request, res: Response) => {
       secure: true
     };
 
-    // Set cookie to header response
+    // Set httpOnly cookie to header response
     res.cookie("refreshToken", refreshToken, {
       ...config,
       maxAge: 1000 * 60 * 60 * 24 * 30 // 30 days
     });
-    // Set online to true
-    const isUpdated = await updateOnline(value.nik, true);
-    if (isUpdated.acknowledged) {
-      // Send status to client
-      return res.status(200).send({
-        status: true,
-        statusCode: 200,
-        message: "Login succesfully!",
-        data: { nik: fetchedUser.nik, accessToken }
-      });
-    }
+
+    logger.info(`AUTH -> LOGIN = Login successfully with NIK ${fetchedUser.nik}.`);
+    return res.status(200).send({
+      status: true,
+      statusCode: 200,
+      message: "Login succesfully!",
+      data: { nik: fetchedUser.nik, accessToken }
+    });
   } catch (err) {
     logger.error(`AUTH -> LOGIN = ${(err as Error).message}`);
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });

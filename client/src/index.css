@@ -5,6 +5,8 @@
 :root {
   --bgDark: #202637;
   --bgLight: #ebf0ff;
+  --indigo: #6366f1;
+  --teal: #2dd4bf;
   font-family: "Poppins", sans-serif;
 }
 
@@ -18,7 +20,7 @@
   border: 3px solid transparent;
   border-radius: 0.75rem;
   background-clip: padding-box;
-  background-color: #6366f1; /* indigo-500 */
+  background-color: var(--indigo); /* indigo-500 */
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -30,9 +32,21 @@ html.dark ::-webkit-scrollbar {
 }
 
 html.dark ::-webkit-scrollbar-thumb {
-  background-color: #2dd4bf; /* teal-400 */
+  background-color: var(--teal); /* teal-400 */
 }
 
 html.dark ::-webkit-scrollbar-thumb:hover {
   background-color: #2dd4bfaa;
+}
+
+:is(button, a):focus-visible {
+  outline-width: 2px;
+  outline-style: dashed;
+  outline-color: var(--indigo);
+  outline-offset: 2px;
+  transition-duration: 150ms;
+}
+
+html.dark :is(button, a):focus-visible {
+  outline-color: var(--teal);
 }
