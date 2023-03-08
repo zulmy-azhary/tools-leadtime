@@ -2,9 +2,8 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsFillBellFill } from "react-icons/bs";
-import { Toggle } from "../atoms";
+import { Avatar, Toggle } from "../atoms";
 import { useAuth } from "../../context";
-import Avatar from "react-avatar";
 
 const Navbar: React.FC = () => {
   const { user } = useAuth();
@@ -25,9 +24,7 @@ const Navbar: React.FC = () => {
         <Toggle />
         <Avatar
           name={user?.fullName}
-          className="!text-bgLight dark:!text-bgDark rounded-full !bg-indigo-500 dark:!bg-teal-400"
-          size="35"
-          maxInitials={2}
+          className="bg-cardLight dark:bg-cardDark h-9 w-9 border-[1px] border-indigo-500 text-sm dark:border-teal-400"
         />
         <BsFillBellFill className="cursor-pointer text-xl text-indigo-500 dark:text-teal-400" />
       </ul>

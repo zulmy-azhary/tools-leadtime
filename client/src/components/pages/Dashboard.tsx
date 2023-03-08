@@ -1,7 +1,7 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useAuth } from "../../context";
-import { OnlineUserCard } from "../atoms";
+import { OnlineUserCard } from "../molecules";
 
 const Home: React.FC = () => {
   useDocumentTitle("Dashboard");

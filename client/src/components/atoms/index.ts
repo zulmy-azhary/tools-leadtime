@@ -7,4 +7,4 @@ export { default as InputSelectForm } from "./InputSelectForm";
 export { default as ImageBanner } from "./ImageBanner";
 export { default as Toggle } from "./Toggle";
 export { default as NavLink } from "./NavLink";
-export { default as OnlineUserCard } from "./OnlineUserCard";
+export { default as Avatar } from "./Avatar";

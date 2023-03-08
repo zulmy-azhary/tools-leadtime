@@ -1,6 +1,6 @@
 import React from "react";
 import type { TUserProfile } from "../../types";
-import Avatar from "react-avatar";
+import { Avatar } from "../atoms";
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {
   user: TUserProfile;
@@ -15,9 +15,7 @@ const OnlineUserCard: React.FC<Props> = props => {
     >
       <Avatar
         name={user.fullName}
-        className="rounded-full !bg-indigo-500 dark:!bg-teal-400"
-        size="45"
-        maxInitials={2}
+        className="text-bgLight dark:text-bgDark h-10 w-10 bg-indigo-500 font-medium dark:bg-teal-400"
       />
       <div className="flex flex-col gap-y-1">
         <p className="text-sm font-medium">{user.fullName}</p>
