@@ -1,5 +1,5 @@
 import type { CookieOptions, Request, Response } from "express";
-import { createUser, findUser, checkOnline, updateOnline, findAndUpdateUser } from "../services/auth.service";
+import { createUser, findUser } from "../services/auth.service";
 import {
   createUserValidation,
   loginValidation,
@@ -24,7 +24,7 @@ export const register = async (req: Request, res: Response) => {
     const retrievedUser = await findUser(value.nik);
     // If NIK doesn't exist in the database, then create user
     if (!retrievedUser) {
-      return await createUser({ ...value, role: "Teknisi", isOnline: false }).then(() => {
+      return await createUser({ ...value }).then(() => {
         logger.info("AUTH - REGISTER => User registration successfully!!");
         res.status(201).send({ status: true, statusCode: 201, message: "User registration successfully!!" });
       });
@@ -50,15 +50,8 @@ export const login = async (req: Request, res: Response) => {
   }
 
   try {
-    // Check if the user is already logged in
-    const isOnline = await checkOnline(value.nik);
-    if (isOnline) {
-      logger.error("AUTH -> LOGIN = User already logged in");
-      return res.status(401).send({ status: false, statusCode: 401, message: "User already logged in." });
-    }
-
     // Find and update online status of an user
-    const fetchedUser = await findAndUpdateUser(value.nik, { isOnline: true });
+    const fetchedUser = await findUser(value.nik);
 
     // Check if user doesn't exist
     if (!fetchedUser) {
@@ -67,7 +60,7 @@ export const login = async (req: Request, res: Response) => {
     }
 
     // Check if password are match
-    const isMatch = checkPassword(value.password, fetchedUser.password);
+    const isMatch = checkPassword(value.password, fetchedUser.password as string);
     if (!isMatch) {
       logger.error("AUTH -> LOGIN = Invalid credentials.");
       return res.status(401).send({ status: false, statusCode: 401, message: "Invalid credentials." });
@@ -145,8 +138,6 @@ export const logout = async (req: Request, res: Response) => {
 
   try {
     res.clearCookie("refreshToken");
-    // Set online to false
-    await updateOnline(value.nik, false);
     logger.info(`AUTH -> LOGOUT = User ${value.nik} are logout.`);
     return res.status(201).send({ status: true, statusCode: 201, message: "You are logout." });
   } catch (err) {

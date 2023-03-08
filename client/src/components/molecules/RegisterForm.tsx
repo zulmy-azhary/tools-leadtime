@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Button, ButtonIcon, InputForm } from "../atoms";
+import { Button, ButtonIcon, InputForm, InputSelectForm } from "../atoms";
 import { useNavigate } from "react-router-dom";
 import type { TResponse, TUser } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -13,7 +13,7 @@ import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
-  const methods = useForm<Omit<TUser, "role">>({ resolver: yupResolver(registerSchema) });
+  const methods = useForm<TUser>({ resolver: yupResolver(registerSchema) });
   const [passwordType, setPasswordType] = useState<"password" | "text">("password");
 
   const { mutate: mutateRegister, isLoading } = useMutation({
@@ -33,13 +33,13 @@ const RegisterForm: React.FC = () => {
   };
 
   const onSubmit = methods.handleSubmit(data => {
-    const { firstName, lastName, nik, password, picturePath } = data;
+    const { fullName, nik, password, picturePath, role } = data;
     mutateRegister({
-      firstName,
-      lastName,
+      fullName,
       nik,
       password,
-      picturePath
+      picturePath,
+      role
     });
   });
 
@@ -48,17 +48,10 @@ const RegisterForm: React.FC = () => {
       <form onSubmit={onSubmit} className="grid w-full grid-cols-2 gap-y-4 gap-x-6 xl:max-w-lg">
         <InputForm
           type="text"
-          inputName="firstName"
-          label="First Name"
-          placeholder="e.g. John"
-          className="col-span-full lg:col-span-1"
-        />
-        <InputForm
-          type="text"
-          inputName="lastName"
-          label="Last Name"
-          placeholder="e.g. Doe"
-          className="col-span-full lg:col-span-1"
+          inputName="fullName"
+          label="Full Name"
+          placeholder="e.g. John Doe"
+          className="col-span-full"
         />
         <InputForm
           type="text"
@@ -66,6 +59,13 @@ const RegisterForm: React.FC = () => {
           label="Nomor Induk Karyawan"
           placeholder="e.g. 123456789"
           className="col-span-full"
+        />
+        <InputSelectForm
+          inputName="role"
+          label="Role"
+          className="col-span-full"
+          defaultOption="Select role"
+          options={["Ketok", "Preparation", "Pengecatan", "Inspection"]}
         />
         <InputForm
           type={passwordType}

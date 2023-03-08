@@ -5,6 +5,8 @@ import Cookies from "js-cookie";
 interface AuthCtx {
   user: TUserProfile | null;
   setUser: React.Dispatch<React.SetStateAction<TUserProfile | null>>;
+  onlineUsers: TUserProfile[];
+  setOnlineUsers: React.Dispatch<React.SetStateAction<TUserProfile[]>>;
   logout: () => void;
 }
 
@@ -15,13 +17,18 @@ export const useAuth = (): AuthCtx => useContext(AuthContext);
 
 const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const [user, setUser] = useState<TUserProfile | null>(null);
+  const [onlineUsers, setOnlineUsers] = useState<TUserProfile[]>([]);
 
   const logout = () => {
     setUser(null);
     Cookies.remove("accessToken");
   };
 
-  return <AuthContext.Provider value={{ user, setUser, logout }}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={{ user, setUser, onlineUsers, setOnlineUsers, logout }}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

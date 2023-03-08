@@ -1,6 +1,6 @@
 import axios from "axios";
-import { BASE_URL } from "../helpers/constant";
+import { SERVER_BASE_URL } from "../helpers/constant";
 
 export default axios.create({
-  baseURL: BASE_URL
+  baseURL: SERVER_BASE_URL
 });

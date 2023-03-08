@@ -1,16 +1,9 @@
-export type TUserProps = "firstName" | "lastName" | "nik" | "password" | "confirmPassword" | "picturePath" | "role";
+export type TUserProps = "fullName" | "nik" | "password" | "confirmPassword" | "picturePath" | "role";
 
 // User registration
-export interface TUser {
-  firstName: string;
-  lastName: string;
-  nik: string;
-  password: string;
-  confirmPassword: string;
-  picturePath: string;
-  role: "Admin" | "Foreman" | "Teknisi";
-  isOnline?: boolean;
-}
+export type TUser = Omit<Record<TUserProps, string>, "role"> & {
+  role: "Admin" | "Ketok" | "Preparation" | "Pengecatan" | "Inspection";
+};
 
 // User authenticated
 export type TUserProfile = Omit<TUser, "password" | "confirmPassword"> & {

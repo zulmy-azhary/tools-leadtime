@@ -1,14 +1,18 @@
 import React, { Suspense } from "react";
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from "react-router-dom";
 import { Loading } from "./components/atoms";
-import { MainLayout, ProtectedLayout } from "./components/templates";
-import { Login } from "./components/pages";
+import { MainLayout } from "./components/templates";
 import { AuthProvider } from "./context";
 import { Toaster } from "./components/molecules";
 
+const Login = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Login })));
 const Register = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Register })));
 const Custom404 = React.lazy(
   async () => await import("./components/pages").then(comp => ({ default: comp.Custom404 }))
+);
+
+const ProtectedLayout = React.lazy(
+  async () => await import("./components/templates").then(comp => ({ default: comp.ProtectedLayout }))
 );
 
 // Protected Pages
@@ -21,14 +25,14 @@ const Employees = React.lazy(
 
 const App: React.FC = () => {
   return (
-    <AuthProvider>
+    <>
       <div className="bg-bgLight dark:bg-bgDark flex min-h-screen flex-col items-center justify-center gap-y-8 text-slate-600 transition-colors dark:text-blue-200">
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>
       </div>
       <Toaster />
-    </AuthProvider>
+    </>
   );
 };
 
@@ -40,7 +44,13 @@ const router = createBrowserRouter(
         <Route path="/register" element={<Register />} />
         <Route path="*" element={<Custom404 />} />
       </Route>
-      <Route element={<ProtectedLayout />}>
+      <Route
+        element={
+          <AuthProvider>
+            <ProtectedLayout />
+          </AuthProvider>
+        }
+      >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/karyawan" element={<Employees />} />
       </Route>

@@ -9,6 +9,8 @@ import { useMutation } from "react-query";
 import type { AxiosError, AxiosResponse } from "axios";
 import { logout } from "../../api/auth";
 import type { TResponse } from "../../types";
+import { io } from "socket.io-client";
+import { SERVER_BASE_URL } from "../../helpers/constant";
 
 const Sidebar: React.FC = () => {
   const { user, logout: handleLogout } = useAuth();
@@ -17,7 +19,9 @@ const Sidebar: React.FC = () => {
   const { mutate: mutateLogout } = useMutation({
     mutationFn: logout,
     onSuccess: (res: AxiosResponse<TResponse>) => {
+      const socket = io(SERVER_BASE_URL);
       toast.success(res.data.message);
+      socket.emit("offline", user?.nik);
       handleLogout();
       navigate("/");
     },

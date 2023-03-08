@@ -2,7 +2,7 @@ import type { TLogin, TUser } from "../types";
 import Cookies from "js-cookie";
 import axios from "./axios";
 
-export const registerUser = async (data: Omit<TUser, "confirmPassword" | "role">) => {
+export const registerUser = async (data: Omit<TUser, "confirmPassword">) => {
   return await axios.post("/auth/register", data);
 };
 

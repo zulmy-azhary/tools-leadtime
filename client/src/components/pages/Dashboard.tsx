@@ -1,10 +1,11 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
 import { useAuth } from "../../context";
+import { OnlineUserCard } from "../atoms";
 
 const Home: React.FC = () => {
   useDocumentTitle("Dashboard");
-  const { user } = useAuth();
+  const { user, onlineUsers } = useAuth();
 
   //! Refresh token, don't remove
   // const { mutate } = useMutation({
@@ -26,15 +27,24 @@ const Home: React.FC = () => {
       <div className="text-center">
         <p className="flex items-center gap-x-1 text-xl">
           Hi
-          <span className="text-indigo-500 dark:text-teal-400">
-            {user?.firstName} {user?.lastName}
-          </span>
-          ! Welcome back
+          <span className="text-indigo-500 dark:text-teal-400">{user?.fullName}</span>! Welcome back
         </p>
         <p>NIK: {user?.nik}</p>
         <p>Role: {user?.role}</p>
       </div>
       {/* <button onClick={onClick}>Refresh Token</button> */}
+      <div className="">
+        <h3>Online Users</h3>
+        {onlineUsers.length ? (
+          <div className="flex flex-col gap-y-3">
+            {onlineUsers.map((user, idx) => (
+              <OnlineUserCard user={user} key={idx} />
+            ))}
+          </div>
+        ) : (
+          <p>No user online.</p>
+        )}
+      </div>
     </div>
   );
 };

@@ -5,17 +5,11 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema(
   {
-    firstName: {
+    fullName: {
       type: String,
       required: true,
       min: 4,
-      max: 16
-    },
-    lastName: {
-      type: String,
-      required: true,
-      min: 4,
-      max: 16
+      max: 32
     },
     nik: {
       type: String,
@@ -34,12 +28,7 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["Admin", "Foreman", "Teknisi"],
-      default: "Teknisi"
-    },
-    isOnline: {
-      type: Boolean,
-      default: false
+      enum: ["Admin", "Ketok", "Preparation", "Pengecatan", "Inspection"]
     }
   },
   { timestamps: true }

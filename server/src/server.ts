@@ -10,6 +10,9 @@ import morgan from "morgan";
 import path from "path";
 import cookieParser from "cookie-parser";
 import { deserializedToken } from "./middleware/auth.middleware";
+import { Server as IOServer } from "socket.io";
+import { createServer } from "http";
+import type { TUser } from "./types";
 
 dotenv.config();
 
@@ -20,8 +23,34 @@ mongoose
   .catch(err => logger.error(err));
 
 const app = express();
+const server = createServer(app);
 const port = process.env.PORT ?? 8000;
 const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL ?? "http://127.0.0.1:5173";
+
+// Socket IO
+const io = new IOServer(server, {
+  cors: {
+    origin: [CLIENT_BASE_URL]
+  }
+});
+
+const users = new Map();
+
+io.on("connection", socket => {
+  socket.on("online", (data: Omit<TUser, "password">) => {
+    if (data) {
+      users.set(data.nik, { socketId: socket.id, ...data });
+    }
+    socket.on("disconnect", () => {
+      users.delete(data.nik);
+    });
+  });
+  socket.on("offline", (nik: string) => {
+    users.delete(nik);
+  });
+  const usersValues = Array.from(users.values());
+  io.emit("online users", usersValues);
+});
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,7 +68,7 @@ app.use("/assets", express.static(path.join(_dirname, "public/assets")));
 // Cors
 app.use(
   cors({
-    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "https://leadtime-server.vercel.app", "*"],
+    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "*"],
     credentials: true
   })
 );
@@ -58,6 +87,6 @@ app.use("/", (req: Request, res: Response) => {
   res.status(200).send({ status: true, statusCode: 200, message: `Server is running on port ${port}.` });
 });
 
-app.listen(port, () => {
+server.listen(port, () => {
   logger.info(`Server listening on port ${port}, url: http://localhost:${port}`);
 });

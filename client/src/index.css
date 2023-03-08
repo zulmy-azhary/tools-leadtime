@@ -50,3 +50,27 @@ html.dark ::-webkit-scrollbar-thumb:hover {
 html.dark :is(button, a):focus-visible {
   outline-color: var(--teal);
 }
+
+/* !Style Guide */
+/* 
+Primary light : indigo-500
+Primary dark : teal-400
+
+Secondary light :
+Secondary dark :
+
+text light : text-slate-600
+text dark : text-blue-100
+
+BG light : #EBF0FF
+BG dark : #202637
+
+Card light : #FFF
+Card dark : #2C3551
+
+Line dark : bg-gradient-to-r from-teal-400/0 via-teal-400
+Line light : bg-gradient-to-r from-indigo-500/0 via-indigo-500
+*/
+
+/* !Font */
+/* Poppins, sans-serif */
