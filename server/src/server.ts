@@ -11,7 +11,6 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { deserializedToken } from "./middleware/auth.middleware";
 import { Server as IOServer } from "socket.io";
-import { createServer } from "http";
 import type { TUser } from "./types";
 
 dotenv.config();
@@ -23,9 +22,47 @@ mongoose
   .catch(err => logger.error(err));
 
 const app = express();
-const server = createServer(app);
-const port = process.env.PORT ?? 8000;
-const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL ?? "http://127.0.0.1:5173";
+const port = process.env.PORT;
+const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL;
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+// Middleware
+app.use(helmet());
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
+app.use(morgan("common"));
+
+// DIRECTORY PATH
+const _filename = path.join(__dirname);
+const _dirname = path.dirname(_filename);
+app.use("/assets", express.static(path.join(_dirname, "public/assets")));
+
+// Cors
+app.use(
+  cors({
+    origin: CLIENT_BASE_URL,
+    credentials: true
+  })
+);
+app.use((req: Request, res: Response, next: NextFunction) => {
+  res.setHeader("Access-Control-Allow-Methods", "*");
+  res.setHeader("Access-Control-Allow-Headers", "*");
+  next();
+});
+
+app.use(deserializedToken);
+
+// All routes
+routes(app);
+
+app.use("/", (req: Request, res: Response) => {
+  res.status(200).send({ status: true, statusCode: 200, message: `Server is running on port ${port}.` });
+});
+
+const server = app.listen(port, () => {
+  logger.info(`Server listening on port ${port}, url: http://localhost:${port}`);
+});
 
 // Socket IO
 const io = new IOServer(server, {
@@ -50,43 +87,4 @@ io.on("connection", socket => {
   });
   const usersValues = Array.from(users.values());
   io.emit("online users", usersValues);
-});
-
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-// Middleware
-app.use(helmet());
-app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
-app.use(morgan("common"));
-
-// DIRECTORY PATH
-const _filename = path.join(__dirname);
-const _dirname = path.dirname(_filename);
-app.use("/assets", express.static(path.join(_dirname, "public/assets")));
-
-// Cors
-app.use(
-  cors({
-    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "*"],
-    credentials: true
-  })
-);
-app.use((req: Request, res: Response, next: NextFunction) => {
-  res.setHeader("Access-Control-Allow-Methods", "*");
-  res.setHeader("Access-Control-Allow-Headers", "*");
-  next();
-});
-
-app.use(deserializedToken);
-
-// All routes
-routes(app);
-
-app.use("/", (req: Request, res: Response) => {
-  res.status(200).send({ status: true, statusCode: 200, message: `Server is running on port ${port}.` });
-});
-
-server.listen(port, () => {
-  logger.info(`Server listening on port ${port}, url: http://localhost:${port}`);
 });
