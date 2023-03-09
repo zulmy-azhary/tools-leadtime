@@ -30,7 +30,7 @@ const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL ?? "http://127.0.0.1:5173";
 // Socket IO
 const io = new IOServer(server, {
   cors: {
-    origin: [CLIENT_BASE_URL]
+    origin: "*"
   }
 });
 
