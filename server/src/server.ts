@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import express, { type Request, type Response, type NextFunction } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -11,7 +12,6 @@ import path from "path";
 import cookieParser from "cookie-parser";
 import { deserializedToken } from "./middleware/auth.middleware";
 import { Server as IOServer } from "socket.io";
-import { createServer } from "http";
 import type { TUser } from "./types";
 
 dotenv.config();
@@ -23,34 +23,8 @@ mongoose
   .catch(err => logger.error(err));
 
 const app = express();
-const server = createServer(app);
-const port = process.env.PORT ?? 8000;
-const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL ?? "http://127.0.0.1:5173";
-
-// Socket IO
-const io = new IOServer(server, {
-  cors: {
-    origin: [CLIENT_BASE_URL]
-  }
-});
-
-const users = new Map();
-
-io.on("connection", socket => {
-  socket.on("online", (data: Omit<TUser, "password">) => {
-    if (data) {
-      users.set(data.nik, { socketId: socket.id, ...data });
-    }
-    socket.on("disconnect", () => {
-      users.delete(data.nik);
-    });
-  });
-  socket.on("offline", (nik: string) => {
-    users.delete(nik);
-  });
-  const usersValues = Array.from(users.values());
-  io.emit("online users", usersValues);
-});
+const port = process.env.PORT || 5000;
+const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL || "http://127.0.0.1:5173";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -87,6 +61,31 @@ app.use("/", (req: Request, res: Response) => {
   res.status(200).send({ status: true, statusCode: 200, message: `Server is running on port ${port}.` });
 });
 
-server.listen(port, () => {
+const server = app.listen(port, () => {
   logger.info(`Server listening on port ${port}, url: http://localhost:${port}`);
+});
+
+// Socket IO
+const io = new IOServer(server, {
+  cors: {
+    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "*"]
+  }
+});
+
+const users = new Map();
+
+io.on("connection", socket => {
+  socket.on("online", (data: Omit<TUser, "password">) => {
+    if (data) {
+      users.set(data.nik, { socketId: socket.id, ...data });
+    }
+    socket.on("disconnect", () => {
+      users.delete(data.nik);
+    });
+  });
+  socket.on("offline", (nik: string) => {
+    users.delete(nik);
+  });
+  const usersValues = Array.from(users.values());
+  io.emit("online users", usersValues);
 });
