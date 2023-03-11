@@ -68,8 +68,11 @@ const server = app.listen(port, () => {
 // Socket IO
 const io = new IOServer(server, {
   cors: {
-    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "*"]
-  }
+    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "*"],
+    credentials: true
+  },
+  allowEIO3: true,
+  transports: ["websocket", "polling"]
 });
 
 const users = new Map();
