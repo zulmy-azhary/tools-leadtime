@@ -5,15 +5,30 @@ import { toast } from "react-hot-toast";
 import { AiOutlinePoweroff } from "react-icons/ai";
 import { SidebarList } from "../molecules";
 import { TbPolygon } from "react-icons/tb";
+import { useMutation } from "react-query";
+import type { AxiosError, AxiosResponse } from "axios";
+import { logout } from "../../api/auth";
+import type { TResponse } from "../../types";
 
 const Sidebar: React.FC = () => {
-  const { logout } = useAuth();
+  const { user, logout: handleLogout } = useAuth();
   const navigate = useNavigate();
+
+  const { mutate: mutateLogout } = useMutation({
+    mutationFn: logout,
+    onSuccess: (res: AxiosResponse<TResponse>) => {
+      toast.success(res.data.message);
+      handleLogout();
+      navigate("/");
+    },
+    onError: err => {
+      toast.error((err as AxiosError<TResponse>).response?.data.message as string);
+    }
+  });
+
+  // Handle logout
   const onLogout = () => {
-    // Should create route from backend for logout
-    logout();
-    toast.success("You are logout.");
-    navigate("/");
+    mutateLogout(user?.nik as string);
   };
 
   return (

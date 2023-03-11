@@ -2,11 +2,13 @@ import React from "react";
 import { useLocation } from "react-router-dom";
 import { AiOutlineHome } from "react-icons/ai";
 import { BsFillBellFill } from "react-icons/bs";
-import { Toggle } from "../atoms";
+import { Avatar, Toggle } from "../atoms";
+import { useAuth } from "../../context";
 
 const Navbar: React.FC = () => {
   const location = useLocation();
   const currentPath = location.pathname.split("").slice(1).join("");
+  const { user } = useAuth();
 
   return (
     <header className="flex items-center justify-between">
@@ -20,7 +22,10 @@ const Navbar: React.FC = () => {
       </div>
       <ul className="flex items-center gap-x-5">
         <Toggle />
-        <div className="bg-cardLight dark:bg-cardDark h-9 w-9 cursor-pointer rounded-full border-[1px] border-indigo-500 dark:border-teal-400"></div>
+        <Avatar
+          name={user?.fullName}
+          className="bg-cardLight dark:bg-cardDark h-9 w-9 border-[1px] border-indigo-500 text-sm dark:border-teal-400"
+        />
         <BsFillBellFill className="cursor-pointer text-xl text-indigo-500 dark:text-teal-400" />
       </ul>
     </header>

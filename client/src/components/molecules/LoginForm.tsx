@@ -4,34 +4,36 @@ import { Button, ButtonIcon, InputForm } from "../atoms";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
-import { useQueryClient, useMutation } from "react-query";
+import { useMutation } from "react-query";
 import { login } from "../../api/auth";
 import { loginSchema } from "../../schemas/authSchema";
 import type { TLogin, TResponse, TUserToken } from "../../types";
 import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
+import { getJwtExpiry, parseJwt } from "../../helpers/jwt";
 
 const LoginForm: React.FC = () => {
   const methods = useForm<TLogin>({ resolver: yupResolver(loginSchema) });
-  const queryClient = useQueryClient();
   const [passwordType, setPasswordType] = useState<"password" | "text">("password");
   const navigate = useNavigate();
 
   const { mutate: mutateLogin, isLoading } = useMutation({
     mutationFn: login,
     onSuccess: (res: AxiosResponse<TUserToken>) => {
-      queryClient.invalidateQueries(["user"]);
       toast.success(res.data.message);
       methods.reset();
+      const { expiry } = getJwtExpiry(parseJwt(res.data.data.accessToken));
 
-      Cookies.set("accessToken", res.data.data.accessToken);
-      Cookies.set("refreshToken", res.data.data.refreshToken);
+      Cookies.set("accessToken", res.data.data.accessToken, {
+        sameSite: "none",
+        secure: true,
+        expires: expiry
+      });
       navigate("/dashboard");
     },
     onError: err => {
       toast.error((err as AxiosError<TResponse>).response?.data.message as string);
-      console.log((err as AxiosError<TResponse>).response?.data.message);
     }
   });
 

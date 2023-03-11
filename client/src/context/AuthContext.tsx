@@ -19,7 +19,6 @@ const AuthProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const logout = () => {
     setUser(null);
     Cookies.remove("accessToken");
-    Cookies.remove("refreshToken");
   };
 
   return <AuthContext.Provider value={{ user, setUser, logout }}>{children}</AuthContext.Provider>;

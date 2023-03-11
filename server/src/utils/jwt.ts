@@ -28,7 +28,7 @@ export const reIssueAccessToken = async (refreshToken: string) => {
   const user = await findUser(decoded?._doc.nik);
   if (!user) return false;
 
-  const accessToken = signJWT({ ...user }, { expiresIn: "1d" });
+  const accessToken = signJWT({ ...user }, { expiresIn: 1000 * 60 * 60 * 24 }); // 1 Day
 
   return accessToken;
 };

@@ -1,15 +1,9 @@
-export type TUserProps = "firstName" | "lastName" | "nik" | "password" | "confirmPassword" | "picturePath" | "role";
+export type TUserProps = "fullName" | "nik" | "password" | "confirmPassword" | "picturePath" | "role";
 
 // User registration
-export interface TUser {
-  firstName: string;
-  lastName: string;
-  nik: string;
-  password: string;
-  confirmPassword: string;
-  picturePath: string;
-  role: "admin" | "foreman" | "teknisi";
-}
+export type TUser = Omit<Record<TUserProps, string>, "role"> & {
+  role: "Admin" | "Ketok" | "Preparation" | "Pengecatan" | "Inspection";
+};
 
 // User authenticated
 export type TUserProfile = Omit<TUser, "password" | "confirmPassword"> & {
@@ -18,11 +12,16 @@ export type TUserProfile = Omit<TUser, "password" | "confirmPassword"> & {
   updated_at: string;
 };
 
-export type Token = "accessToken" | "refreshToken";
-export type TToken = Record<Token, string>;
+export interface Token {
+  accessToken: string;
+}
+export interface TJwtInfos {
+  iat: number;
+  exp: number;
+}
 
 export type TUserToken = TResponse & {
-  data: Record<Token, string>;
+  data: Token;
 };
 
 export interface TResponseSuccess<T> {

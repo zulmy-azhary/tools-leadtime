@@ -1,10 +1,9 @@
 export interface TUser {
-  firstName: string;
-  lastName: string;
+  fullName: string;
   nik: string;
   password: string;
   picturePath: string;
-  role: "admin" | "foreman" | "teknisi";
+  role: "Admin" | "Ketok" | "Preparation" | "Pengecatan" | "Inspection";
 }
 
 export interface TToken {

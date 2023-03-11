@@ -27,10 +27,7 @@ const Home: React.FC = () => {
       <div className="text-center">
         <p className="flex items-center gap-x-1 text-xl">
           Hi
-          <span className="text-indigo-500 dark:text-teal-400">
-            {user?.firstName} {user?.lastName}
-          </span>
-          ! Welcome back
+          <span className="text-indigo-500 dark:text-teal-400">{user?.fullName}</span>! Welcome back
         </p>
         <p>NIK: {user?.nik}</p>
         <p>Role: {user?.role}</p>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/prefer-nullish-coalescing */
 import express, { type Request, type Response, type NextFunction } from "express";
 import dotenv from "dotenv";
 import cors from "cors";
@@ -20,8 +21,8 @@ mongoose
   .catch(err => logger.error(err));
 
 const app = express();
-const port = process.env.PORT ?? 8000;
-const CLIENT_BASE_URL = process.env.CLIENT_BASE_URL ?? "http://127.0.0.1:5173";
+const port = config.port || 5000;
+const CLIENT_BASE_URL = config.client_base_url || "http://127.0.0.1:5173";
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -39,7 +40,7 @@ app.use("/assets", express.static(path.join(_dirname, "public/assets")));
 // Cors
 app.use(
   cors({
-    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "https://leadtime-server.vercel.app", "*"],
+    origin: [CLIENT_BASE_URL, "http://127.0.0.1:4173", "*"],
     credentials: true
   })
 );

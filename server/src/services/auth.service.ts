@@ -9,3 +9,7 @@ export const createUser = async (payload: TUser) => {
 export const findUser = async (nik: string): Promise<HydratedDocument<Partial<TUser>> | null> => {
   return await UserModel.findOne({ nik });
 };
+
+export const findAndUpdateUser = async (nik: string, payload: Partial<Omit<TUser, "nik">>) => {
+  return await UserModel.findOneAndUpdate({ nik }, payload, { new: true });
+};

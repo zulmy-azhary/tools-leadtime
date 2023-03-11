@@ -15,9 +15,9 @@
     "build-server": "npm run build --prefix server",
     "build-client": "npm run build --prefix client",
     "build": "npm run build-server & npm run build-client",
-    "preview-server": "npm run start --prefix server",
-    "preview-client": "npm run preview --prefix client",
-    "preview-all": "concurrently \"npm run build-server && npm run preview-server\" \"npm run build-client && npm run preview-client\"",
+    "preview-server": "npm run build-server && npm run start --prefix server",
+    "preview-client": "npm run build-client && npm run preview --prefix client",
+    "preview-all": "concurrently \"npm run preview-server\" \"npm run preview-client\"",
     "install-all": "npm i && concurrently \"cd ./client && npm i\" \"cd ./server && npm i\""
   },
   "husky": {
