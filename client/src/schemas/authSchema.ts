@@ -11,7 +11,7 @@ export const registerSchema = object({
   fullName: string()
     .required("Fullname is required.")
     .min(4, "Fullname must contain at least 4 characters.")
-    .max(32, "Maximum length of firstname is 32 characters."),
+    .max(32, "Maximum length of fullname is 32 characters."),
   nik: authSchemas.nik,
   picturePath: string(),
   password: string()

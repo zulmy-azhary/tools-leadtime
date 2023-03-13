@@ -7,7 +7,7 @@ const ProtectedContainer: React.FC<React.PropsWithChildren> = ({ children }) => 
       <aside className="relative md:basis-48 lg:basis-52 xl:basis-56">
         <Sidebar />
       </aside>
-      <section className="col-span-full flex h-[2000px] min-h-screen grow flex-col py-5 md:col-span-8 lg:col-span-9 xl:col-span-10">
+      <section className="col-span-full flex h-[2000px] min-h-screen grow flex-col gap-y-6 py-5 md:col-span-8 lg:col-span-9 xl:col-span-10 xl:gap-y-12">
         <Navbar />
         {children}
       </section>

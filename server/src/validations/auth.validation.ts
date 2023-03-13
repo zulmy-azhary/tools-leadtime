@@ -8,7 +8,6 @@ export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser
       .required()
       .regex(/^[0-9]+$/)
       .length(9),
-    picturePath: Joi.string(),
     password: Joi.string().required().min(6),
     role: Joi.string().valid("Ketok", "Preparation", "Pengecatan", "Inspection")
   });

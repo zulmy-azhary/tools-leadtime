@@ -42,7 +42,6 @@ const router = createBrowserRouter(
       <Route element={<MainLayout />}>
         <Route path="/" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="*" element={<Custom404 />} />
       </Route>
       <Route
         element={
@@ -53,6 +52,7 @@ const router = createBrowserRouter(
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/karyawan" element={<Employees />} />
+        <Route path="*" element={<Custom404 />} />
       </Route>
     </>
   )

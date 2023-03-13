@@ -1,10 +1,9 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { useAuth } from "../../context";
+import { UnitCard } from "../molecules";
 
 const Home: React.FC = () => {
   useDocumentTitle("Dashboard");
-  const { user } = useAuth();
 
   //! Refresh token, don't remove
   // const { mutate } = useMutation({
@@ -23,16 +22,18 @@ const Home: React.FC = () => {
   // };
 
   return (
-    <div className="flex flex-col items-center gap-y-12">
-      <div className="text-center">
-        <p className="flex items-center gap-x-1 text-xl">
-          Hi
-          <span className="text-indigo-500 dark:text-teal-400">{user?.fullName}</span>! Welcome back
-        </p>
-        <p>NIK: {user?.nik}</p>
-        <p>Role: {user?.role}</p>
+    <section>
+      <div className="grid grid-cols-12 gap-6">
+        <UnitCard className="col-span-3" title="Ketokan" unitValue={0} />
+        <UnitCard className="col-span-3" title="Removal" unitValue={0} />
+        <UnitCard className="col-span-3" title="Putty" unitValue={0} />
+        <UnitCard className="col-span-3" title="Epoxy" unitValue={0} />
+        <UnitCard className="col-span-3" title="Masking" unitValue={0} />
+        <UnitCard className="col-span-3" title="Spraying" unitValue={0} />
+        <UnitCard className="col-span-3" title="Assembling" unitValue={0} />
+        <UnitCard className="col-span-3" title="Polishing" unitValue={0} />
       </div>
-    </div>
+    </section>
   );
 };
 

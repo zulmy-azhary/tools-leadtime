@@ -8,3 +8,6 @@ export { default as ImageBanner } from "./ImageBanner";
 export { default as Toggle } from "./Toggle";
 export { default as NavLink } from "./NavLink";
 export { default as Avatar } from "./Avatar";
+export { default as Heading } from "./Heading";
+export { default as Text } from "./Text";
+export { default as IconWrapper } from "./IconWrapper";

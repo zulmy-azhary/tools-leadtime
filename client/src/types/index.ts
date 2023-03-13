@@ -1,4 +1,4 @@
-export type TUserProps = "fullName" | "nik" | "password" | "confirmPassword" | "picturePath" | "role";
+export type TUserProps = "fullName" | "nik" | "password" | "confirmPassword" | "role";
 
 // User registration
 export type TUser = Omit<Record<TUserProps, string>, "role"> & {

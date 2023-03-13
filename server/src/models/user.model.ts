@@ -22,10 +22,6 @@ const userSchema = new Schema(
       required: true,
       min: 6
     },
-    picturePath: {
-      type: String,
-      default: ""
-    },
     role: {
       type: String,
       enum: ["Admin", "Ketok", "Preparation", "Pengecatan", "Inspection"]

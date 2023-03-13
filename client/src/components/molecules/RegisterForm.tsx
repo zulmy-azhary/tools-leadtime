@@ -33,12 +33,11 @@ const RegisterForm: React.FC = () => {
   };
 
   const onSubmit = methods.handleSubmit(data => {
-    const { fullName, nik, password, picturePath, role } = data;
+    const { fullName, nik, password, role } = data;
     mutateRegister({
       fullName,
       nik,
       password,
-      picturePath,
       role
     });
   });
