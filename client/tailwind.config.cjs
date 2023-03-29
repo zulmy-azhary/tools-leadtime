@@ -6,9 +6,7 @@ module.exports = {
     extend: {
       colors: {
         bgDark: "#202637",
-        bgLight: "#EBF0FF",
-        cardDark: "#2C3551",
-        cardLight: "#FFFFFF"
+        bgLight: "#f8fafc"
       }
     }
   },
