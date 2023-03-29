@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Button, ButtonIcon, InputForm } from "../atoms";
+import { Button } from "../atoms";
+import { InputForm } from ".";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
@@ -8,7 +9,7 @@ import { useMutation } from "react-query";
 import { login } from "../../api/auth";
 import { loginSchema } from "../../schemas/authSchema";
 import type { TLogin, TResponse, TUserToken } from "../../types";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { IoEye, IoEyeOff } from "react-icons/Io5";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { getJwtExpiry, parseJwt } from "../../helpers/jwt";
@@ -51,11 +52,10 @@ const LoginForm: React.FC = () => {
       <form onSubmit={onSubmit} className="grid w-full grid-cols-2 gap-y-4 gap-x-6 xl:max-w-lg">
         <InputForm
           type="text"
-          inputName="nik"
           label="Nomor Induk Karyawan"
+          inputName="nik"
           placeholder="e.g. 123456789"
           className="col-span-full"
-          autoFocus
         />
         <InputForm
           type={passwordType}
@@ -63,13 +63,16 @@ const LoginForm: React.FC = () => {
           label="Password"
           placeholder="Enter password..."
           className="col-span-full"
-          renderButton={
-            <ButtonIcon onClick={togglePassword} className="text-lg text-indigo-500 dark:text-teal-400">
-              {passwordType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
-            </ButtonIcon>
+          renderElement={
+            <Button
+              type="button"
+              icon={passwordType === "password" ? IoEye : IoEyeOff}
+              onClick={togglePassword}
+              className="absolute right-5 text-xs text-slate-500"
+            />
           }
         />
-        <Button disabled={isLoading} type="submit" className="col-span-2 mt-12">
+        <Button disabled={isLoading} type="submit" className="col-span-2 mt-12 bg-blue-500 py-3 text-white">
           Login
         </Button>
       </form>
