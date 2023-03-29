@@ -1,17 +1,23 @@
 import React from "react";
 import clsx from "clsx";
+import type { IconType } from "react-icons/lib";
 
-interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {}
+interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  icon?: IconType;
+}
 
-const Button: React.FC<React.PropsWithChildren<Props>> = ({ children, className, ...rest }) => {
+const Button: React.FC<React.PropsWithChildren<Props>> = props => {
+  const { children, className, icon: Icon, ...rest } = props;
+
   return (
     <button
       className={clsx(
-        "text-bgLight dark:text-bgDark bg-indigo-500 px-5 py-2 font-medium disabled:bg-indigo-500/75 dark:bg-teal-400 dark:disabled:bg-teal-400/75",
+        "flex items-center justify-center gap-1.5 rounded font-medium transition-all duration-150",
         className
       )}
       {...rest}
     >
+      {Icon && <Icon size="1.5em" />}
       {children}
     </button>
   );
