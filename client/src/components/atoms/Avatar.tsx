@@ -21,7 +21,7 @@ const Avatar: React.FC<Props> = props => {
   const res = trimmedName(name);
   return (
     <div
-      className={clsx("grid cursor-pointer select-none place-items-center rounded-full", className)}
+      className={clsx("grid h-10 w-10 cursor-pointer select-none place-items-center rounded-full", className)}
       {...rest}
       title={name}
     >
