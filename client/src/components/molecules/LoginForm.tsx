@@ -9,7 +9,7 @@ import { useMutation } from "react-query";
 import { login } from "../../api/auth";
 import { loginSchema } from "../../schemas/authSchema";
 import type { TLogin, TResponse, TUserToken } from "../../types";
-import { IoEye, IoEyeOff } from "react-icons/Io5";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 import Cookies from "js-cookie";
 import { getJwtExpiry, parseJwt } from "../../helpers/jwt";

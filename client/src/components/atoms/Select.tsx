@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import { Button } from ".";
-import { IoCaretDown } from "react-icons/Io5";
+import { IoCaretDown } from "react-icons/io5";
 import React, { useRef } from "react";
 import { useToggle, useOnClickOutside } from "../../hooks";
 

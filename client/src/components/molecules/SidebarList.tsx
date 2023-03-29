@@ -1,5 +1,5 @@
 import React from "react";
-import { IoGrid, IoPulse, IoCarSport, IoPeople, IoPerson } from "react-icons/Io5";
+import { IoGrid, IoPulse, IoCarSport, IoPeople, IoPerson } from "react-icons/io5";
 import { NavLink } from "../atoms";
 
 const SidebarList: React.FC = () => {

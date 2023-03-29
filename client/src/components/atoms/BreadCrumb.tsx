@@ -1,6 +1,6 @@
 import React from "react";
 import { AiFillHome } from "react-icons/ai";
-import { IoChevronForwardOutline } from "react-icons/Io5";
+import { IoChevronForwardOutline } from "react-icons/io5";
 
 const Breadcrumb: React.FC<React.PropsWithChildren> = ({ children }) => {
   return (

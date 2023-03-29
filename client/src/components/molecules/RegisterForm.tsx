@@ -10,7 +10,7 @@ import { useMutation } from "react-query";
 import { registerUser } from "../../api/auth";
 import { toast } from "react-hot-toast";
 import type { AxiosError } from "axios";
-import { IoEye, IoEyeOff } from "react-icons/Io5";
+import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
