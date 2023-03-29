@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
-import { Button, ButtonIcon, InputForm, InputSelectForm } from "../atoms";
+import { Button } from "../atoms";
+import { InputForm, SelectForm } from ".";
 import { useNavigate } from "react-router-dom";
 import type { TResponse, TUser } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
@@ -9,7 +10,7 @@ import { useMutation } from "react-query";
 import { registerUser } from "../../api/auth";
 import { toast } from "react-hot-toast";
 import type { AxiosError } from "axios";
-import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
+import { IoEye, IoEyeOff } from "react-icons/Io5";
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
@@ -59,11 +60,10 @@ const RegisterForm: React.FC = () => {
           placeholder="e.g. 123456789"
           className="col-span-full"
         />
-        <InputSelectForm
+        <SelectForm
           inputName="role"
           label="Role"
           className="col-span-full"
-          defaultOption="Select role"
           options={["Ketok", "Preparation", "Pengecatan", "Inspection"]}
         />
         <InputForm
@@ -72,10 +72,13 @@ const RegisterForm: React.FC = () => {
           label="Password"
           placeholder="Enter password..."
           className="col-span-full"
-          renderButton={
-            <ButtonIcon onClick={togglePassword} className="text-lg text-indigo-500 dark:text-teal-400">
-              {passwordType === "password" ? <AiFillEye /> : <AiFillEyeInvisible />}
-            </ButtonIcon>
+          renderElement={
+            <Button
+              type="button"
+              icon={passwordType === "password" ? IoEye : IoEyeOff}
+              onClick={togglePassword}
+              className="absolute right-5 text-xs text-slate-600 dark:text-slate-300"
+            />
           }
         />
         <InputForm
@@ -85,7 +88,7 @@ const RegisterForm: React.FC = () => {
           placeholder="Enter confirm password..."
           className="col-span-full"
         />
-        <Button disabled={isLoading} type="submit" className="col-span-2 mt-12">
+        <Button disabled={isLoading} type="submit" className="col-span-2 mt-12 bg-blue-500 py-3 text-white">
           Register
         </Button>
       </form>
