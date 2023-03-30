@@ -4,7 +4,6 @@ import { Loading } from "./components/atoms";
 import { MainLayout } from "./components/templates";
 import { AuthProvider } from "./context";
 import { Toaster } from "./components/molecules";
-import { DataUnit, FlowProcess, TeamVendor } from "./components/pages";
 
 const Login = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Login })));
 const Register = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Register })));
@@ -23,6 +22,13 @@ const Dashboard = React.lazy(
 const Employees = React.lazy(
   async () => await import("./components/pages").then(comp => ({ default: comp.Employees }))
 );
+const FlowProcess = React.lazy(
+  async () => await import("./components/pages").then(comp => ({ default: comp.FlowProcess }))
+);
+const TeamVendor = React.lazy(
+  async () => await import("./components/pages").then(comp => ({ default: comp.TeamVendor }))
+);
+const DataUnit = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.DataUnit })));
 
 const App: React.FC = () => {
   return (
