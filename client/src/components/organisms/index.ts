@@ -7,3 +7,4 @@ export { default as SummaryProgresUnit } from "./SummaryProgresUnit";
 export { default as Chart } from "./ChartContainer";
 export { default as FlowProcessContainer } from "./FlowProcesContainer";
 export { default as TeamVendorContainer } from "./TeamVendorContainer";
+export { default as DataUnitContainer } from "./DataUnitContainer";
