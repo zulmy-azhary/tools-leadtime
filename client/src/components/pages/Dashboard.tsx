@@ -1,6 +1,5 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { UnitCard } from "../molecules";
 
 const Home: React.FC = () => {
   useDocumentTitle("Dashboard");
@@ -21,20 +20,7 @@ const Home: React.FC = () => {
   //   mutate({ refreshToken });
   // };
 
-  return (
-    <section>
-      <div className="grid grid-cols-12 gap-6">
-        <UnitCard className="col-span-3" title="Ketokan" unitValue={0} />
-        <UnitCard className="col-span-3" title="Removal" unitValue={0} />
-        <UnitCard className="col-span-3" title="Putty" unitValue={0} />
-        <UnitCard className="col-span-3" title="Epoxy" unitValue={0} />
-        <UnitCard className="col-span-3" title="Masking" unitValue={0} />
-        <UnitCard className="col-span-3" title="Spraying" unitValue={0} />
-        <UnitCard className="col-span-3" title="Assembling" unitValue={0} />
-        <UnitCard className="col-span-3" title="Polishing" unitValue={0} />
-      </div>
-    </section>
-  );
+  return <h2 className="grow text-center">Dashboard Page</h2>;
 };
 
 export default Home;

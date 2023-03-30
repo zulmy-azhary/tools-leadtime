@@ -8,7 +8,7 @@ interface Props {
 const ImageWrapper: React.FC<Props> = props => {
   const { src } = props;
   return (
-    <div className="order-first col-span-3 lg:order-last ">
+    <div className="order-first col-span-3 lg:order-last">
       <ImageBanner src={src} />
     </div>
   );
