@@ -1,9 +1,14 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
+import { DataEmployeeContainer } from "../organisms";
 
 const Employees: React.FC = () => {
   useDocumentTitle("Data Karyawan");
-  return <h2 className="grow text-center">Karyawan Page</h2>;
+  return (
+    <section>
+      <DataEmployeeContainer />
+    </section>
+  );
 };
 
 export default Employees;
