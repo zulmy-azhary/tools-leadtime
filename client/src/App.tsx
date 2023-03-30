@@ -4,6 +4,7 @@ import { Loading } from "./components/atoms";
 import { MainLayout } from "./components/templates";
 import { AuthProvider } from "./context";
 import { Toaster } from "./components/molecules";
+import { FlowProcess } from "./components/pages";
 
 const Login = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Login })));
 const Register = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Register })));
@@ -52,6 +53,7 @@ const router = createBrowserRouter(
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/karyawan" element={<Employees />} />
+        <Route path="/flowproses" element={<FlowProcess />} />
         <Route path="*" element={<Custom404 />} />
       </Route>
     </>
