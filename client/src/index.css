@@ -5,7 +5,7 @@
 :root {
   --bgDark: #202637;
   --bgLight: #ebf0ff;
-  font-family: "Poppins", sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 ::-webkit-scrollbar {
@@ -18,11 +18,11 @@
   border: 3px solid transparent;
   border-radius: 0.75rem;
   background-clip: padding-box;
-  background-color: #6366f1; /* indigo-500 */
+  background-color: #3b82f6; /* blue-500 */
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #6366f1aa;
+  background-color: #3b82f6aa;
 }
 
 html.dark ::-webkit-scrollbar {
