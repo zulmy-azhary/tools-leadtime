@@ -28,6 +28,7 @@ const FlowProcess = React.lazy(
 const TeamVendor = React.lazy(
   async () => await import("./components/pages").then(comp => ({ default: comp.TeamVendor }))
 );
+const DataUnit = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.DataUnit })));
 
 const App: React.FC = () => {
   return (
@@ -60,6 +61,7 @@ const router = createBrowserRouter(
         <Route path="/karyawan" element={<Employees />} />
         <Route path="/flowproses" element={<FlowProcess />} />
         <Route path="/teamvendor" element={<TeamVendor />} />
+        <Route path="/unit" element={<DataUnit />} />
         <Route path="*" element={<Custom404 />} />
       </Route>
     </>
