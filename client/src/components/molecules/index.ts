@@ -10,3 +10,5 @@ export { default as Headers } from "./Headers";
 
 export { default as SidebarList } from "./SidebarList";
 export { default as UnitCard } from "./UnitCard";
+export { default as ProcesUnit } from "./ChartProcesUnit";
+export { default as QuantityUnit } from "./ChartQuantityUnit";
