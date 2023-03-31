@@ -22,6 +22,9 @@ const Dashboard = React.lazy(
 const Employees = React.lazy(
   async () => await import("./components/pages").then(comp => ({ default: comp.Employees }))
 );
+const FlowProcess = React.lazy(
+  async () => await import("./components/pages").then(comp => ({ default: comp.FlowProcess }))
+);
 
 const App: React.FC = () => {
   return (
@@ -52,6 +55,7 @@ const router = createBrowserRouter(
       >
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/karyawan" element={<Employees />} />
+        <Route path="/flowproses" element={<FlowProcess />} />
         <Route path="*" element={<Custom404 />} />
       </Route>
     </>
