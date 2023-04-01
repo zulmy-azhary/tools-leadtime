@@ -1,14 +1,9 @@
-import type { CookieOptions, Request, Response } from "express";
+import type { Request, Response } from "express";
 import { createUser, findUser } from "../services/auth.service";
-import {
-  createUserValidation,
-  loginValidation,
-  logoutValidation,
-  refreshTokenValidation
-} from "../validations/auth.validation";
+import { createUserValidation, loginValidation, logoutValidation } from "../validations/auth.validation";
 import { logger } from "../utils/logger";
 import { checkPassword, hashPassword } from "../utils/hashing";
-import { reIssueAccessToken, signJWT } from "../utils/jwt";
+import { signJWT } from "../utils/jwt";
 
 export const register = async (req: Request, res: Response) => {
   const { error, value } = createUserValidation(req.body);
@@ -69,22 +64,8 @@ export const login = async (req: Request, res: Response) => {
     // Delete password before create token
     delete (fetchedUser as any)?._doc.password;
 
-    // Create accessToken & refreshToken
+    // Create accessToken
     const accessToken = signJWT({ ...fetchedUser }, { expiresIn: 1000 * 60 * 60 * 24 }); // 1 Day
-    const refreshToken = signJWT({ ...fetchedUser }, { expiresIn: 1000 * 60 * 60 * 24 * 30 }); // 30 Days
-
-    // Set cookie for accessToken & refreshToken
-    const config: CookieOptions = {
-      httpOnly: true,
-      sameSite: "none",
-      secure: true
-    };
-
-    // Set httpOnly cookie to header response
-    res.cookie("refreshToken", refreshToken, {
-      ...config,
-      maxAge: 1000 * 60 * 60 * 24 * 30 // 30 days
-    });
 
     logger.info(`AUTH -> LOGIN = Login successfully with NIK ${fetchedUser.nik}.`);
     return res.status(200).send({
@@ -99,36 +80,6 @@ export const login = async (req: Request, res: Response) => {
   }
 };
 
-export const refreshToken = async (req: Request, res: Response) => {
-  const { error, value } = refreshTokenValidation(req.cookies.refreshToken);
-  if (error) {
-    logger.error("AUTH -> REFRESH TOKEN = ", error.details[0].message);
-    return res.status(422).send({ status: false, statusCode: 422, message: error.details[0].message });
-  }
-
-  try {
-    const newAccessToken = await reIssueAccessToken(value.refreshToken);
-    if (!newAccessToken) {
-      logger.error("AUTH -> REFRESH TOKEN = Invalid refresh token.");
-      return res.status(401).send({
-        status: false,
-        statusCode: 401,
-        message: "Invalid refresh token!"
-      });
-    }
-    logger.info("AUTH -> REFRESH TOKEN = Refresh token successfully!.");
-    return res.status(200).send({
-      status: true,
-      statusCode: 200,
-      message: "Refresh token successfully!",
-      data: { accessToken: newAccessToken }
-    });
-  } catch (err) {
-    logger.error(`AUTH -> REFRESH TOKEN = ${(err as Error).message}`);
-    return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
-  }
-};
-
 export const logout = async (req: Request, res: Response) => {
   const { error, value } = logoutValidation(req.body);
   if (error) {
@@ -137,7 +88,6 @@ export const logout = async (req: Request, res: Response) => {
   }
 
   try {
-    res.clearCookie("refreshToken");
     logger.info(`AUTH -> LOGOUT = User ${value.nik} are logout.`);
     return res.status(201).send({ status: true, statusCode: 201, message: "You are logout." });
   } catch (err) {

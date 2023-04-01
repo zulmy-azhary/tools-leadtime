@@ -4,8 +4,3 @@ export interface TUser {
   password: string;
   role: "Admin" | "Ketok" | "Preparation" | "Pengecatan" | "Inspection";
 }
-
-export interface TToken {
-  accessToken: string;
-  refreshToken: string;
-}
