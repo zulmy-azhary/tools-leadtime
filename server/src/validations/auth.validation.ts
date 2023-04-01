@@ -1,5 +1,5 @@
 import Joi from "joi";
-import type { TToken, TUser } from "../types";
+import type { TUser } from "../types";
 
 export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser> => {
   const schema = Joi.object({
@@ -24,16 +24,6 @@ export const loginValidation = (
       .regex(/^[0-9]+$/)
       .length(9),
     password: Joi.string().required().min(6)
-  });
-
-  return schema.validate(payload);
-};
-
-export const refreshTokenValidation = (
-  payload: Pick<TToken, "refreshToken">
-): Joi.ValidationResult<Pick<TToken, "refreshToken">> => {
-  const schema = Joi.object({
-    refreshToken: Joi.string().required()
   });
 
   return schema.validate(payload);

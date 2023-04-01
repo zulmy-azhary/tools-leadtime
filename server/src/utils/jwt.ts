@@ -1,6 +1,5 @@
 import jwt from "jsonwebtoken";
 import CONFIG from "../config/environment";
-import { findUser } from "../services/auth.service";
 
 export const signJWT = (payload: Record<string, unknown>, options?: jwt.SignOptions | undefined) => {
   return jwt.sign(payload, CONFIG.jwt_private as jwt.Secret, { ...(options && options), algorithm: "RS256" });
@@ -21,14 +20,4 @@ export const verifyToken = (token: string) => {
       decoded: null
     };
   }
-};
-
-export const reIssueAccessToken = async (refreshToken: string) => {
-  const { decoded }: any = verifyToken(refreshToken);
-  const user = await findUser(decoded?._doc.nik);
-  if (!user) return false;
-
-  const accessToken = signJWT({ ...user }, { expiresIn: 1000 * 60 * 60 * 24 }); // 1 Day
-
-  return accessToken;
 };

@@ -27,6 +27,7 @@ const CLIENT_BASE_URL = config.client_base_url || "http://127.0.0.1:5173";
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 // Middleware
 app.use(helmet());
 app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
