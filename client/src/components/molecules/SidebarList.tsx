@@ -13,7 +13,7 @@ const SidebarList: React.FC = () => {
           </NavLink>
         ))}
       </ul>
-      <ul className="flex flex-col gap-y-2 text-sm font-medium tracking-wide">
+      <ul className="flex flex-col gap-y-2 font-medium tracking-wide">
         <span className="mb-2 text-xs font-bold uppercase">data</span>
         {navItem.data.map(({ to, icon, title }, idx) => (
           <NavLink key={idx} to={to} icon={icon}>
