@@ -59,3 +59,24 @@ export interface TRegister {
 export type TLogin = Pick<TUser, "nik" | "password">;
 
 export type Theme = "light" | "dark";
+
+export interface TSummary {
+  workOrder: string;
+  serviceAdvisor: string;
+  vendor: "WIS" | "SPA";
+  entryDate: string;
+  endDate: string;
+}
+
+export interface TFlowProcess {
+  workOrder: string;
+  nomorPolisi: string;
+  serviceAdvisor: string;
+  carType: string;
+  damageType: string;
+  entryDate: string;
+  handover: string;
+  process: string;
+  duration: string;
+  status: string;
+}

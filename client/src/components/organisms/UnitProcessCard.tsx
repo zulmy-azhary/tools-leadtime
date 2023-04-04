@@ -4,7 +4,7 @@ import { IoBuild } from "react-icons/io5";
 
 const proses: string[] = ["Ketokan", "Putty", "Removal", "Masking", "Epoxy", "Spraying", "Assembling", "Polishing"];
 
-const UnitProcesCard: React.FC = () => {
+const UnitProcessCard: React.FC = () => {
   return (
     <>
       <ContentWrapper className="grid grid-flow-dense gap-x-6 gap-y-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
@@ -17,4 +17,4 @@ const UnitProcesCard: React.FC = () => {
   );
 };
 
-export default UnitProcesCard;
+export default UnitProcessCard;
