@@ -7,6 +7,7 @@ export { default as LinkToPage } from "./LinkToPage";
 export { default as InputForm } from "./FormInput";
 export { default as SelectForm } from "./FormSelect";
 export { default as Headers } from "./Headers";
+export { default as Modal } from "./Modal";
 
 export { default as SidebarList } from "./SidebarList";
 export { default as UnitCard } from "./UnitCard";
