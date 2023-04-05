@@ -28,6 +28,9 @@ const Select: React.ForwardRefRenderFunction<HTMLSelectElement, Props> = (props,
           )}
           {...rest}
         >
+          <option value="" disabled>
+            Choose an option :
+          </option>
           {options?.map((item, idx) => (
             <option key={idx} value={item} className="capitalize">
               {item}
