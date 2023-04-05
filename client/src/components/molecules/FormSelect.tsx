@@ -1,11 +1,11 @@
 import React from "react";
 import { Select, Label, Text } from "../atoms";
-import type { TUserProps } from "../../types";
+import type { TUnitProps, TUserProps } from "../../types";
 import { useFormContext } from "react-hook-form";
 import clsx from "clsx";
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  inputName: TUserProps;
+  inputName: TUserProps | TUnitProps;
   label: string;
   options: string[];
 }

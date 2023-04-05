@@ -1,11 +1,11 @@
 import React from "react";
 import { Input, Label, Text } from "../atoms";
-import type { TUserProps } from "../../types";
+import type { TUserProps, TUnitProps } from "../../types";
 import { useFormContext } from "react-hook-form";
 import clsx from "clsx";
 
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
-  inputName: TUserProps;
+  inputName: TUserProps | TUnitProps;
   label: string;
   type?: string;
   renderElement?: React.ReactNode;
