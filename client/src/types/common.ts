@@ -24,7 +24,7 @@ export type TServiceAdvisor =
   | "Muhammad Fachri"
   | "Musrin Noor"
   | "Reza"
-  | "Samsuryanan Amir";
+  | "Syamsuryanan Amir";
 
 export type TStatus = "Dikerjakan" | "Selesai";
 
