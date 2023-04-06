@@ -7,12 +7,11 @@ import clsx from "clsx";
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   inputName: TUserProps | TUnitProps;
   label: string;
-  type?: string;
-  renderElement?: React.ReactNode;
+  icon?: React.ReactNode;
 }
 
 const InputForm: React.FC<Props> = props => {
-  const { inputName, className, renderElement, type, label, ...rest } = props;
+  const { inputName, className, icon, type, label, ...rest } = props;
   const {
     register,
     formState: { errors }
@@ -23,7 +22,7 @@ const InputForm: React.FC<Props> = props => {
       <Label className="text-sm font-medium">{label}</Label>
       <Input
         {...register(inputName)}
-        renderElement={renderElement}
+        icon={icon}
         autoComplete="off"
         className={clsx(errors[inputName] ? "border-rose-500" : "border-slate-300")}
         type={type}

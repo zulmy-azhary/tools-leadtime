@@ -4,6 +4,7 @@ import { FlowProcessContainer } from "../organisms";
 
 const FlowProcess: React.FC = () => {
   useDocumentTitle("Flow Proses");
+
   return (
     <section>
       <FlowProcessContainer />

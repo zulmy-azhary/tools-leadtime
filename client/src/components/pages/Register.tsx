@@ -1,7 +1,7 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { FormContainer } from "../organisms";
-import { LinkToPage, RegisterForm } from "../molecules";
+import { FormContainer, RegisterForm } from "../organisms";
+import { LinkToPage } from "../molecules";
 
 const Register: React.FC = () => {
   useDocumentTitle("Register");

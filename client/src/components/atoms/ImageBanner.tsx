@@ -4,6 +4,7 @@ type Props = React.ImgHTMLAttributes<HTMLImageElement>;
 
 const ImageBanner: React.FC<Props> = props => {
   const { src, ...rest } = props;
+
   return (
     <img
       src={src}

@@ -4,6 +4,7 @@ import { DataUnitContainer } from "../organisms";
 
 const DataUnit: React.FC = () => {
   useDocumentTitle("Unit");
+
   return (
     <section>
       <DataUnitContainer />

@@ -4,6 +4,7 @@ import { TeamVendorContainer } from "../organisms";
 
 const FlowProcess: React.FC = () => {
   useDocumentTitle("Team Vendor");
+
   return (
     <section>
       <TeamVendorContainer />
