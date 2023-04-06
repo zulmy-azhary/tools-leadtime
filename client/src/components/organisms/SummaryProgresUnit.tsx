@@ -13,7 +13,7 @@ const SummaryProgresUnit: React.FC = () => {
       <div className={clsx("flex min-h-[24rem] flex-col gap-y-12 rounded-lg bg-white px-8 py-6 shadow-lg")}>
         <div className="flex h-fit items-center justify-between">
           <Heading className="text-lg font-semibold">Summary Table</Heading>
-          <Input placeholder="Search Work Order" renderElement={<IoSearch className="absolute right-5" />} />
+          <Input placeholder="Search Work Order" icon={<IoSearch className="absolute right-5" />} />
         </div>
         <Table data={summaryData} columns={summaryColumns} />
       </div>

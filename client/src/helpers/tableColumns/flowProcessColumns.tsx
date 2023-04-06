@@ -7,7 +7,7 @@ export const flowProcessColumns: Array<ColumnDef<TFlowProcess, any>> = [
   },
   {
     header: "Nomor Polisi",
-    accessorKey: "nomorPolisi"
+    accessorKey: "plateNumber"
   },
   {
     header: "Service Advisor",

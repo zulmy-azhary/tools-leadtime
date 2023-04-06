@@ -4,6 +4,7 @@ import clsx from "clsx";
 import { Heading, Input, Label, Select } from "../atoms";
 import { IoSearch, IoBuild } from "react-icons/io5";
 import { flowProcessColumns } from "../../helpers/tableColumns/flowProcessColumns";
+import type { TFlowProcess } from "../../types";
 
 const FlowProcessContainer: React.FC = () => {
   return (
@@ -19,7 +20,7 @@ const FlowProcessContainer: React.FC = () => {
       >
         <div className="flex h-fit items-center justify-between">
           <Heading className="text-lg font-semibold">Flow Proses Table</Heading>
-          <Input placeholder="Search Work Order" renderElement={<IoSearch className="absolute right-5" />} />
+          <Input placeholder="Search Work Order" icon={<IoSearch className="absolute right-5" />} />
         </div>
         <Table data={flowProcessData} columns={flowProcessColumns} />
       </div>
@@ -27,10 +28,10 @@ const FlowProcessContainer: React.FC = () => {
   );
 };
 
-const flowProcessData = [
+const flowProcessData: TFlowProcess[] = [
   {
     workOrder: "20204/SWO/23/04/00001",
-    nomorPolisi: "DD 1234 XX",
+    plateNumber: "DD-1234-XX",
     serviceAdvisor: "Ahmad Supardi",
     carType: "A",
     damageType: "A",
@@ -42,7 +43,7 @@ const flowProcessData = [
   },
   {
     workOrder: "20204/SWO/23/04/00002",
-    nomorPolisi: "DD 1234 XX",
+    plateNumber: "DD-1234-XX",
     serviceAdvisor: "Reza",
     carType: "B",
     damageType: "B",
@@ -54,7 +55,7 @@ const flowProcessData = [
   },
   {
     workOrder: "20204/SWO/23/04/00003",
-    nomorPolisi: "DD 1234 XX",
+    plateNumber: "DD-1234-XX",
     serviceAdvisor: "Samsuryanan Amir",
     carType: "C",
     damageType: "C",

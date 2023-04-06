@@ -12,6 +12,7 @@
     "check-types": "cd server & tsc --pretty --noEmit & cd ../client & tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
+    "check-all": "npm run check-format && npm run check-lint && npm run check-types",
     "build-server": "npm run build --prefix server",
     "build-client": "npm run build --prefix client",
     "build": "npm run build-server & npm run build-client",

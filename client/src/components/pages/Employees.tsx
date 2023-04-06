@@ -4,6 +4,7 @@ import { DataEmployeeContainer } from "../organisms";
 
 const Employees: React.FC = () => {
   useDocumentTitle("Data Karyawan");
+
   return (
     <section>
       <DataEmployeeContainer />

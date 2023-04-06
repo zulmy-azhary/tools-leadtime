@@ -1,4 +1,7 @@
 export { default as FormContainer } from "./FormContainer";
+export { default as LoginForm } from "./LoginForm";
+export { default as RegisterForm } from "./RegisterForm";
+export { default as UnitForm } from "./UnitForm";
 export { default as ProtectedContainer } from "./ProtectedContainer";
 export { default as Navbar } from "./Navbar";
 export { default as Sidebar } from "./Sidebar";

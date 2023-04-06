@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../atoms";
-import { InputForm } from ".";
+import { InputForm } from "../molecules";
 import { yupResolver } from "@hookform/resolvers/yup";
 import type { AxiosError, AxiosResponse } from "axios";
 import toast from "react-hot-toast";
 import { useMutation } from "react-query";
 import { login } from "../../api/auth";
-import { loginSchema } from "../../schemas/authSchema";
+import { loginSchema } from "../../schemas";
 import type { TLogin, TResponse, TUserToken } from "../../types";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
@@ -63,7 +63,7 @@ const LoginForm: React.FC = () => {
           label="Password"
           placeholder="Enter password..."
           className="col-span-full"
-          renderElement={
+          icon={
             <Button
               type="button"
               icon={passwordType === "password" ? IoEye : IoEyeOff}

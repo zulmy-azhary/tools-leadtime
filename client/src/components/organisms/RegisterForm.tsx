@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../atoms";
-import { InputForm, SelectForm } from ".";
+import { InputForm, SelectForm } from "../molecules";
 import { useNavigate } from "react-router-dom";
 import type { TResponse, TUser } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { registerSchema } from "../../schemas/authSchema";
+import { registerSchema } from "../../schemas";
 import { useMutation } from "react-query";
 import { registerUser } from "../../api/auth";
 import { toast } from "react-hot-toast";
@@ -72,7 +72,7 @@ const RegisterForm: React.FC = () => {
           label="Password"
           placeholder="Enter password..."
           className="col-span-full"
-          renderElement={
+          icon={
             <Button
               type="button"
               icon={passwordType === "password" ? IoEye : IoEyeOff}
