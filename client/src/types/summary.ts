@@ -1,4 +1,4 @@
-import type { TBaseData, TServiceAdvisor, TVendor } from "./common";
+import type { TBaseData, TServiceAdvisor, TVendor } from ".";
 
 export interface TSummary
   extends Pick<Record<TBaseData, string>, "workOrder" | "serviceAdvisor" | "entryDate" | "vendor"> {

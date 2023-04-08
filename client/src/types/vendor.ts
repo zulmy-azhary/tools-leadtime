@@ -1,4 +1,4 @@
-import type { TBaseData, TServiceAdvisor, TVendor } from "./common";
+import type { TBaseData, TServiceAdvisor, TVendor } from ".";
 
 export type TVendorData = Pick<Record<TBaseData, string>, "workOrder" | "plateNumber"> & {
   serviceAdvisor: TServiceAdvisor;

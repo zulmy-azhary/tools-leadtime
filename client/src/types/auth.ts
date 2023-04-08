@@ -1,4 +1,4 @@
-import type { TUserRole } from "./common";
+import type { TUserRole } from ".";
 
 export type TUserProps = "fullName" | "nik" | "password" | "confirmPassword" | "role";
 

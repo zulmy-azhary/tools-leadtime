@@ -1,4 +1,4 @@
-import type { TDamage, TProcess, TServiceAdvisor, TVendor } from "./common";
+import type { TDamage, TProcess, TServiceAdvisor, TVendor } from ".";
 
 export type TUnitProps =
   | "workOrder"
