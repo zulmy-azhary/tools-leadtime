@@ -10,7 +10,7 @@ const TableItems = <T extends object>(props: Props<T>) => {
   const { row, className, ...rest } = props;
 
   return (
-    <tr className="whitespace-nowrap border-b bg-white dark:border-gray-700 dark:bg-gray-800">
+    <tr className="whitespace-nowrap border-b dark:border-slate-700">
       {row.getVisibleCells().map(cell => (
         <td key={cell.id} className={clsx("px-6 py-4", className)} {...rest}>
           {flexRender(cell.column.columnDef.cell, cell.getContext())}

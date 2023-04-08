@@ -1,6 +1,5 @@
 import React from "react";
-import clsx from "clsx";
-import { Heading } from "../atoms";
+import { Card, Heading } from "../atoms";
 import { LineChart, ResponsiveContainer, CartesianGrid, XAxis, YAxis, Tooltip, Legend, Line } from "recharts";
 import { capitalize } from "../../helpers/capitalize";
 
@@ -69,20 +68,23 @@ const data = [
 
 const QuantityUnit: React.FC = () => {
   return (
-    <div className={clsx("grid min-h-[24rem] place-items-center gap-y-8 rounded-lg bg-white px-8 py-6 shadow-lg")}>
+    <Card className="grid min-h-[24rem] place-items-center gap-y-8 px-8 py-6">
       <Heading className="text-lg font-semibold">Quantity Unit / Month Chart</Heading>
       <ResponsiveContainer width={"100%"} height={"100%"}>
         <LineChart width={500} height={300} data={data}>
           <CartesianGrid strokeDasharray="3 3" />
           <XAxis dataKey="month" fontSize={10} interval={0} />
           <YAxis fontSize={12} />
-          <Tooltip formatter={(value, name) => [value, capitalize(name as string)]} />
+          <Tooltip
+            formatter={(value, name) => [value, capitalize(name as string)]}
+            wrapperClassName="dark:!bg-slate-800"
+          />
           <Legend formatter={value => capitalize(value)} wrapperStyle={{ fontSize: "12px" }} />
           <Line type="monotone" dataKey="total" stroke="#8884d8" activeDot={{ r: 6 }} />
           <Line type="monotone" dataKey="target" stroke="#59c582" activeDot={{ r: 6 }} />
         </LineChart>
       </ResponsiveContainer>
-    </div>
+    </Card>
   );
 };
 

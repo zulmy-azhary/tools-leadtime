@@ -12,7 +12,7 @@ const Toggle: React.FC<Props> = props => {
       onClick={themeChange}
       className={clsx(
         className,
-        "after:bg-cardLight dark:after:bg-cardDark relative flex h-4 w-9 cursor-pointer items-center rounded-full bg-indigo-500 px-1 after:sticky after:left-0 after:h-2 after:w-2 after:rounded-full dark:bg-teal-400 dark:after:left-full"
+        "after:bg-bgLight dark:after:bg-bgDark relative flex h-4 w-9 cursor-pointer items-center rounded-full bg-blue-500 px-1 after:sticky after:left-0 after:h-2 after:w-2 after:rounded-full dark:bg-teal-400 dark:after:left-full"
       )}
       {...rest}
     />

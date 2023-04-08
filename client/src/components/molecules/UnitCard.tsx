@@ -1,5 +1,5 @@
 import React from "react";
-import { Heading, Text } from "../atoms";
+import { Card, Heading, IconWrapper, Text } from "../atoms";
 import clsx from "clsx";
 import type { IconType } from "react-icons/lib";
 
@@ -13,22 +13,16 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 const UnitCard: React.FC<Props> = props => {
   const { title, unitValue, className, subTitle, icon: Icon, ...rest } = props;
   return (
-    <div
-      className={clsx(
-        "flex select-none items-center justify-between overflow-hidden rounded-lg bg-white p-5 shadow-lg",
-        className
-      )}
-      {...rest}
-    >
+    <Card className={clsx("flex items-center justify-between overflow-hidden p-5", className)} {...rest}>
       <div className="flex flex-col">
-        <Text className="text-lg font-semibold text-slate-600">{title}</Text>
-        <Heading className="text-5xl font-semibold text-slate-600">{unitValue}</Heading>
-        <Text className="text-sm font-medium text-slate-500">{subTitle}</Text>
+        <Text className="text-lg font-semibold">{title}</Text>
+        <Heading className="text-5xl font-semibold">{unitValue}</Heading>
+        <Text className="text-sm font-medium">{subTitle}</Text>
       </div>
-      <figure className={clsx("rounded-md bg-blue-500/30 p-3.5 text-2xl text-blue-500")}>
+      <IconWrapper>
         <Icon />
-      </figure>
-    </div>
+      </IconWrapper>
+    </Card>
   );
 };
 

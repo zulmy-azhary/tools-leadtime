@@ -6,11 +6,11 @@ const Home: React.FC = () => {
   useDocumentTitle("Dashboard");
 
   return (
-    <section className="grid gap-y-16">
+    <>
       <UnitProcessCard />
       <Chart />
       <SummaryProgresUnit />
-    </section>
+    </>
   );
 };
 
