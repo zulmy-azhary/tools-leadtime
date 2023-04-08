@@ -9,7 +9,7 @@ export type TUnitProps =
   | "vendor"
   | "process"
   | "serviceAdvisor"
-  | "handover";
+  | "handOver";
 
 export type TUnit = Omit<Record<TUnitProps, string>, "damageType" | "vendor" | "process" | "serviceAdvisor"> & {
   damageType: TDamage;
