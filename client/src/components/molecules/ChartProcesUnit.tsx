@@ -1,6 +1,5 @@
-import clsx from "clsx";
 import React from "react";
-import { Heading } from "../atoms";
+import { Card, Heading } from "../atoms";
 import { ResponsiveContainer, BarChart, XAxis, Tooltip, Legend, Bar, LabelList } from "recharts";
 import { capitalize } from "../../helpers/capitalize";
 
@@ -49,12 +48,15 @@ const data = [
 
 const ProcesUnit: React.FC = () => {
   return (
-    <div className={clsx("grid min-h-[24rem] place-items-center gap-y-8 rounded-lg bg-white px-8 py-6 shadow-lg")}>
+    <Card className="grid min-h-[24rem] place-items-center gap-y-8 px-8 py-6">
       <Heading className="text-lg font-semibold">Proces Unit Chart</Heading>
       <ResponsiveContainer width={"100%"} height={"100%"}>
         <BarChart data={data} barSize={20}>
           <XAxis dataKey="name" fontSize={10} />
-          <Tooltip formatter={(value, name) => [value, capitalize(name as string)]} />
+          <Tooltip
+            formatter={(value, name) => [value, capitalize(name as string)]}
+            wrapperClassName="dark:!bg-slate-800"
+          />
           <Legend formatter={value => capitalize(value)} iconSize={12} wrapperStyle={{ fontSize: "12px" }} />
           <Bar dataKey="unit" fill="#8884d8">
             <LabelList position="insideTop" fill="#fff" fontSize={12} />
@@ -64,7 +66,7 @@ const ProcesUnit: React.FC = () => {
           </Bar>
         </BarChart>
       </ResponsiveContainer>
-    </div>
+    </Card>
   );
 };
 

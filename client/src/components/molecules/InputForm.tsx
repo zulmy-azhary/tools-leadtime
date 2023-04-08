@@ -8,10 +8,11 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   inputName: TUserProps | TUnitProps;
   label: string;
   icon?: React.ReactNode;
+  additionalValue?: string;
 }
 
 const InputForm: React.FC<Props> = props => {
-  const { inputName, className, icon, type, label, ...rest } = props;
+  const { inputName, className, icon, additionalValue, type, label, ...rest } = props;
   const {
     register,
     formState: { errors }
@@ -20,14 +21,28 @@ const InputForm: React.FC<Props> = props => {
   return (
     <div className={clsx("flex flex-col gap-y-2", className)}>
       <Label className="text-sm font-medium">{label}</Label>
-      <Input
-        {...register(inputName)}
-        icon={icon}
-        autoComplete="off"
-        className={clsx(errors[inputName] ? "border-rose-500" : "border-slate-300")}
-        type={type}
-        {...rest}
-      />
+      <div className="flex w-full gap-x-3">
+        {additionalValue && (
+          <Input
+            icon={icon}
+            autoComplete="off"
+            className={"grow read-only:text-slate-500 read-only:opacity-75"}
+            type={"text"}
+            {...register("code")}
+            value={additionalValue}
+            readOnly
+          />
+        )}
+        <Input
+          {...register(inputName)}
+          icon={icon}
+          autoComplete="off"
+          className={clsx(errors[inputName] ? "border-rose-500" : "border-slate-300")}
+          wrapperClassName="w-full"
+          type={type}
+          {...rest}
+        />
+      </div>
       {errors[inputName]?.message && (
         <Text className="text-xs font-medium tracking-wide text-red-500">{`${errors[inputName]?.message}`}</Text>
       )}

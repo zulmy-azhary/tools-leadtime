@@ -2,18 +2,17 @@ import React from "react";
 import clsx from "clsx";
 import { Heading, Text } from "../atoms";
 
-interface Props {
+interface Props extends React.HTMLAttributes<HTMLDivElement> {
   headerTitle: string;
   description: string;
-  className?: string;
 }
 
 const Headers: React.FC<Props> = props => {
-  const { headerTitle, description, className } = props;
+  const { headerTitle, description, className, ...rest } = props;
   return (
-    <div className={clsx(className)}>
+    <div className={clsx(className)} {...rest}>
       <Heading className="text-3xl font-semibold">{headerTitle}</Heading>
-      <Text className="text-slate-600">{description}</Text>
+      <Text className="opacity-75">{description}</Text>
     </div>
   );
 };

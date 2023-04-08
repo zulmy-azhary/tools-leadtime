@@ -33,7 +33,7 @@ const DataUnit = React.lazy(async () => await import("./components/pages").then(
 const App: React.FC = () => {
   return (
     <>
-      <div className="bg-bgLight dark:bg-bgDark flex min-h-screen flex-col items-center justify-center gap-y-8 text-slate-600 transition-colors dark:text-blue-200">
+      <div className="min-h-screen bg-slate-50 text-slate-600 transition-colors dark:bg-slate-800 dark:text-blue-200">
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>

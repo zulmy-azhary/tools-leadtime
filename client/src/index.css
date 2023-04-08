@@ -36,3 +36,9 @@ html.dark ::-webkit-scrollbar-thumb {
 html.dark ::-webkit-scrollbar-thumb:hover {
   background-color: #2dd4bfaa;
 }
+
+*:not(.recharts-tooltip-wrapper):focus-visible {
+  outline: 1px dashed #3b82f6;
+  outline-offset: 2px;
+  transition-duration: 300ms;
+}

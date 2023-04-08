@@ -31,12 +31,15 @@ const Sidebar: React.FC = () => {
   };
 
   return (
-    <aside className="fixed inset-y-0 flex w-[300px] flex-col justify-between px-6 pb-6 md:bg-slate-50">
+    <aside className="fixed inset-y-0 flex w-[300px] flex-col justify-between px-6 pb-6">
       <div className="flex flex-col gap-y-5">
-        <div className="py-7 text-center text-xl font-semibold uppercase text-slate-600">k a l l a t o y o t a</div>
+        <div className="py-7 text-center text-xl font-semibold uppercase tracking-[0.25em]">Kalla Toyota</div>
         <SidebarList />
       </div>
-      <Button onClick={onLogout} className="w-full bg-blue-500 py-3 text-sm text-white">
+      <Button
+        onClick={onLogout}
+        className="w-full bg-blue-500 py-3 text-sm text-white dark:bg-teal-400 dark:text-slate-900"
+      >
         Logout
       </Button>
     </aside>

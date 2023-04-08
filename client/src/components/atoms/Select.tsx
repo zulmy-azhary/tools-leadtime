@@ -22,7 +22,7 @@ const Select: React.ForwardRefRenderFunction<HTMLSelectElement, Props> = (props,
           onClick={toggle}
           className={clsx(
             "flex w-full cursor-pointer appearance-none items-center gap-2 rounded border-[1.5px] py-3 text-sm capitalize outline-none",
-            "bg-slate-50 text-slate-600",
+            "bg-slate-50 dark:border-slate-600 dark:bg-slate-800",
             "px-5 pr-16",
             className
           )}

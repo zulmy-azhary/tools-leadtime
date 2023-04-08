@@ -1,22 +1,20 @@
 import clsx from "clsx";
 import React from "react";
 
-interface Props extends React.HTMLAttributes<HTMLDivElement> {
-  icon: React.ReactNode;
-}
+type Props = React.HTMLAttributes<HTMLDivElement>;
 
 const IconWrapper: React.FC<Props> = props => {
-  const { icon, className, ...rest } = props;
+  const { children, className, ...rest } = props;
   return (
-    <div
+    <figure
       className={clsx(
-        "rounded-lg border-[1px] border-indigo-500 bg-indigo-500/25 p-3 dark:border-teal-400 dark:bg-teal-400/25",
+        "rounded-md border-[1px] border-blue-500 bg-blue-500/30 p-3.5 text-2xl dark:border-teal-400 dark:bg-teal-400/30",
         className
       )}
       {...rest}
     >
-      {icon}
-    </div>
+      {children}
+    </figure>
   );
 };
 

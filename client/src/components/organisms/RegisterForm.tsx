@@ -77,7 +77,7 @@ const RegisterForm: React.FC = () => {
               type="button"
               icon={passwordType === "password" ? IoEye : IoEyeOff}
               onClick={togglePassword}
-              className="absolute right-5 text-xs text-slate-600 dark:text-slate-300"
+              className="absolute right-5 text-xs text-slate-600 dark:text-blue-200"
             />
           }
         />

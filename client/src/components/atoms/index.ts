@@ -14,4 +14,5 @@ export { default as Heading } from "./Heading";
 export { default as Text } from "./Text";
 export { default as IconWrapper } from "./IconWrapper";
 export { default as TableHeading } from "./TableHeading";
-export { default as TableItems } from "./TableItems";
+export { default as TableRow } from "./TableRow";
+export { default as Card } from "./Card";

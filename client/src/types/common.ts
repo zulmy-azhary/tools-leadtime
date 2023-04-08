@@ -38,6 +38,6 @@ export type TBaseData =
   | "vendor"
   | "process"
   | "serviceAdvisor"
-  | "handover"
+  | "handOver"
   | "duration"
   | "status";

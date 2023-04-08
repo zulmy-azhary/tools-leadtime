@@ -1,27 +1,19 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TSummary } from "../../types";
 import { IoMdInformationCircle } from "react-icons/io";
-export const summaryColumns: Array<ColumnDef<TSummary, any>> = [
-  {
-    header: "Work Order",
-    accessorKey: "workOrder"
-  },
-  {
-    header: "Service Advisor",
-    accessorKey: "serviceAdvisor"
-  },
-  {
-    header: "Team Vendor",
-    accessorKey: "vendor"
-  },
-  {
-    header: "Tanggal Masuk",
-    accessorKey: "entryDate"
-  },
-  {
-    header: "Tanggal Selesai",
-    accessorKey: "endDate"
-  },
+import { entryDateColumn, serviceAdvisorColumn, vendorColumn, workOrderColumn } from "./globalColumns";
+
+const endDateColumn = {
+  header: "Tanggal Selesai",
+  accessorKey: "endDate"
+};
+
+export const summaryColumns: Array<ColumnDef<TSummary>> = [
+  workOrderColumn,
+  serviceAdvisorColumn,
+  vendorColumn,
+  entryDateColumn,
+  endDateColumn,
   {
     header: "Action",
     cell: ({ row }) => (

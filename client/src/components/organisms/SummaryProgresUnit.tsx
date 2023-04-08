@@ -1,22 +1,21 @@
 import React from "react";
 import { ContentWrapper, Headers, Table } from "../molecules";
-import clsx from "clsx";
-import { Heading, Input } from "../atoms";
+import { Card, Heading, Input } from "../atoms";
 import { IoSearch } from "react-icons/io5";
 import type { TSummary } from "../../types";
-import { summaryColumns } from "../../helpers/tableColumns/summaryColumns";
+import { summaryColumns } from "../../helpers/tableColumns";
 
 const SummaryProgresUnit: React.FC = () => {
   return (
     <ContentWrapper>
       <Headers headerTitle="Summary Progres Unit" description="Leadtime & Paint" className="col-span-full" />
-      <div className={clsx("flex min-h-[24rem] flex-col gap-y-12 rounded-lg bg-white px-8 py-6 shadow-lg")}>
+      <Card className="flex min-h-[24rem] flex-col gap-y-12 px-8 py-6">
         <div className="flex h-fit items-center justify-between">
           <Heading className="text-lg font-semibold">Summary Table</Heading>
           <Input placeholder="Search Work Order" icon={<IoSearch className="absolute right-5" />} />
         </div>
         <Table data={summaryData} columns={summaryColumns} />
-      </div>
+      </Card>
     </ContentWrapper>
   );
 };
@@ -38,7 +37,7 @@ const summaryData: TSummary[] = [
   },
   {
     workOrder: "20204/SWO/23/04/00003",
-    serviceAdvisor: "Samsuryanan Amir",
+    serviceAdvisor: "Syamsuryanan Amir",
     vendor: "WIS",
     entryDate: "03 April 2023",
     endDate: "04 April 2023"

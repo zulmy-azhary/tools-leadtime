@@ -1,4 +1,4 @@
-import type { TDamage, TProcess, TServiceAdvisor, TVendor } from "./common";
+import type { TDamage, TProcess, TServiceAdvisor, TVendor } from ".";
 
 export type TUnitProps =
   | "workOrder"
@@ -9,7 +9,7 @@ export type TUnitProps =
   | "vendor"
   | "process"
   | "serviceAdvisor"
-  | "handover";
+  | "handOver";
 
 export type TUnit = Omit<Record<TUnitProps, string>, "damageType" | "vendor" | "process" | "serviceAdvisor"> & {
   damageType: TDamage;
