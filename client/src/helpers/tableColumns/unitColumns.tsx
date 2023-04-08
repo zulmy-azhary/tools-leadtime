@@ -1,5 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { TFlowProcess } from "../../types";
+import type { TUnit } from "../../types";
 import {
   carTypeColumn,
   damageTypeColumn,
@@ -8,24 +8,18 @@ import {
   plateNumberColumn,
   processColumn,
   serviceAdvisorColumn,
+  vendorColumn,
   workOrderColumn
 } from "./globalColumns";
 
-export const flowProcessColumns: Array<ColumnDef<TFlowProcess>> = [
+export const unitColumns: Array<ColumnDef<TUnit>> = [
   workOrderColumn,
   plateNumberColumn,
-  serviceAdvisorColumn,
   carTypeColumn,
-  damageTypeColumn,
   entryDateColumn,
-  handOverColumn,
+  damageTypeColumn,
+  vendorColumn,
   processColumn,
-  {
-    header: "Durasi",
-    accessorKey: "duration"
-  },
-  {
-    header: "Status",
-    accessorKey: "status"
-  }
+  serviceAdvisorColumn,
+  handOverColumn
 ];
