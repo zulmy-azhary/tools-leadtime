@@ -1,29 +1,49 @@
 import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { InputForm, SelectForm } from "../molecules";
-import type { TUnit } from "../../types";
+import type { TResponse, TUnit } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchemas } from "../../schemas";
 import { Button } from "../atoms";
 import clsx from "clsx";
 import { IoAdd } from "react-icons/io5";
-import { ADVISOR, DAMAGE, PROCESS, VENDOR } from "../../helpers/constants";
+import { SERVICE_ADVISOR, DAMAGE_TYPE, ALL_PROCESS, VENDOR } from "../../helpers/constants";
+import { useMutation, useQueryClient } from "react-query";
+import { createUnit } from "../../api/unit";
+import { toast } from "react-hot-toast";
+import type { AxiosError } from "axios";
 
 const date = new Date();
 const currentMonth = (date.getMonth() + 1).toString().padStart(2, "0");
 const currentYear = date.getFullYear().toString().slice(-2).padStart(2, "0");
 const workOrder = `20204/SWO/${currentYear}/${currentMonth}/`;
 
-const UnitForm: React.FC = () => {
+interface Props {
+  onToggle: () => void;
+}
+
+const UnitForm: React.FC<Props> = ({ onToggle }) => {
   const methods = useForm<TUnit & { code: string }>({ resolver: yupResolver(unitSchemas) });
+  const queryClient = useQueryClient();
+  const { mutate: mutateUnit } = useMutation({
+    mutationFn: createUnit,
+    onSuccess: res => {
+      queryClient.invalidateQueries(["unit", "getAll"]);
+      methods.reset();
+      toast.success(res.data.message);
+      onToggle();
+    },
+    onError: ({ response }: AxiosError<TResponse>) => {
+      toast.error(response?.data.message as string);
+    }
+  });
 
   const onSubmit = methods.handleSubmit(data => {
     const { code, workOrder, ...rest } = data;
     const workOrderData = code + workOrder;
-    // eslint-disable-next-line no-console
-    console.log({
-      ...rest,
-      workOrder: workOrderData
+    mutateUnit({
+      workOrder: workOrderData,
+      ...rest
     });
   });
 
@@ -53,10 +73,15 @@ const UnitForm: React.FC = () => {
           className="col-span-full"
         />
         <InputForm type="date" inputName="entryDate" label="Tanggal Masuk" className="col-span-full" />
-        <SelectForm inputName="damageType" label="Jenis Kerusakan" options={DAMAGE} />
+        <SelectForm inputName="damageType" label="Jenis Kerusakan" options={DAMAGE_TYPE} />
         <SelectForm inputName="vendor" label="Team Vendor" options={VENDOR} />
-        <SelectForm inputName="process" label="Proses" options={PROCESS} />
-        <SelectForm inputName="serviceAdvisor" label="Service Advisor" options={ADVISOR} className="col-span-full" />
+        <SelectForm inputName="process" label="Proses" options={ALL_PROCESS} />
+        <SelectForm
+          inputName="serviceAdvisor"
+          label="Service Advisor"
+          options={SERVICE_ADVISOR}
+          className="col-span-full"
+        />
         <InputForm type="date" inputName="handOver" label="Janji Penyerahan" className="col-span-full" />
         <Button
           type="submit"

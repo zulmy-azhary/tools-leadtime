@@ -4,6 +4,7 @@ import { Card, Heading, Input, Label, Select } from "../atoms";
 import { IoSearch, IoBuild } from "react-icons/io5";
 import { flowProcessColumns } from "../../helpers/tableColumns";
 import type { TFlowProcess } from "../../types";
+import { PROCESS } from "../../helpers/constants";
 
 const FlowProcessContainer: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const FlowProcessContainer: React.FC = () => {
       <Headers headerTitle="Flow Proses" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-3 flex flex-col gap-y-2 px-8 py-6">
         <Label className="text-sm font-medium">Tampilkan Proses</Label>
-        <Select options={["ketokan", "putty", "removal", "masking", "epoxy", "spraying", "assembling", "polishing"]} />
+        <Select options={PROCESS} />
       </Card>
       <UnitCard icon={IoBuild} title="Ketokan" unitValue={0} subTitle="Proses Unit" />
       <Card className="col-span-full flex min-h-[24rem] flex-col gap-y-12 px-8 py-6">

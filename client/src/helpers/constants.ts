@@ -2,13 +2,11 @@ import type { TDamage, TProcess, TServiceAdvisor, TVendor } from "../types/commo
 
 export const SERVER_BASE_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-export const DAMAGE: TDamage[] = ["Ringan", "Sedang", "Berat"];
+export const DAMAGE_TYPE: TDamage[] = ["Ringan", "Sedang", "Berat"];
 
 export const VENDOR: TVendor[] = ["WIS", "SPA"];
 
 export const PROCESS: TProcess[] = [
-  "Tunggu Teknisi",
-  "Tunggu Part",
   "Ketokan",
   "Removal",
   "Putty",
@@ -19,7 +17,9 @@ export const PROCESS: TProcess[] = [
   "Polishing"
 ];
 
-export const ADVISOR: TServiceAdvisor[] = [
+export const ALL_PROCESS: TProcess[] = ["Tunggu Teknisi", "Tunggu Part", ...PROCESS];
+
+export const SERVICE_ADVISOR: TServiceAdvisor[] = [
   "Ahmad Supardi",
   "Fadli",
   "Hariyadi",

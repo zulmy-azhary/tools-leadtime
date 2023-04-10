@@ -4,8 +4,8 @@ type Props = [boolean, () => void, Dispatch<SetStateAction<boolean>>];
 
 const useToggle = (defaultValue?: boolean): Props => {
   const [isOpen, setOpen] = useState<boolean>(!!defaultValue);
-  const toggle = useCallback(() => setOpen(v => !v), []);
-  return [isOpen, toggle, setOpen];
+  const onToggle = useCallback(() => setOpen(v => !v), []);
+  return [isOpen, onToggle, setOpen];
 };
 
 export default useToggle;

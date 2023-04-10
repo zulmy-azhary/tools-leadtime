@@ -30,7 +30,7 @@ const Modal: React.FC<Props> = props => {
         >
           <div className={"flex"}>
             <Heading className={"grow text-xl font-semibold"}>{modalTitle}</Heading>
-            <Button icon={IoClose} onClick={() => onToggle()} />
+            <Button icon={IoClose} onClick={onToggle} />
           </div>
           {children}
         </div>
