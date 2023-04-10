@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import type { TUser } from "../types";
+import { USER_ROLE } from "../utils/constants";
 
 const { Schema } = mongoose;
 
@@ -24,7 +25,7 @@ const userSchema = new Schema(
     },
     role: {
       type: String,
-      enum: ["Admin", "Ketok", "Preparation", "Pengecatan", "Inspection"]
+      enum: ["Admin", ...USER_ROLE]
     }
   },
   { timestamps: true }
