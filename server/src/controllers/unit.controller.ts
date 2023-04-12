@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
 import { createUnitValidation } from "../validations";
 import { logger } from "../utils/logger";
-import { createUnit, getAllUnit } from "../services/unit.service";
+import { createUnit, getAllUnit, getUnitByWorkOrder } from "../services/unit.service";
 
 export const create = async (req: Request, res: Response) => {
   const { error, value } = createUnitValidation(req.body);
@@ -11,6 +11,15 @@ export const create = async (req: Request, res: Response) => {
   }
 
   try {
+    const isUnitExist = await getUnitByWorkOrder(value.workOrder);
+
+    if (isUnitExist) {
+      logger.error(`UNIT -> CREATE = Unit ${value.workOrder} already exists.`);
+      return res
+        .status(422)
+        .send({ status: false, statusCode: 422, message: `Unit ${value.workOrder} already exists.` });
+    }
+
     return await createUnit(value).then(() => {
       logger.info(`UNIT -> CREATE = Data Unit ${value.workOrder} created!!`);
       res.status(201).send({ status: true, statusCode: 201, message: `Unit ${value.workOrder} created!!` });

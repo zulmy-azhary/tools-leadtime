@@ -8,3 +8,7 @@ export const createUnit = async (payload: TUnit) => {
 export const getAllUnit = async () => {
   return await UnitModel.find();
 };
+
+export const getUnitByWorkOrder = async (workOrder: string) => {
+  return await UnitModel.findOne({ workOrder });
+};
