@@ -1,9 +1,7 @@
 import React from "react";
-import { FormProvider, useForm } from "react-hook-form";
+import { useFormContext } from "react-hook-form";
 import { InputForm, SelectForm } from "../molecules";
 import type { TResponse, TUnit } from "../../types";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { unitSchemas } from "../../schemas";
 import { Button } from "../atoms";
 import clsx from "clsx";
 import { IoAdd } from "react-icons/io5";
@@ -23,8 +21,9 @@ interface Props {
 }
 
 const UnitForm: React.FC<Props> = ({ onToggle }) => {
-  const methods = useForm<TUnit & { code: string }>({ resolver: yupResolver(unitSchemas) });
+  const methods = useFormContext<TUnit & { code: string }>();
   const queryClient = useQueryClient();
+
   const { mutate: mutateUnit } = useMutation({
     mutationFn: createUnit,
     onSuccess: res => {
@@ -48,7 +47,7 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
   });
 
   return (
-    <FormProvider {...methods}>
+    <>
       <form onSubmit={onSubmit} className={clsx("grid grid-cols-3 gap-4")}>
         <InputForm
           type="text"
@@ -91,7 +90,7 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
           submit
         </Button>
       </form>
-    </FormProvider>
+    </>
   );
 };
 

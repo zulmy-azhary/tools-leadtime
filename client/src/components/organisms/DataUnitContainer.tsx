@@ -10,22 +10,26 @@ import { useQuery } from "react-query";
 import { getAllUnit } from "../../api/unit";
 import { format } from "date-fns";
 import type { TUnit } from "../../types";
+import { FormProvider, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { unitSchemas } from "../../schemas";
 
 const DataUnitContainer: React.FC = () => {
   const [isOpen, onToggle] = useToggle();
+  const methods = useForm<TUnit & { code: string }>({ resolver: yupResolver(unitSchemas) });
   const [unit, setUnit] = useState<TUnit[]>([]);
 
   useQuery({
     queryKey: ["unit", "getAll"],
     queryFn: getAllUnit,
     onSuccess: data => {
-      const filteredData = (data ?? []).map(unit => {
+      const filteredData = data.map(unit => {
         const { entryDate, handOver, ...rest } = unit;
 
         return {
           ...rest,
-          entryDate: format(new Date(entryDate), "dd/MM/yyyy"),
-          handOver: format(new Date(handOver), "dd/MM/yyyy")
+          entryDate: format(new Date(entryDate), "dd MMMM yyyy"),
+          handOver: format(new Date(handOver), "dd MMMM yyyy")
         };
       });
 
@@ -34,7 +38,7 @@ const DataUnitContainer: React.FC = () => {
   });
 
   return (
-    <>
+    <FormProvider {...methods}>
       <ContentWrapper>
         <Headers headerTitle="Unit" description="Leadtime & Paint" className="col-span-full" />
         <Card className="col-span-full flex min-h-[24rem] flex-col gap-y-12 px-8 py-6">
@@ -59,7 +63,7 @@ const DataUnitContainer: React.FC = () => {
           <UnitForm onToggle={onToggle} />
         </Modal>
       )}
-    </>
+    </FormProvider>
   );
 };
 
