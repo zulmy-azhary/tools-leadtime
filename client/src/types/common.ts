@@ -26,7 +26,7 @@ export type TServiceAdvisor =
   | "Reza"
   | "Syamsuryanan Amir";
 
-export type TStatus = "Dikerjakan" | "Selesai";
+export type TStatus = "Menunggu" | "Dikerjakan" | "Selesai";
 
 export type TBaseData =
   | "workOrder"
