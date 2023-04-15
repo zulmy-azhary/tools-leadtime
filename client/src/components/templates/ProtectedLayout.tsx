@@ -33,7 +33,7 @@ const ProtectedLayout: React.FC = () => {
   }
 
   if (isLoading) {
-    return <div>Please wait...</div>;
+    return <div className="grid h-screen place-items-center">Please wait...</div>;
   }
 
   return (

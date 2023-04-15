@@ -1,6 +1,6 @@
 import type { Request, Response } from "express";
 import { createUser, findUser } from "../services/auth.service";
-import { createUserValidation, loginValidation, logoutValidation } from "../validations/auth.validation";
+import { createUserValidation, loginValidation, logoutValidation } from "../validations";
 import { logger } from "../utils/logger";
 import { checkPassword, hashPassword } from "../utils/hashing";
 import { signJWT } from "../utils/jwt";
@@ -8,7 +8,7 @@ import { signJWT } from "../utils/jwt";
 export const register = async (req: Request, res: Response) => {
   const { error, value } = createUserValidation(req.body);
   if (error) {
-    logger.error("AUTH -> REGISTER = ", error.details[0].message);
+    logger.error(`AUTH -> REGISTER = ${error.details[0].message}`);
     return res.status(422).send({ status: false, statusCode: 422, message: error.details[0].message });
   }
 
@@ -20,7 +20,7 @@ export const register = async (req: Request, res: Response) => {
     // If NIK doesn't exist in the database, then create user
     if (!retrievedUser) {
       return await createUser({ ...value }).then(() => {
-        logger.info("AUTH - REGISTER => User registration successfully!!");
+        logger.info("AUTH -> REGISTER = User registration successfully!!");
         res.status(201).send({ status: true, statusCode: 201, message: "User registration successfully!!" });
       });
     }
@@ -40,7 +40,7 @@ export const register = async (req: Request, res: Response) => {
 export const login = async (req: Request, res: Response) => {
   const { error, value } = loginValidation(req.body);
   if (error) {
-    logger.error("AUTH -> LOGIN = ", error.details[0].message);
+    logger.error(`AUTH -> LOGIN = ${error.details[0].message}`);
     return res.status(422).send({ status: false, statusCode: 422, message: error.details[0].message });
   }
 
@@ -83,7 +83,7 @@ export const login = async (req: Request, res: Response) => {
 export const logout = async (req: Request, res: Response) => {
   const { error, value } = logoutValidation(req.body);
   if (error) {
-    logger.error("AUTH -> LOGOUT = ", error.details[0].message);
+    logger.error(`AUTH -> LOGOUT = ${error.details[0].message}`);
     return res.status(422).send({ status: false, statusCode: 422, message: error.details[0].message });
   }
 

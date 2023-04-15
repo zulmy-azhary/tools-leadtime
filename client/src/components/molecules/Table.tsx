@@ -10,7 +10,7 @@ interface Props<T> extends React.HTMLAttributes<HTMLDivElement> {
 
 const Table = <T extends object>(props: Props<T>) => {
   const { data, columns, className, ...rest } = props;
-  const datas = useMemo(() => data, []);
+  const datas = useMemo(() => data, [data]);
   const headerColumns = useMemo(() => columns, []);
 
   const table = useReactTable({

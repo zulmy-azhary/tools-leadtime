@@ -4,6 +4,7 @@ import { Card, Heading, Input, Label, Select } from "../atoms";
 import { IoSearch, IoPeople } from "react-icons/io5";
 import type { TVendorData } from "../../types";
 import { vendorColumns } from "../../helpers/tableColumns";
+import { VENDOR } from "../../helpers/constants";
 
 const TeamVendorContainer: React.FC = () => {
   return (
@@ -11,7 +12,7 @@ const TeamVendorContainer: React.FC = () => {
       <Headers headerTitle="Team Vendor" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-3 flex flex-col gap-y-2 px-8 py-6">
         <Label className="text-sm font-medium">Tampilkan Vendor</Label>
-        <Select options={["WIS", "SPA"]} />
+        <Select options={VENDOR} />
       </Card>
       <UnitCard icon={IoPeople} title="WIS" unitValue={0} subTitle="Total Unit" />
       <Card className="col-span-full flex min-h-[24rem] flex-col gap-y-12 px-8 py-6">

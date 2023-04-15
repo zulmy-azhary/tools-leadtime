@@ -1,5 +1,6 @@
 import Joi from "joi";
 import type { TUser } from "../types";
+import { USER_ROLE } from "../utils/constants";
 
 export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser> => {
   const schema = Joi.object({
@@ -9,7 +10,7 @@ export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser
       .regex(/^[0-9]+$/)
       .length(9),
     password: Joi.string().required().min(6),
-    role: Joi.string().valid("Ketok", "Preparation", "Pengecatan", "Inspection")
+    role: Joi.string().valid(...USER_ROLE)
   });
 
   return schema.validate(payload);
