@@ -9,7 +9,7 @@ interface Props<T> extends React.TableHTMLAttributes<HTMLTableCellElement> {
 const TableHeading = <T extends object>(props: Props<T>) => {
   const { headerGroup, className, ...rest } = props;
   return (
-    <tr>
+    <tr className="whitespace-nowrap">
       {headerGroup.headers.map(header => (
         <th
           key={header.id}

@@ -1,19 +1,25 @@
 import React from "react";
 import { useLocation } from "react-router-dom";
 import { BsFillBellFill } from "react-icons/bs";
-import { Avatar, Breadcrumb, Toggle } from "../atoms";
+import { Avatar, Breadcrumb, Button, Toggle } from "../atoms";
 import { useAuth } from "../../context";
+import { useMediaQuery } from "../../hooks";
+import { IoMenu } from "react-icons/io5";
 
-const Navbar: React.FC = () => {
+interface Props {
+  sidebarToggle?: () => void;
+}
+
+const Navbar: React.FC<Props> = props => {
+  const { sidebarToggle } = props;
   const location = useLocation();
+  const isNotebook = useMediaQuery("(max-width: 1024px)");
   const currentPath = location.pathname.split("/").slice(1);
   const { user } = useAuth();
 
   return (
     <nav className="flex items-center justify-between py-5">
-      <div>
-        <Breadcrumb paths={currentPath} />
-      </div>
+      <div>{isNotebook ? <Button onClick={sidebarToggle} icon={IoMenu} /> : <Breadcrumb paths={currentPath} />}</div>
       <ul className="flex items-center gap-x-5">
         <Toggle />
         <Avatar
