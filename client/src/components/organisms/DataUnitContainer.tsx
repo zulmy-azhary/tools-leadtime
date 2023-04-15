@@ -15,15 +15,19 @@ const DataUnitContainer: React.FC = () => {
     <>
       <ContentWrapper>
         <Headers headerTitle="Unit" description="Leadtime & Paint" className="col-span-full" />
-        <Card className="col-span-full flex min-h-[24rem] flex-col gap-y-12 px-8 py-6">
-          <div className="flex h-fit items-center gap-4">
-            <Heading className="grow text-lg font-semibold">Data Unit Table</Heading>
-            <Input type="text" placeholder="Search Work Order" icon={<IoSearch className="absolute right-5" />} />
+        <Card className="col-span-full flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
+          <div className="flex flex-wrap items-center gap-4">
+            <Heading className="grow text-center text-xl font-semibold md:text-left">Data Unit Table</Heading>
+            <Input
+              placeholder="Search Work Order"
+              icon={<IoSearch className="absolute right-5" />}
+              wrapperClassName="w-full md:w-fit"
+            />
             <Button
               icon={IoAdd}
               onClick={toggle}
               className={clsx(
-                "border-[1.6px] border-gray-300 bg-slate-50 p-3 text-sm dark:border-slate-600 dark:bg-slate-800"
+                "w-full border-[1.6px] border-gray-300 bg-slate-50 p-3 text-sm dark:border-slate-600 dark:bg-slate-800 md:w-fit"
               )}
             >
               Add New Data
