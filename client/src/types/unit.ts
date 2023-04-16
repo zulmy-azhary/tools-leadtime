@@ -1,4 +1,4 @@
-import type { TDamage, TProcess, TServiceAdvisor, TVendor } from ".";
+import type { TDamage, TProcess, TServiceAdvisor, TStatus, TVendor } from ".";
 
 export type TUnitProps =
   | "workOrder"
@@ -16,4 +16,5 @@ export type TUnit = Omit<Record<TUnitProps, string>, "damageType" | "vendor" | "
   vendor: TVendor;
   process: TProcess;
   serviceAdvisor: TServiceAdvisor;
+  status: TStatus;
 };

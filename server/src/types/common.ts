@@ -29,17 +29,3 @@ export type TServiceAdvisor =
   | "Syamsuryanan Amir";
 
 export type TStatus = "Menunggu" | "Dikerjakan" | "Selesai";
-
-export type TBaseData =
-  | "workOrder"
-  | "plateNumber"
-  | "carType"
-  | "entryDate"
-  | "endDate"
-  | "damageType"
-  | "vendor"
-  | "process"
-  | "serviceAdvisor"
-  | "handOver"
-  | "duration"
-  | "status";

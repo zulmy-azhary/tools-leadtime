@@ -1,10 +1,10 @@
-import type { TBaseData, TDamage, TProcess, TServiceAdvisor, TStatus } from ".";
+import type { TBaseData, TMainProcess, TStatus } from ".";
 
 export interface TFlowProcess
-  extends Omit<Record<TBaseData, string>, "vendor" | "endDate" | "damageType" | "process" | "serviceAdvisor"> {
-  damageType: TDamage;
-  process: TProcess;
-  serviceAdvisor: TServiceAdvisor;
-  duration: string;
+  extends Omit<
+    Record<TBaseData, string>,
+    "vendor" | "endDate" | "carType" | "damageType" | "process" | "serviceAdvisor" | "duration"
+  > {
+  process: TMainProcess;
   status: TStatus;
 }
