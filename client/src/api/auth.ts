@@ -10,7 +10,7 @@ export const login = async (data: TLogin) => {
 };
 
 export const getMe = async () => {
-  return await axiosProtected().get("/user/getMe");
+  return await axiosProtected().get("/user/me");
 };
 
 export const logout = async (nik: string) => {
