@@ -8,6 +8,6 @@ export type {
   TVendor,
   TStatus
 } from "./common";
-export type { TUser } from "./user";
-export type { TUnit } from "./unit";
-export type { TFlowProcess } from "./flowProcess";
+export type { TUserData } from "./user";
+export type { TUnitData } from "./unit";
+export type { TFlowProcessData, TProcessItem } from "./flowProcess";

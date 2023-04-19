@@ -1,6 +1,6 @@
 import type { TDamage, TProcess, TServiceAdvisor, TStatus, TVendor } from ".";
 
-export interface TUnit {
+export interface TUnitData {
   workOrder: string;
   plateNumber: string;
   carType: string;

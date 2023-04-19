@@ -1,6 +1,6 @@
 import type { TUserRole } from ".";
 
-export interface TUser {
+export interface TUserData {
   fullName: string;
   nik: string;
   password: string;

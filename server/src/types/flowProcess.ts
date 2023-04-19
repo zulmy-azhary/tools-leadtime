@@ -1,7 +1,13 @@
 import type { TMainProcess, TStatus } from ".";
 
-export interface TFlowProcess {
-  workOrder: string;
-  process: Array<{ processName: TMainProcess; duration: number }>;
+export interface TProcessItem {
+  processName: TMainProcess;
+  processStart?: string;
+  processFinish?: string;
+  duration?: number;
   status: TStatus;
+}
+export interface TFlowProcessData {
+  workOrder: string;
+  process: TProcessItem[];
 }
