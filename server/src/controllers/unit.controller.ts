@@ -2,6 +2,7 @@ import type { Request, Response } from "express";
 import { createUnitValidation } from "../validations";
 import { logger } from "../utils/logger";
 import { createUnit, getAllUnit, getUnitByWorkOrder } from "../services/unit.service";
+import { createProcess } from "../services/flowProcess.service";
 
 export const create = async (req: Request, res: Response) => {
   const { error, value } = createUnitValidation(req.body);
@@ -20,10 +21,20 @@ export const create = async (req: Request, res: Response) => {
         .send({ status: false, statusCode: 422, message: `Unit ${value.workOrder} already exists.` });
     }
 
-    return await createUnit(value).then(() => {
-      logger.info(`UNIT -> CREATE = Data Unit ${value.workOrder} created!!`);
-      res.status(201).send({ status: true, statusCode: 201, message: `Unit ${value.workOrder} created!!` });
-    });
+    // Create Unit
+    const dataUnit = await createUnit(value);
+
+    // Create Flow Process
+    if (value.process !== "Tunggu Teknisi" && value.process !== "Tunggu Part") {
+      await createProcess({
+        _id: dataUnit._id,
+        workOrder: value.workOrder,
+        process: [{ processName: value.process, status: value.status }]
+      });
+    }
+
+    logger.info(`UNIT -> CREATE = Data Unit ${value.workOrder} created!!`);
+    return res.status(201).send({ status: true, statusCode: 201, message: `Unit ${value.workOrder} created!!` });
   } catch (err) {
     logger.error(`UNIT -> CREATE = ${(err as Error).message}`);
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
@@ -38,6 +49,15 @@ export const getAll = async (req: Request, res: Response) => {
     return res.status(200).send({ status: true, statusCode: 200, data: retrievedUnit });
   } catch (err) {
     logger.error(`UNIT -> GET_ALL = ${(err as Error).message}`);
+    return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
+  }
+};
+
+export const updateUnit = async (req: Request, res: Response) => {
+  try {
+    // Not implemented yet
+  } catch (err) {
+    logger.error(`UNIT -> UPDATE = ${(err as Error).message}`);
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
   }
 };
