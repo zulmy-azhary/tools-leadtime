@@ -43,3 +43,7 @@ export type TBaseData =
   | "handOver"
   | "duration"
   | "status";
+
+export interface MongoId {
+  _id: string;
+}
