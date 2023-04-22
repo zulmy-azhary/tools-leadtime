@@ -1,5 +1,5 @@
 import type { ColumnDef } from "@tanstack/react-table";
-import type { TUnit } from "../../types";
+import type { TUnitData } from "../../types";
 import {
   carTypeColumn,
   damageTypeColumn,
@@ -12,14 +12,14 @@ import {
   workOrderColumn
 } from "./globalColumns";
 
-export const unitColumns: Array<ColumnDef<TUnit>> = [
+export const unitColumns: Array<ColumnDef<TUnitData>> = [
   workOrderColumn,
   plateNumberColumn,
   carTypeColumn,
-  entryDateColumn,
   damageTypeColumn,
   vendorColumn,
-  processColumn,
   serviceAdvisorColumn,
-  handOverColumn
+  entryDateColumn,
+  handOverColumn,
+  processColumn
 ];
