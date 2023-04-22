@@ -3,12 +3,12 @@ import type { TUserRole } from ".";
 export type TUserProps = "fullName" | "nik" | "password" | "confirmPassword" | "role";
 
 // User registration
-export type TUser = Omit<Record<TUserProps, string>, "role"> & {
+export type TUserData = Omit<Record<TUserProps, string>, "role"> & {
   role: TUserRole;
 };
 
 // User authenticated
-export type TUserProfile = Omit<TUser, "password" | "confirmPassword"> & {
+export type TUserProfile = Omit<TUserData, "password" | "confirmPassword"> & {
   _id: string;
   created_at: string;
   updated_at: string;
@@ -33,4 +33,12 @@ export type TUserToken = TResponse & {
   data: TToken;
 };
 
-export type TLogin = Pick<TUser, "nik" | "password">;
+export type TLogin = Pick<TUserData, "nik" | "password">;
+
+export interface TManageRole<T> {
+  admin: T;
+  ketok?: T;
+  preparation?: T;
+  pengecatan?: T;
+  inspection?: T;
+}
