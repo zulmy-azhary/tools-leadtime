@@ -1,7 +1,7 @@
-import type { TLogin, TUser } from "../types";
+import type { TLogin, TUserData } from "../types";
 import axios, { axiosProtected } from "./axios";
 
-export const registerUser = async (data: Omit<TUser, "confirmPassword">) => {
+export const registerUser = async (data: Omit<TUserData, "confirmPassword">) => {
   return await axios.post("/auth/register", data);
 };
 
