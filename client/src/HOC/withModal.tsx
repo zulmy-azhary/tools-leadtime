@@ -2,7 +2,7 @@ import type { IconType } from "react-icons";
 import { Modal } from "../components/molecules";
 import { useToggle } from "../hooks";
 
-export interface WithModalProps {
+interface WithModalProps {
   icon: IconType;
   modalTitle: string;
 }
