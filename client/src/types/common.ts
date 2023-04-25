@@ -38,11 +38,11 @@ export type TBaseData =
   | "endDate"
   | "damageType"
   | "vendor"
-  | "process"
+  | "currentProcess"
   | "serviceAdvisor"
   | "handOver"
   | "duration"
-  | "status";
+  | "currentStatus";
 
 export interface MongoId {
   _id: string;
