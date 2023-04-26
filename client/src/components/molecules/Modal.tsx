@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import clsx from "clsx";
 import { useOnClickOutside } from "../../hooks";
 import { Button, Heading } from "../atoms";
@@ -12,10 +12,9 @@ interface Props extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 const Modal: React.FC<Props> = props => {
-  const { children, isOpen, onToggle, modalTitle, className } = props;
-  const modalRef = useRef(null);
+  const { children, isOpen, onToggle, modalTitle, className, ...rest } = props;
+  const modalRef = useOnClickOutside<HTMLDivElement>(isOpen, onToggle);
 
-  useOnClickOutside(modalRef, () => isOpen && onToggle());
   useLockBodyScroll(isOpen);
 
   return (
@@ -24,9 +23,10 @@ const Modal: React.FC<Props> = props => {
         <div
           ref={modalRef}
           className={clsx(
-            "m-auto flex max-w-3xl flex-col gap-7 rounded-lg border-[1.6px] border-gray-300 bg-white p-6 dark:border-slate-800 dark:bg-slate-900",
+            "m-auto flex max-w-xs flex-col gap-7 rounded-lg border-[1.6px] border-gray-300 bg-white p-6 dark:border-slate-800 dark:bg-slate-900 md:max-w-xl lg:max-w-2xl",
             className
           )}
+          {...rest}
         >
           <div className={"flex"}>
             <Heading className={"grow text-xl font-semibold"}>{modalTitle}</Heading>

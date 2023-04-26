@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { Button } from ".";
 import { IoCaretDown } from "react-icons/io5";
-import React, { useRef } from "react";
+import React from "react";
 import { useToggle, useOnClickOutside } from "../../hooks";
 
 interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
@@ -10,9 +10,8 @@ interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
 
 const Select: React.ForwardRefRenderFunction<HTMLSelectElement, Props> = (props, ref) => {
   const { options, className, ...rest } = props;
-  const selectRef = useRef(null);
   const [isOpen, onToggle, setOpen] = useToggle();
-  useOnClickOutside(selectRef, () => setOpen(false));
+  const selectRef = useOnClickOutside<HTMLDivElement>(isOpen, () => setOpen(false));
 
   return (
     <div className="relative" ref={selectRef}>
