@@ -1,4 +1,4 @@
-import type { TDamage, TProcess, TServiceAdvisor, TStatus, TVendor } from ".";
+import type { TDamage, TProcess, TProcessItem, TServiceAdvisor, TStatus, TVendor } from ".";
 
 export interface TUnitData {
   workOrder: string;
@@ -8,7 +8,8 @@ export interface TUnitData {
   handOver: string;
   damageType: TDamage;
   vendor: TVendor;
-  process: TProcess;
+  processList: TProcessItem[] | false;
+  currentProcess: TProcess;
   serviceAdvisor: TServiceAdvisor;
-  status: TStatus;
+  currentStatus: TStatus;
 }
