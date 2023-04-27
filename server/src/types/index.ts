@@ -10,4 +10,4 @@ export type {
 } from "./common";
 export type { TUserData } from "./user";
 export type { TUnitData } from "./unit";
-export type { TFlowProcessData, TProcessItem } from "./flowProcess";
+export type { TProcessItem } from "./flowProcess";
