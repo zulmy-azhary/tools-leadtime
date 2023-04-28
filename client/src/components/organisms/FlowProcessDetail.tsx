@@ -1,20 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { Button } from "../atoms";
 import { differenceInMinutes, format } from "date-fns";
-import type { TFlowProcessDataUnit, TMainProcess, TProcessItem, TResponse } from "../../types";
-import { formatTime, handleProcess } from "../../helpers/functions";
+import type { TFlowProcessDataUnit, TProcessItem, TResponse } from "../../types";
+import { formatTime, getNextProcess, handleProcess } from "../../helpers/functions";
 import clsx from "clsx";
-import { useMutation, useQuery, useQueryClient } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { toast } from "react-hot-toast";
-import type { AxiosError } from "axios";
-import { getFlowProcessById, updateFlowProcess } from "../../api/flowProcess";
+import type { AxiosError, AxiosResponse } from "axios";
+import { submitFlowProcess, updateFlowProcess } from "../../api/flowProcess";
 import { MAIN_PROCESS } from "../../helpers/constants";
 import withModal from "../../HOC/withModal";
-
-const getNextProcess = (allProcess: TMainProcess[], currentProcess: TMainProcess) => {
-  const index = allProcess.indexOf(currentProcess);
-  if (index >= 0 && index < allProcess.length - 1) return allProcess[index + 1];
-};
 
 interface Props {
   flowProcess: TFlowProcessDataUnit;
@@ -23,34 +18,64 @@ interface Props {
 
 const FlowProcessDetail: React.FC<Props> = props => {
   const { flowProcess, onToggle } = props;
-  const { workOrder, process, _id, status } = flowProcess;
+  const { _id, workOrder, currentProcess, currentStatus } = flowProcess;
   const queryClient = useQueryClient();
-  const qualityCheckList = handleProcess(process);
+  const qualityCheckList = handleProcess(currentProcess);
   const [startDate, setStartDate] = useState<Date>(new Date(Date.now()));
   const [isActive, setActive] = useState<boolean>(false);
   const [duration, setDuration] = useState<number>(0);
   const [isApproved, setApproved] = useState<boolean>(false);
   const [qualityCheck, setQualityCheck] = useState({});
 
-  useQuery({
-    queryKey: ["flowProcess", "getIndividual"],
-    queryFn: async () => await getFlowProcessById(_id),
-    onSuccess: data => {
-      const processItem = data.process.find(item => item.processName === process);
-      setStartDate(new Date(processItem?.processStart as string));
-      setDuration(processItem?.duration ?? 0);
-      setActive(processItem?.status === "Dikerjakan");
+  const invalidateQueries = () => {
+    queryClient.invalidateQueries(["flowProcess", "getAll"]);
+    queryClient.invalidateQueries(["flowProcess", "getIndividual"]);
+  };
+
+  useEffect(() => {
+    const selectedProcess = flowProcess.processList.find(
+      ({ processName }) => processName === currentProcess
+    ) as TProcessItem;
+
+    setStartDate(new Date(selectedProcess.processStart as string));
+    setDuration(selectedProcess.duration ?? 0);
+    setActive(selectedProcess.status === "Dikerjakan");
+  }, [flowProcess]);
+
+  useEffect(() => {
+    const isApproved =
+      Object.keys(qualityCheck).length === qualityCheckList.length && Object.values(qualityCheck).every(item => item);
+    setApproved(!!isApproved);
+  }, [qualityCheck]);
+
+  const { mutate: mutateClockOnFlowProcess } = useMutation({
+    mutationFn: updateFlowProcess,
+    onSuccess: (_, flowProcess) => {
+      invalidateQueries();
+      toast.success(`Clock on for ${flowProcess.workOrder} started.`);
+    },
+    onError: ({ response }: AxiosError<TResponse>) => {
+      toast.error(response?.data.message as string);
     }
   });
 
-  const { mutate: mutateFlowProcess } = useMutation({
-    mutationFn: updateFlowProcess,
+  const { mutate: mutateSubmitFlowProcess } = useMutation({
+    mutationFn: submitFlowProcess,
+    onSuccess: (res: AxiosResponse<TResponse>, variables) => {
+      invalidateQueries();
+      (onToggle as () => void)();
+
+      if (currentProcess !== "Polishing") {
+        toast.success(res.data.message);
+      }
+      if (currentProcess === "Polishing") {
+        alert(
+          "All flow processes have been completed. Please see the entire process of WorkOrder in the summary table."
+        );
+      }
+    },
     onError: ({ response }: AxiosError<TResponse>) => {
       toast.error(response?.data.message as string);
-    },
-    onSettled: () => {
-      queryClient.invalidateQueries(["flowProcess", "getAll"]);
-      queryClient.invalidateQueries(["flowProcess", "getIndividual"]);
     }
   });
 
@@ -59,17 +84,13 @@ const FlowProcessDetail: React.FC<Props> = props => {
     const data: TProcessItem & { workOrder: string } = {
       _id,
       workOrder,
-      processName: process,
+      processName: currentProcess,
       processStart: new Date(),
       status: "Dikerjakan"
     };
 
     // Mutate process
-    mutateFlowProcess(data, {
-      onSuccess: (_, flowProcess) => {
-        toast.success(`Clock on for ${flowProcess.workOrder} started.`);
-      }
-    });
+    mutateClockOnFlowProcess(data);
   };
 
   const handleQualityCheck = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,46 +102,32 @@ const FlowProcessDetail: React.FC<Props> = props => {
     e.preventDefault();
     const endDate = new Date();
     const totalMinutes = differenceInMinutes(endDate, startDate);
-    const nextProcess = getNextProcess(MAIN_PROCESS, process);
+    const nextCurrentProcess = getNextProcess(MAIN_PROCESS, currentProcess);
 
     // Change status to "Selesai", add processFinish, and calculate duration in minutes between processStart and processFinish
     const dataProcess: TProcessItem & { workOrder: string } = {
-      _id,
       workOrder,
-      processName: process,
+      processName: currentProcess,
       processFinish: new Date(),
       duration: totalMinutes,
       status: "Selesai"
     };
 
-    // eslint-disable-next-line no-console
-    console.log(nextProcess);
+    const nextProcess: TProcessItem = {
+      processName: nextCurrentProcess,
+      status: "Menunggu"
+    };
 
-    // Mutate that data above
-    mutateFlowProcess(dataProcess, {
-      onSuccess: (_, flowProcess) => {
-        toast.success(`Process ${flowProcess.workOrder} are finished.`);
-        setQualityCheck({});
-        (onToggle as () => void)();
-      }
+    mutateSubmitFlowProcess({
+      _id,
+      dataProcess,
+      nextProcess: currentProcess !== "Polishing" ? nextProcess : undefined
     });
   };
 
-  useEffect(() => {
-    const isApproved =
-      Object.keys(qualityCheck).length === qualityCheckList.length && Object.values(qualityCheck).every(item => item);
-    setApproved(!!isApproved);
-  }, [qualityCheck]);
-
   const handleTimeStatus = () => {
-    if (isActive) {
-      return format(startDate, "dd/MM/yyyy hh:mm:ss a");
-    }
-
-    if (status === "Selesai") {
-      return "This process already finished.";
-    }
-
+    if (isActive) return format(startDate, "dd/MM/yyyy hh:mm:ss a");
+    if (currentStatus === "Selesai") return "This process already finished.";
     return 'Click "Clock On" first';
   };
 
@@ -131,15 +138,15 @@ const FlowProcessDetail: React.FC<Props> = props => {
           type="button"
           onClick={handleClockOn}
           className="bg-blue-500 px-3 py-2 text-white disabled:opacity-75"
-          disabled={isActive || status !== "Menunggu"}
+          disabled={isActive || currentStatus !== "Menunggu"}
         >
           Clock On
         </Button>
         <div className="text-center">
           <p>Work Order: {workOrder}</p>
           <p>Start Time: {handleTimeStatus()}</p>
-          <p>Status: {status}</p>
-          {!isActive && status === "Selesai" && <p>Duration: {formatTime(duration)}</p>}
+          <p>Status: {currentStatus}</p>
+          {!isActive && currentStatus === "Selesai" && <p>Duration: {formatTime(duration)}</p>}
         </div>
       </div>
       <div className="flex flex-col gap-y-3">
