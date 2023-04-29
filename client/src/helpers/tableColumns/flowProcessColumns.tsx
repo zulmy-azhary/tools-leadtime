@@ -4,7 +4,7 @@ import { entryDateColumn, handOverColumn, plateNumberColumn, processColumn, work
 
 const statusColumn = {
   header: "Status",
-  accessorKey: "status"
+  accessorKey: "currentStatus"
 };
 
 export const flowProcessColumns: Array<ColumnDef<TFlowProcessDataUnit>> = [
