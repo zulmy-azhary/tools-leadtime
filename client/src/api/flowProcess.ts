@@ -21,3 +21,14 @@ export const updateFlowProcess = async (data: TProcessItem & { workOrder: string
   const { _id, ...rest } = data;
   return await axiosProtected().put(`/flowprocess/${_id}`, rest);
 };
+
+export const submitFlowProcess = async (process: {
+  _id: string;
+  dataProcess: TProcessItem & { workOrder: string };
+  nextProcess?: TProcessItem;
+}) => {
+  return await axiosProtected().put(`/flowprocess/submit/${process._id}`, {
+    dataProcess: process.dataProcess,
+    nextProcess: process.nextProcess
+  });
+};
