@@ -15,4 +15,6 @@ export const updateUnitById = async (data: Partial<TUnitData>) => {
   return await axiosProtected().put(`/unit/${data._id}`, data);
 };
 
-export const getallCount = async () => {};
+export const deleteUnitById = async (_id: string) => {
+  return await axiosProtected().delete(`/unit/${_id}`);
+};
