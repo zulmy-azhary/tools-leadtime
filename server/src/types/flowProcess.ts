@@ -7,7 +7,3 @@ export interface TProcessItem {
   duration?: number;
   status: TStatus;
 }
-export interface TFlowProcessData {
-  workOrder: string;
-  process: TProcessItem[];
-}
