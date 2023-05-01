@@ -1,8 +1,16 @@
 import Joi from "joi";
-import type { TUnit } from "../types";
-import { DAMAGE_TYPE, PROCESS, SERVICE_ADVISOR, VENDOR } from "../utils/constants";
+import type { TProcessItem, TUnitData } from "../types";
+import { DAMAGE_TYPE, PROCESS, SERVICE_ADVISOR, STATUS, VENDOR } from "../utils/constants";
 
-export const createUnitValidation = (payload: TUnit): Joi.ValidationResult<TUnit> => {
+const processItem = {
+  processName: Joi.string().valid(...PROCESS),
+  processStart: Joi.date(),
+  processFinish: Joi.date(),
+  duration: Joi.number(),
+  status: Joi.string().valid(...STATUS)
+};
+
+export const createUnitValidation = (payload: TUnitData): Joi.ValidationResult<TUnitData> => {
   const schema = Joi.object({
     workOrder: Joi.string().required().length(21),
     plateNumber: Joi.string().required(),
@@ -11,8 +19,10 @@ export const createUnitValidation = (payload: TUnit): Joi.ValidationResult<TUnit
     handOver: Joi.date().required(),
     damageType: Joi.string().valid(...DAMAGE_TYPE),
     vendor: Joi.string().valid(...VENDOR),
-    process: Joi.string().valid(...PROCESS),
-    serviceAdvisor: Joi.string().valid(...SERVICE_ADVISOR)
+    processList: Joi.array<TProcessItem>().items(processItem),
+    currentProcess: Joi.string().valid(...PROCESS),
+    serviceAdvisor: Joi.string().valid(...SERVICE_ADVISOR),
+    currentStatus: Joi.string().valid(...STATUS)
   });
 
   return schema.validate(payload);
