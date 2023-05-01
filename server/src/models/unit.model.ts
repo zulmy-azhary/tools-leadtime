@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
-import type { TUnit } from "../types";
-import { DAMAGE_TYPE, PROCESS, SERVICE_ADVISOR, VENDOR } from "../utils/constants";
+import type { TUnitData } from "../types";
+import { DAMAGE_TYPE, MAIN_PROCESS, PROCESS, SERVICE_ADVISOR, STATUS, VENDOR } from "../utils/constants";
 
 const { Schema } = mongoose;
 
@@ -36,18 +36,43 @@ const unitSchema = new Schema(
       type: String,
       enum: VENDOR
     },
-    process: {
+    processList: [
+      {
+        processName: {
+          type: String,
+          enum: MAIN_PROCESS
+        },
+        processStart: {
+          type: Date
+        },
+        processFinish: {
+          type: Date
+        },
+        duration: {
+          type: Number
+        },
+        status: {
+          type: String,
+          enum: STATUS
+        }
+      }
+    ],
+    currentProcess: {
       type: String,
       enum: PROCESS
     },
     serviceAdvisor: {
       type: String,
       enum: SERVICE_ADVISOR
+    },
+    currentStatus: {
+      type: String,
+      enum: STATUS
     }
   },
   { timestamps: true }
 );
 
-const UnitModel = mongoose.model<TUnit>("Unit", unitSchema);
+const UnitModel = mongoose.model<TUnitData>("Unit", unitSchema);
 
 export default UnitModel;

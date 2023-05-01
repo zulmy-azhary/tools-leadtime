@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-import type { TUser } from "../types";
+import type { TUserData } from "../types";
 import { USER_ROLE } from "../utils/constants";
 
 const { Schema } = mongoose;
@@ -31,6 +31,6 @@ const userSchema = new Schema(
   { timestamps: true }
 );
 
-const UserModel = mongoose.model<TUser>("User", userSchema);
+const UserModel = mongoose.model<TUserData>("User", userSchema);
 
 export default UserModel;
