@@ -1,4 +1,4 @@
-import type { TDamage, TProcess, TServiceAdvisor, TVendor } from ".";
+import type { MongoId, TDamage, TProcess, TProcessItem, TServiceAdvisor, TStatus, TVendor } from ".";
 
 export type TUnitProps =
   | "workOrder"
@@ -7,13 +7,19 @@ export type TUnitProps =
   | "entryDate"
   | "damageType"
   | "vendor"
-  | "process"
+  | "currentProcess"
   | "serviceAdvisor"
   | "handOver";
 
-export type TUnit = Omit<Record<TUnitProps, string>, "damageType" | "vendor" | "process" | "serviceAdvisor"> & {
-  damageType: TDamage;
-  vendor: TVendor;
-  process: TProcess;
-  serviceAdvisor: TServiceAdvisor;
-};
+export type TUnitData = Omit<
+  Record<TUnitProps, string>,
+  "damageType" | "vendor" | "currentProcess" | "serviceAdvisor"
+> &
+  MongoId & {
+    damageType: TDamage;
+    vendor: TVendor;
+    processList: TProcessItem[];
+    currentProcess: TProcess;
+    serviceAdvisor: TServiceAdvisor;
+    currentStatus: TStatus;
+  };

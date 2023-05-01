@@ -33,8 +33,8 @@ const LoginForm: React.FC = () => {
       });
       navigate("/dashboard");
     },
-    onError: err => {
-      toast.error((err as AxiosError<TResponse>).response?.data.message as string);
+    onError: ({ response }: AxiosError<TResponse>) => {
+      toast.error(response?.data.message as string);
     }
   });
 

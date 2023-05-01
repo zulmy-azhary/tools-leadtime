@@ -25,7 +25,7 @@ export const entryDateColumn = {
 
 export const processColumn = {
   header: "Proses",
-  accessorKey: "process"
+  accessorKey: "currentProcess"
 };
 
 export const carTypeColumn = {

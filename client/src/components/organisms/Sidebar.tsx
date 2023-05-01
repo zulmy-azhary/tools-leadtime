@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import clsx from "clsx";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../context";
@@ -9,19 +9,21 @@ import type { AxiosError, AxiosResponse } from "axios";
 import { logout } from "../../api/auth";
 import type { TResponse } from "../../types";
 import { Button, Heading } from "../atoms";
-import { useMediaQuery } from "../../hooks";
 import { IoClose } from "react-icons/io5";
+import { useOnClickOutside } from "../../hooks";
 
 interface Props {
   isOpen: boolean;
-  onClose: () => void;
+  setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  isLaptop: boolean;
 }
 
 const Sidebar: React.FC<Props> = props => {
-  const { isOpen, onClose } = props;
-  const isNotebook = useMediaQuery("(max-width: 1024px)");
+  const { isOpen, setOpen, isLaptop } = props;
   const { user, logout: handleLogout } = useAuth();
   const navigate = useNavigate();
+  const onClosed = useCallback(() => !isLaptop && setOpen(false), [isLaptop]);
+  const sidebarRef = useOnClickOutside(isOpen, onClosed);
 
   const { mutate: mutateLogout } = useMutation({
     mutationFn: logout,
@@ -42,35 +44,34 @@ const Sidebar: React.FC<Props> = props => {
 
   return (
     <aside
+      ref={sidebarRef}
       className={clsx(
-        "bg-bgLight fixed inset-y-0 z-10 flex flex-col justify-between overflow-hidden dark:bg-slate-800",
-        isOpen ? "w-[300px] px-6 pb-6" : "w-0 p-0"
+        "bg-bgLight fixed inset-y-0 z-10 flex w-[300px] flex-col justify-between overflow-hidden px-6 pb-6 transition-all duration-500 dark:bg-slate-800",
+        isOpen ? "left-0" : "-left-full",
+        !isLaptop && "shadow-lg"
       )}
     >
       <div className="flex flex-col gap-y-5">
         <div className="flex items-center py-7">
           <Heading
             className={clsx(
-              "grow text-xl font-semibold uppercase tracking-[0.25em]",
-              isNotebook ? "text-left" : "text-center"
+              "grow text-lg font-semibold uppercase tracking-[0.125em] lg:text-xl lg:tracking-[0.25em]",
+              isLaptop ? "text-center" : "text-left"
             )}
           >
             Kalla Toyota
           </Heading>
-          {isNotebook && (
+          {!isLaptop && (
             <Button
               icon={IoClose}
-              onClick={onClose}
+              onClick={() => setOpen(false)}
               className={clsx(
-                "border-[1.6px] p-1 text-sm",
-                "bg-gray-50 dark:bg-gray-800",
-                "border-gray-200 dark:border-gray-700",
-                "text-gray-600 dark:text-gray-400"
+                "bg-gray-50 p-1 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-blue-200"
               )}
             />
           )}
         </div>
-        <SidebarList />
+        <SidebarList onClosed={onClosed} />
       </div>
       <Button
         onClick={onLogout}

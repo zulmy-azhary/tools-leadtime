@@ -29,21 +29,3 @@ export type TServiceAdvisor =
   | "Syamsuryanan Amir";
 
 export type TStatus = "Menunggu" | "Dikerjakan" | "Selesai";
-
-export type TBaseData =
-  | "workOrder"
-  | "plateNumber"
-  | "carType"
-  | "entryDate"
-  | "endDate"
-  | "damageType"
-  | "vendor"
-  | "currentProcess"
-  | "serviceAdvisor"
-  | "handOver"
-  | "duration"
-  | "currentStatus";
-
-export interface MongoId {
-  _id: string;
-}

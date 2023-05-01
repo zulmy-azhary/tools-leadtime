@@ -4,4 +4,4 @@ import { requireUser } from "../middleware/auth.middleware";
 
 export const UserRouter: Router = Router();
 
-UserRouter.get("/getMe", requireUser, getMe);
+UserRouter.get("/me", requireUser, getMe);

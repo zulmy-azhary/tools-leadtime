@@ -2,13 +2,19 @@ import React from "react";
 import { IoGrid, IoPulse, IoCarSport, IoPeople, IoPerson } from "react-icons/io5";
 import { NavLink } from "../atoms";
 
-const SidebarList: React.FC = () => {
+interface Props {
+  // eslint-disable-next-line @typescript-eslint/no-invalid-void-type
+  onClosed: () => false | void;
+}
+
+const SidebarList: React.FC<Props> = props => {
+  const { onClosed } = props;
   return (
     <>
       <ul className="flex flex-col gap-y-2 font-medium tracking-wide">
         <span className="mb-2 text-xs font-bold uppercase">menu</span>
         {navItem.menu.map(({ to, icon, title }, idx) => (
-          <NavLink key={idx} to={to} icon={icon}>
+          <NavLink key={idx} to={to} icon={icon} onClick={onClosed}>
             {title}
           </NavLink>
         ))}
@@ -16,7 +22,7 @@ const SidebarList: React.FC = () => {
       <ul className="flex flex-col gap-y-2 font-medium tracking-wide">
         <span className="mb-2 text-xs font-bold uppercase">data</span>
         {navItem.data.map(({ to, icon, title }, idx) => (
-          <NavLink key={idx} to={to} icon={icon}>
+          <NavLink key={idx} to={to} icon={icon} onClick={onClosed}>
             {title}
           </NavLink>
         ))}

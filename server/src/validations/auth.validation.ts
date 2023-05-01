@@ -1,8 +1,8 @@
 import Joi from "joi";
-import type { TUser } from "../types";
+import type { TUserData } from "../types";
 import { USER_ROLE } from "../utils/constants";
 
-export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser> => {
+export const createUserValidation = (payload: TUserData): Joi.ValidationResult<TUserData> => {
   const schema = Joi.object({
     fullName: Joi.string().required().min(4).max(32),
     nik: Joi.string()
@@ -17,8 +17,8 @@ export const createUserValidation = (payload: TUser): Joi.ValidationResult<TUser
 };
 
 export const loginValidation = (
-  payload: Pick<TUser, "nik" | "password">
-): Joi.ValidationResult<Pick<TUser, "nik" | "password">> => {
+  payload: Pick<TUserData, "nik" | "password">
+): Joi.ValidationResult<Pick<TUserData, "nik" | "password">> => {
   const schema = Joi.object({
     nik: Joi.string()
       .required()
@@ -30,7 +30,7 @@ export const loginValidation = (
   return schema.validate(payload);
 };
 
-export const logoutValidation = (payload: Pick<TUser, "nik">): Joi.ValidationResult<Pick<TUser, "nik">> => {
+export const logoutValidation = (payload: Pick<TUserData, "nik">): Joi.ValidationResult<Pick<TUserData, "nik">> => {
   const schema = Joi.object({
     nik: Joi.string()
       .required()

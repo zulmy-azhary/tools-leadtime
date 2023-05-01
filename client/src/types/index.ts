@@ -1,7 +1,28 @@
-export type { TBaseData, TDamage, TProcess, TServiceAdvisor, TStatus, TUserRole, TVendor } from "./common";
-export type { TUserProps, TUser, TUserProfile, TJwtInfos, TToken, TResponse, TUserToken, TLogin } from "./auth";
-export type { TUnitProps, TUnit } from "./unit";
-export type { TFlowProcess } from "./flowProcess";
-export type { TSummary } from "./summary";
+export type {
+  TBaseData,
+  TDamage,
+  TOtherProcess,
+  TMainProcess,
+  TProcess,
+  TServiceAdvisor,
+  TStatus,
+  TUserRole,
+  TVendor,
+  MongoId
+} from "./common";
+export type {
+  TUserProps,
+  TUserData,
+  TUserProfile,
+  TJwtInfos,
+  TToken,
+  TResponse,
+  TUserToken,
+  TLogin,
+  TManageRole
+} from "./auth";
+export type { TUnitProps, TUnitData } from "./unit";
+export type { TFlowProcessDataUnit, TFlowProcessData, TProcessItem } from "./flowProcess";
+export type { TSummaryData } from "./summary";
 export type { Theme } from "./misc";
 export type { TVendorData } from "./vendor";

@@ -1,10 +1,17 @@
-import type { TBaseData, TDamage, TProcess, TServiceAdvisor, TStatus } from ".";
+import type { MongoId, TBaseData, TMainProcess, TStatus, TUnitData } from ".";
 
-export interface TFlowProcess
-  extends Omit<Record<TBaseData, string>, "vendor" | "endDate" | "damageType" | "process" | "serviceAdvisor"> {
-  damageType: TDamage;
-  process: TProcess;
-  serviceAdvisor: TServiceAdvisor;
-  duration: string;
+export type TFlowProcessDataUnit = Omit<TUnitData, "carType" | "damageType" | "serviceAdvisor" | "vendor"> & {
+  currentProcess: TMainProcess;
+};
+
+export type TProcessItem = {
+  processName: TMainProcess;
+  processStart?: string | Date;
+  processFinish?: string | Date;
+  duration?: number;
   status: TStatus;
-}
+} & Partial<MongoId>;
+
+export type TFlowProcessData = Pick<Record<TBaseData, string>, "workOrder"> & {
+  process: TProcessItem[];
+} & Partial<MongoId>;

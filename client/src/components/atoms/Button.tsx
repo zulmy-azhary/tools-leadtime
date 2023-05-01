@@ -12,7 +12,7 @@ const Button: React.FC<React.PropsWithChildren<Props>> = props => {
   return (
     <button
       className={clsx(
-        "flex items-center justify-center gap-1.5 rounded font-medium transition-all duration-150 disabled:opacity-75",
+        "flex items-center justify-center gap-1.5 rounded font-medium transition-all duration-150 disabled:opacity-60",
         className
       )}
       {...rest}
