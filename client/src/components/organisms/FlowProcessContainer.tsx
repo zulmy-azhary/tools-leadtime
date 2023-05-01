@@ -27,6 +27,7 @@ const FlowProcessContainer: React.FC = () => {
       inspection: "Assembling"
     })
   );
+  const filteredFlowProcessData = flowProcess.filter(item => item.currentProcess === selectedProcess);
 
   const options = manageRole<TMainProcess[]>(user?.role as TUserRole, {
     admin: MAIN_PROCESS,
@@ -100,11 +101,7 @@ const FlowProcessContainer: React.FC = () => {
             wrapperClassName="w-full sm:w-fit"
           />
         </div>
-        <Table
-          data={flowProcess.filter(item => item.currentProcess === selectedProcess)}
-          columns={flowProcessColumns}
-          action={action}
-        />
+        <Table data={filteredFlowProcessData} columns={flowProcessColumns} action={action} />
       </Card>
     </ContentWrapper>
   );

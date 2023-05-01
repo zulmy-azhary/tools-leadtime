@@ -59,7 +59,7 @@ const FlowProcessDetail: React.FC<Props> = props => {
     }
   });
 
-  const { mutate: mutateSubmitFlowProcess } = useMutation({
+  const { mutate: mutateSubmitFlowProcess, isLoading } = useMutation({
     mutationFn: submitFlowProcess,
     onSuccess: (res: AxiosResponse<TResponse>, variables) => {
       invalidateQueries();
@@ -166,7 +166,11 @@ const FlowProcessDetail: React.FC<Props> = props => {
           ))}
         </div>
       </div>
-      <Button type="submit" className="bg-teal-500 p-3 text-sm text-white dark:text-slate-900" disabled={!isApproved}>
+      <Button
+        type="submit"
+        className="bg-teal-500 p-3 text-sm text-white dark:text-slate-900"
+        disabled={!isApproved || isLoading}
+      >
         Submit
       </Button>
     </form>

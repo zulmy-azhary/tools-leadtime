@@ -3,7 +3,7 @@ import { FormProvider, useForm } from "react-hook-form";
 import { Button } from "../atoms";
 import { InputForm, SelectForm } from "../molecules";
 import { useNavigate } from "react-router-dom";
-import type { TResponse, TUser } from "../../types";
+import type { TResponse, TUserData } from "../../types";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { registerSchema } from "../../schemas";
 import { useMutation } from "react-query";
@@ -14,7 +14,7 @@ import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const RegisterForm: React.FC = () => {
   const navigate = useNavigate();
-  const methods = useForm<TUser>({ resolver: yupResolver(registerSchema) });
+  const methods = useForm<TUserData>({ resolver: yupResolver(registerSchema) });
   const [passwordType, setPasswordType] = useState<"password" | "text">("password");
 
   const { mutate: mutateRegister, isLoading } = useMutation({
