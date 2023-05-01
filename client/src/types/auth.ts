@@ -23,15 +23,26 @@ export interface TToken {
   accessToken: string;
 }
 
-export interface TResponse {
+export interface TResponseStatus {
   status: boolean;
   statusCode: number;
+}
+
+export interface TResponseWithMsg extends TResponseStatus {
   message: string;
 }
 
-export type TUserToken = TResponse & {
-  data: TToken;
-};
+export interface TResponseWithData<TData> extends TResponseStatus {
+  data: TData;
+}
+
+export type TResponse<Type = string> = Type extends string
+  ? TResponseWithMsg
+  : Type extends object
+  ? TResponseWithData<Type>
+  : never;
+
+export type TUserToken = TResponse<TToken> & { message: string };
 
 export type TLogin = Pick<TUserData, "nik" | "password">;
 
