@@ -1,4 +1,13 @@
-import type { TDamage, TVendor, TProcess, TServiceAdvisor, TUserRole } from "../types";
+import type {
+  TDamage,
+  TVendor,
+  TProcess,
+  TServiceAdvisor,
+  TUserRole,
+  TStatus,
+  TOtherProcess,
+  TMainProcess
+} from "../types";
 
 export const USER_ROLE: TUserRole[] = ["Ketok", "Preparation", "Pengecatan", "Inspection"];
 
@@ -6,9 +15,8 @@ export const DAMAGE_TYPE: TDamage[] = ["Ringan", "Sedang", "Berat"];
 
 export const VENDOR: TVendor[] = ["WIS", "SPA"];
 
-export const PROCESS: TProcess[] = [
-  "Tunggu Teknisi",
-  "Tunggu Part",
+export const OTHER_PROCESS: TOtherProcess[] = ["Tunggu Teknisi", "Tunggu Part"];
+export const MAIN_PROCESS: TMainProcess[] = [
   "Ketokan",
   "Removal",
   "Putty",
@@ -18,6 +26,8 @@ export const PROCESS: TProcess[] = [
   "Assembling",
   "Polishing"
 ];
+
+export const PROCESS: TProcess[] = [...OTHER_PROCESS, ...MAIN_PROCESS];
 
 export const SERVICE_ADVISOR: TServiceAdvisor[] = [
   "Ahmad Supardi",
@@ -29,3 +39,5 @@ export const SERVICE_ADVISOR: TServiceAdvisor[] = [
   "Reza",
   "Syamsuryanan Amir"
 ];
+
+export const STATUS: TStatus[] = ["Menunggu", "Dikerjakan", "Selesai"];
