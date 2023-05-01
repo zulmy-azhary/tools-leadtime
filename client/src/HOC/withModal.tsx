@@ -1,8 +1,9 @@
 import type { IconType } from "react-icons";
 import { Modal } from "../components/molecules";
 import { useToggle } from "../hooks";
+import clsx from "clsx";
 
-interface WithModalProps {
+interface WithModalProps extends React.SVGAttributes<SVGSVGElement> {
   icon: IconType;
   modalTitle: string;
 }
@@ -14,7 +15,11 @@ const withModal = <P extends object>(OriginalComponent: React.ComponentType<P>) 
 
     return (
       <>
-        <Icon onClick={onToggle} className="inline-block cursor-pointer text-blue-500" size="1.7em" />
+        <Icon
+          onClick={onToggle}
+          className={clsx("inline-block cursor-pointer", props.className ?? "text-blue-500")}
+          size="1.7em"
+        />
         {isOpen && (
           <Modal isOpen={isOpen} onToggle={onToggle} modalTitle={modalTitle} className="w-full">
             <OriginalComponent onToggle={onToggle} {...(rest as P)} />
