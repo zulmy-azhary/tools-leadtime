@@ -56,3 +56,13 @@ export const handleProcess = (process: TMainProcess) => {
 
   return fourthQualityCheck;
 };
+
+export const getNextProcess = (allProcess: TMainProcess[], currentProcess: TMainProcess) => {
+  const index = allProcess.indexOf(currentProcess);
+  return index >= 0 && index < allProcess.length - 1 ? allProcess[index + 1] : allProcess[index];
+};
+
+export const getPreviousProcess = (allProcess: TMainProcess[], currentProcess: TMainProcess) => {
+  const index = allProcess.indexOf(currentProcess);
+  return index > 0 && index < allProcess.length ? allProcess[index - 1] : allProcess[index];
+};
