@@ -1,28 +1,27 @@
-import type { Types } from "mongoose";
-import FlowProcessModel from "../models/flowProcess.model";
-import type { TFlowProcessData, TProcessItem } from "../types";
+import UnitModel from "../models/unit.model";
+import type { TProcessItem, TUnitData } from "../types";
 
 export const getProcessById = async (_id: string) => {
-  return await FlowProcessModel.findOne({ _id });
+  return await UnitModel.findOne({ _id });
 };
 
-export const createProcess = async (payload: TFlowProcessData & { _id?: Types.ObjectId }) => {
-  return await FlowProcessModel.create(payload);
+export const pushProcess = async (_id: string, processList: TProcessItem) => {
+  return await UnitModel.updateOne({ _id }, { $push: { processList } });
 };
 
-export const pushProcess = async (payload: TFlowProcessData & { _id: string }) => {
-  return await FlowProcessModel.updateOne({ _id: payload._id }, { $push: { process: payload.process } });
-};
-
-export const updateProcess = async (workOrder: string, payload: TProcessItem) => {
-  return await FlowProcessModel.updateOne(
-    { workOrder, "process.processName": payload.processName },
+export const updateProcess = async (
+  _id: string,
+  { currentProcess, currentStatus }: Partial<Pick<TUnitData, "currentProcess" | "currentStatus">>,
+  processList: TProcessItem
+) => {
+  return await UnitModel.findByIdAndUpdate(_id, { currentProcess, currentStatus }).updateOne(
+    { _id, "processList.processName": processList.processName },
     {
       $set: {
-        "process.$.processStart": payload.processStart,
-        "process.$.processFinish": payload.processFinish,
-        "process.$.duration": payload.duration,
-        "process.$.status": payload.status
+        "processList.$.processStart": processList.processStart,
+        "processList.$.processFinish": processList.processFinish,
+        "processList.$.duration": processList.duration,
+        "processList.$.status": processList.status
       }
     }
   );
