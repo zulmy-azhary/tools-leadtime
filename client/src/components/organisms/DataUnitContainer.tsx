@@ -9,15 +9,15 @@ import { unitColumns } from "../../helpers/tableColumns";
 import { useQuery } from "react-query";
 import { getAllUnit } from "../../api/unit";
 import { format } from "date-fns";
-import type { TUnit } from "../../types";
+import type { TUnitData } from "../../types";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchemas } from "../../schemas";
 
 const DataUnitContainer: React.FC = () => {
   const [isOpen, onToggle] = useToggle();
-  const methods = useForm<TUnit & { code: string }>({ resolver: yupResolver(unitSchemas) });
-  const [unit, setUnit] = useState<TUnit[]>([]);
+  const methods = useForm<TUnitData & { code: string }>({ resolver: yupResolver(unitSchemas) });
+  const [unit, setUnit] = useState<TUnitData[]>([]);
 
   useQuery({
     queryKey: ["unit", "getAll"],
