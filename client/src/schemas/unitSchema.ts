@@ -9,6 +9,6 @@ export const unitSchemas = object({
   handOver: date().required("Janji penyerahan is required.").typeError("Please choose date."),
   damageType: string().required("Jenis kerusakan is required.").oneOf(DAMAGE_TYPE, "Select options first."),
   vendor: string().required("Team vendor is required.").oneOf(VENDOR, "Select options first."),
-  process: string().required("Proses is required.").oneOf(ALL_PROCESS, "Select options first."),
+  currentProcess: string().required("Proses is required.").oneOf(ALL_PROCESS, "Select options first."),
   serviceAdvisor: string().required("Service advisor is required.").oneOf(SERVICE_ADVISOR, "Select options first.")
 });

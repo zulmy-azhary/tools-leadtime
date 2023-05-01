@@ -1,7 +1,7 @@
 import type { MongoId, TBaseData, TMainProcess, TStatus, TUnitData } from ".";
 
 export type TFlowProcessDataUnit = Omit<TUnitData, "carType" | "damageType" | "serviceAdvisor" | "vendor"> & {
-  process: TMainProcess;
+  currentProcess: TMainProcess;
 };
 
 export type TProcessItem = {
