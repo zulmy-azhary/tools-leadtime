@@ -16,3 +16,4 @@ export { default as IconWrapper } from "./IconWrapper";
 export { default as TableHeading } from "./TableHeading";
 export { default as TableRow } from "./TableRow";
 export { default as Card } from "./Card";
+export { default as LabelContent } from "./LabelContent";
