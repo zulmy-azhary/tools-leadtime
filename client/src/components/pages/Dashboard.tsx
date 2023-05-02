@@ -1,6 +1,6 @@
 import React from "react";
 import { useDocumentTitle } from "../../hooks/useDocumentTitle";
-import { ChartContainer, SummaryProgresUnit, UnitProcessCard } from "../organisms";
+import { ChartContainer, SummaryProcessUnit, UnitProcessCard } from "../organisms";
 
 const Home: React.FC = () => {
   useDocumentTitle("Dashboard");
@@ -9,7 +9,7 @@ const Home: React.FC = () => {
     <>
       <UnitProcessCard />
       <ChartContainer />
-      <SummaryProgresUnit />
+      <SummaryProcessUnit />
     </>
   );
 };

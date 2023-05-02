@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentWrapper, ImageWrapper, Headers } from "../molecules";
+import { ContentWrapper, ImageWrapper, Header } from "../molecules";
 
 interface Props {
   src: string;
@@ -12,7 +12,7 @@ const FormContainer: React.FC<React.PropsWithChildren<Props>> = props => {
   return (
     <>
       <ContentWrapper className="col-span-2 !flex h-full w-full !flex-col items-center justify-center gap-y-3 bg-white p-4 dark:bg-slate-900 md:p-6 lg:p-8 xl:p-12">
-        <Headers headerTitle={headerTitle} description={description} className="flex flex-col gap-2 text-center" />
+        <Header headerTitle={headerTitle} description={description} className="flex flex-col gap-2 text-center" />
         {children}
       </ContentWrapper>
       <ImageWrapper src={src} />

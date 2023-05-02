@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentWrapper, Headers, Table, UnitCard } from "../molecules";
+import { ContentWrapper, Header, Table, UnitCard } from "../molecules";
 import { Card, Heading, Input, Label, Select } from "../atoms";
 import { IoSearch, IoPeople } from "react-icons/io5";
 import type { TVendorData } from "../../types";
@@ -9,7 +9,7 @@ import { VENDOR } from "../../helpers/constants";
 const TeamVendorContainer: React.FC = () => {
   return (
     <ContentWrapper className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-      <Headers headerTitle="Team Vendor" description="Leadtime & Paint" className="col-span-full" />
+      <Header headerTitle="Team Vendor" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-full row-start-3 flex flex-col gap-y-2 px-8 py-6 sm:col-span-1 sm:row-start-2 md:col-span-2 xl:col-span-3">
         <Label className="text-sm font-medium">Tampilkan Vendor</Label>
         <Select options={VENDOR} />
