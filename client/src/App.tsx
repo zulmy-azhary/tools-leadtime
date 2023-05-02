@@ -5,30 +5,34 @@ import { MainLayout } from "./components/templates";
 import { AuthProvider } from "./context";
 import { Toaster } from "./components/molecules";
 
-const Login = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Login })));
-const Register = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.Register })));
+const Login = React.lazy(async () => await import("./components/pages").then(({ Login }) => ({ default: Login })));
+const Register = React.lazy(
+  async () => await import("./components/pages").then(({ Register }) => ({ default: Register }))
+);
 const Custom404 = React.lazy(
-  async () => await import("./components/pages").then(comp => ({ default: comp.Custom404 }))
+  async () => await import("./components/pages").then(({ Custom404 }) => ({ default: Custom404 }))
 );
 
 const ProtectedLayout = React.lazy(
-  async () => await import("./components/templates").then(comp => ({ default: comp.ProtectedLayout }))
+  async () => await import("./components/templates").then(({ ProtectedLayout }) => ({ default: ProtectedLayout }))
 );
 
 // Protected Pages
 const Dashboard = React.lazy(
-  async () => await import("./components/pages").then(comp => ({ default: comp.Dashboard }))
+  async () => await import("./components/pages").then(({ Dashboard }) => ({ default: Dashboard }))
 );
 const Employees = React.lazy(
-  async () => await import("./components/pages").then(comp => ({ default: comp.Employees }))
+  async () => await import("./components/pages").then(({ Employees }) => ({ default: Employees }))
 );
 const FlowProcess = React.lazy(
-  async () => await import("./components/pages").then(comp => ({ default: comp.FlowProcess }))
+  async () => await import("./components/pages").then(({ FlowProcess }) => ({ default: FlowProcess }))
 );
 const TeamVendor = React.lazy(
-  async () => await import("./components/pages").then(comp => ({ default: comp.TeamVendor }))
+  async () => await import("./components/pages").then(({ TeamVendor }) => ({ default: TeamVendor }))
 );
-const DataUnit = React.lazy(async () => await import("./components/pages").then(comp => ({ default: comp.DataUnit })));
+const DataUnit = React.lazy(
+  async () => await import("./components/pages").then(({ DataUnit }) => ({ default: DataUnit }))
+);
 
 const App: React.FC = () => {
   return (

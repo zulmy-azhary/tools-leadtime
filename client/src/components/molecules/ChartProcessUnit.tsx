@@ -46,7 +46,7 @@ const data = [
   }
 ];
 
-const ProcesUnit: React.FC = () => {
+const ChartProcessUnit: React.FC = () => {
   return (
     <Card className="grid min-h-[24rem] place-items-center gap-y-8 px-8 py-6">
       <Heading className="text-lg font-semibold">Proces Unit Chart</Heading>
@@ -70,4 +70,4 @@ const ProcesUnit: React.FC = () => {
   );
 };
 
-export default ProcesUnit;
+export default ChartProcessUnit;

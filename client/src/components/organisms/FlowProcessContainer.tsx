@@ -1,5 +1,5 @@
-import React, { useEffect, useState } from "react";
-import { ContentWrapper, Headers, Table, UnitCard } from "../molecules";
+import React, { useEffect, useState, Suspense } from "react";
+import { ContentWrapper, Header, Table, UnitCard } from "../molecules";
 import { Card, Heading, Input, Label, Select } from "../atoms";
 import { IoSearch, IoBuild } from "react-icons/io5";
 import { flowProcessColumns } from "../../helpers/tableColumns";
@@ -12,7 +12,10 @@ import { getAllFlowProcess } from "../../api/flowProcess";
 import { format } from "date-fns";
 import { type ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle } from "react-icons/io";
-import { FlowProcessDetail } from ".";
+
+const FlowProcessDetail = React.lazy(
+  async () => await import(".").then(({ FlowProcessDetail }) => ({ default: FlowProcessDetail }))
+);
 
 const FlowProcessContainer: React.FC = () => {
   const { user } = useAuth();
@@ -80,7 +83,7 @@ const FlowProcessContainer: React.FC = () => {
 
   return (
     <ContentWrapper className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
-      <Headers headerTitle="Flow Proses" description="Leadtime & Paint" className="col-span-full" />
+      <Header headerTitle="Flow Proses" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-full row-start-3 flex flex-col gap-y-2 px-8 py-6 sm:col-span-1 sm:row-start-2 md:col-span-2 xl:col-span-3">
         <Label className="text-sm font-medium">Tampilkan Proses</Label>
         <Select onChange={handleSelect} options={options} />
@@ -110,7 +113,9 @@ const FlowProcessContainer: React.FC = () => {
 const action: ColumnDef<TFlowProcessDataUnit> = {
   header: "Action",
   cell: ({ row }) => (
-    <FlowProcessDetail flowProcess={row.original} icon={IoMdInformationCircle} modalTitle="Detail Proses" />
+    <Suspense fallback={<p>Please wait...</p>}>
+      <FlowProcessDetail flowProcess={row.original} icon={IoMdInformationCircle} modalTitle="Detail Proses" />
+    </Suspense>
   )
 };
 

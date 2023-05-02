@@ -1,5 +1,5 @@
 import React from "react";
-import { ContentWrapper, Headers, Table } from "../molecules";
+import { ContentWrapper, Header, Table } from "../molecules";
 import { Button, Card, Heading, Input } from "../atoms";
 import { IoSearch } from "react-icons/io5";
 import type { TSummaryData } from "../../types";
@@ -8,10 +8,10 @@ import clsx from "clsx";
 import type { ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle } from "react-icons/io";
 
-const SummaryProgresUnit: React.FC = () => {
+const SummaryProcessUnit: React.FC = () => {
   return (
     <ContentWrapper className="overflow-hidden">
-      <Headers headerTitle="Summary Progres Unit" description="Leadtime & Paint" className="col-span-full" />
+      <Header headerTitle="Summary Process Unit" description="Leadtime & Paint" className="col-span-full" />
       <Card className="flex  flex-col gap-y-8 overflow-y-auto px-8 py-6">
         <div className="flex flex-wrap items-center gap-4">
           <Heading className="grow text-center text-xl font-semibold md:text-left">Summary Table</Heading>
@@ -72,4 +72,4 @@ const summaryData: TSummaryData[] = [
   }
 ];
 
-export default SummaryProgresUnit;
+export default SummaryProcessUnit;

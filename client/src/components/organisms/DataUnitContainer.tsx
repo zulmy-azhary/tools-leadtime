@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import { ContentWrapper, Headers, Modal, Table } from "../molecules";
+import { ContentWrapper, Header, Modal, Table } from "../molecules";
 import clsx from "clsx";
 import { Button, Card, Heading, Input } from "../atoms";
 import { IoAdd, IoSearch } from "react-icons/io5";
 import { useToggle } from "../../hooks";
-import { UnitForm } from ".";
+import { DeleteUnit, DetailUnit, UnitForm } from ".";
 import { unitColumns } from "../../helpers/tableColumns";
 import { useQuery } from "react-query";
 import { getAllUnit } from "../../api/unit";
@@ -13,6 +13,8 @@ import type { TUnitData } from "../../types";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchemas } from "../../schemas";
+import type { ColumnDef } from "@tanstack/react-table";
+import { IoMdInformationCircle, IoMdTrash } from "react-icons/io";
 
 const DataUnitContainer: React.FC = () => {
   const [isOpen, onToggle] = useToggle();
@@ -40,7 +42,7 @@ const DataUnitContainer: React.FC = () => {
   return (
     <FormProvider {...methods}>
       <ContentWrapper>
-        <Headers headerTitle="Unit" description="Leadtime & Paint" className="col-span-full" />
+        <Header headerTitle="Unit" description="Leadtime & Paint" className="col-span-full" />
         <Card className="col-span-full flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
           <div className="flex flex-wrap items-center gap-4">
             <Heading className="grow text-center text-xl font-semibold md:text-left">Data Unit Table</Heading>
@@ -59,7 +61,7 @@ const DataUnitContainer: React.FC = () => {
               Add New Data
             </Button>
           </div>
-          <Table data={unit} columns={unitColumns} />
+          <Table data={unit} columns={unitColumns} action={action} />
         </Card>
       </ContentWrapper>
       {isOpen && (
@@ -69,6 +71,16 @@ const DataUnitContainer: React.FC = () => {
       )}
     </FormProvider>
   );
+};
+
+const action: ColumnDef<TUnitData> = {
+  header: "Action",
+  cell: ({ row }) => (
+    <>
+      <DetailUnit dataUnit={row.original} modalTitle="Detail Data Unit" icon={IoMdInformationCircle} />
+      <DeleteUnit dataUnit={row.original} modalTitle="Delete Unit" icon={IoMdTrash} className="text-red-500" />
+    </>
+  )
 };
 
 export default DataUnitContainer;

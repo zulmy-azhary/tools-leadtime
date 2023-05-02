@@ -7,8 +7,6 @@ import {
   handOverColumn,
   plateNumberColumn,
   processColumn,
-  serviceAdvisorColumn,
-  vendorColumn,
   workOrderColumn
 } from "./globalColumns";
 
@@ -17,8 +15,6 @@ export const unitColumns: Array<ColumnDef<TUnitData>> = [
   plateNumberColumn,
   carTypeColumn,
   damageTypeColumn,
-  vendorColumn,
-  serviceAdvisorColumn,
   entryDateColumn,
   handOverColumn,
   processColumn
