@@ -91,8 +91,18 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
         options={SERVICE_ADVISOR}
         className="col-span-full md:col-span-2"
       />
-      <DatePickerForm placeholder="e.g. dd/mm/yyyy" inputName="entryDate" label="Tanggal Masuk" className="col-span-full" />
-      <DatePickerForm placeholder="e.g. dd/mm/yyyy" inputName="handOver" label="Janji Penyerahan" className="col-span-full" />
+      <DatePickerForm
+        placeholder="e.g. dd/mm/yyyy"
+        inputName="entryDate"
+        label="Tanggal Masuk"
+        className="col-span-full"
+      />
+      <DatePickerForm
+        placeholder="e.g. dd/mm/yyyy"
+        inputName="handOver"
+        label="Janji Penyerahan"
+        className="col-span-full"
+      />
       <Button
         type="submit"
         icon={IoAdd}
