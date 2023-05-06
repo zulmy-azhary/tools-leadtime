@@ -15,7 +15,10 @@ const TableHeading = <T extends object>(props: Props<T>) => {
           key={header.id}
           scope="col"
           className={clsx(
-            "bg-gray-50 px-6 py-4 text-xs uppercase text-gray-700 dark:bg-slate-800 dark:text-blue-200",
+            "whitespace-nowrap border-y-[1.6px] p-4 text-left text-sm font-semibold",
+            "text-typo-light/60 dark:text-typo-dark/60",
+            "bg-base-light dark:bg-field-bg-dark",
+            "border-field-bd-light dark:border-field-bd-dark/70",
             className
           )}
           {...rest}
