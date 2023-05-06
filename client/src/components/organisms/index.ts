@@ -21,4 +21,5 @@ export { default as DataEmployeeContainer } from "./DataEmployeeContainer";
 export { default as DataUnitContainer } from "./DataUnitContainer";
 export { default as UnitForm } from "./UnitForm";
 export { default as DetailUnit } from "./DetailUnit";
+export { default as UpdateUnit } from "./UpdateUnit";
 export { default as DeleteUnit } from "./DeleteUnit";
