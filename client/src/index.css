@@ -83,10 +83,10 @@ html.dark ::-webkit-scrollbar {
 }
 
 .react-datepicker {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
-.react-datepicker-popper[data-placement^='top'] {
+.react-datepicker-popper[data-placement^="top"] {
   padding-bottom: 3px;
 }
 
@@ -132,13 +132,13 @@ html.dark .react-datepicker__day:hover {
 .react-datepicker__day--keyboard-selected,
 .react-datepicker__day--selected {
   background: rgb(var(--primary));
-  color: rgb(var(--typo-white))
+  color: rgb(var(--typo-white));
 }
 
 html.dark .react-datepicker__day--keyboard-selected,
 html.dark .react-datepicker__day--selected {
   background: rgb(var(--primary));
-  color: rgb(var(--typo-white))
+  color: rgb(var(--typo-white));
 }
 
 html.dark .react-datepicker__header {
