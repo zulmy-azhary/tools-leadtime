@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { InputForm, SelectForm } from "../molecules";
+import { DatePickerForm, InputForm, SelectForm } from "../molecules";
 import type { TResponse, TUnitData } from "../../types";
 import { Button } from "../atoms";
 import clsx from "clsx";
@@ -91,12 +91,12 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
         options={SERVICE_ADVISOR}
         className="col-span-full md:col-span-2"
       />
-      <InputForm type="date" inputName="entryDate" label="Tanggal Masuk" className="col-span-full" />
-      <InputForm type="date" inputName="handOver" label="Janji Penyerahan" className="col-span-full" />
+      <DatePickerForm placeholder="e.g. dd/mm/yyyy" inputName="entryDate" label="Tanggal Masuk" className="col-span-full" />
+      <DatePickerForm placeholder="e.g. dd/mm/yyyy" inputName="handOver" label="Janji Penyerahan" className="col-span-full" />
       <Button
         type="submit"
         icon={IoAdd}
-        className={clsx("col-span-full bg-teal-500 p-3 text-sm text-white dark:text-slate-900")}
+        className={clsx("col-span-full bg-teal-500 p-3 text-sm font-semibold !text-white")}
       >
         Submit
       </Button>
