@@ -23,9 +23,9 @@ const Navbar: React.FC<Props> = props => {
         <Toggle />
         <Avatar
           name={user?.fullName}
-          className="bg-blue-500 font-semibold text-white dark:bg-teal-400 dark:text-slate-900"
+          className="bg-primary font-semibold text-white"
         />
-        <BsFillBellFill className="cursor-pointer text-xl text-slate-600 dark:text-teal-400" />
+        <BsFillBellFill className="dark:text-primary cursor-pointer text-xl text-slate-600" />
       </ul>
     </nav>
   );

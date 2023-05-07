@@ -11,8 +11,8 @@ const Headers: React.FC<Props> = props => {
   const { headerTitle, description, className, ...rest } = props;
   return (
     <div className={clsx(className)} {...rest}>
-      <Heading className="text-3xl font-semibold">{headerTitle}</Heading>
-      <Text className="opacity-75">{description}</Text>
+      <Heading className="text-3xl font-bold">{headerTitle}</Heading>
+      <Text className="font-medium opacity-75">{description}</Text>
     </div>
   );
 };

@@ -14,8 +14,12 @@ const Input: React.ForwardRefRenderFunction<HTMLInputElement, Props> = (props, f
       <input
         ref={forwardRef}
         className={clsx(
-          "inline-flex w-full items-center gap-2 rounded border-[1.5px] bg-slate-50 py-3 text-sm outline-none placeholder:text-slate-500 dark:border-slate-600 dark:bg-slate-800",
-          icon ? "pr-11 pl-5" : "px-5",
+          "relative inline-flex w-full items-center rounded border-[1.6px] py-3 text-sm outline-none",
+          "placeholder:text-typo-light/70 dark:placeholder:text-typo-dark/50",
+          "border-field-bd-light dark:border-field-bd-dark/70",
+          "!text-typo-black dark:!text-typo-white",
+          "bg-field-bg-light dark:bg-field-bg-dark",
+          icon ? "pl-5 pr-14" : "px-5",
           className
         )}
         {...rest}

@@ -17,7 +17,7 @@ const withModal = <P extends object>(OriginalComponent: React.ComponentType<P>) 
       <>
         <Icon
           onClick={onToggle}
-          className={clsx("inline-block cursor-pointer", props.className ?? "text-blue-500")}
+          className={clsx("inline-block cursor-pointer", props.className ?? "text-primary")}
           size="1.7em"
         />
         {isOpen && (
