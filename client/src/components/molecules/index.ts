@@ -4,6 +4,7 @@ export { default as ImageWrapper } from "./ImageWrapper";
 export { default as LinkToPage } from "./LinkToPage";
 export { default as InputForm } from "./InputForm";
 export { default as SelectForm } from "./SelectForm";
+export { default as DatePickerForm } from "./DatepickerForm";
 export { default as Header } from "./Header";
 export { default as Table } from "./Table";
 export { default as Modal } from "./Modal";
