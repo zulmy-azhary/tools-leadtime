@@ -1,23 +1,33 @@
-import React from "react";
+import React, { type ChangeEvent, useState, useEffect } from "react";
 import { ContentWrapper, Header, Table, UnitCard } from "../molecules";
 import { Card, Heading, Input, Label, Select } from "../atoms";
 import { IoSearch, IoPeople } from "react-icons/io5";
-import type { TVendorData } from "../../types";
+import type { TVendor, TVendorData } from "../../types";
 import { vendorColumns } from "../../helpers/tableColumns";
 import { VENDOR } from "../../helpers/constants";
 
 const TeamVendorContainer: React.FC = () => {
+  const [selectedVendor, setSelectedVendor] = useState<TVendor>("WIS");
+  const [vendorUnitCount, setVendorUnitCount] = useState<number>(0);
+  const filteredVendorData = vendorData.filter(item => item.vendor === selectedVendor);
+
+  const handleSelect = (e: ChangeEvent<HTMLInputElement>) => setSelectedVendor(e.target.value as TVendor);
+
+  useEffect(() => {
+    setVendorUnitCount(vendorData.filter(item => item.vendor === selectedVendor).length);
+  }, [selectedVendor, vendorData]);
+
   return (
     <ContentWrapper className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
       <Header headerTitle="Team Vendor" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-full row-start-3 flex flex-col gap-y-2 px-8 py-6 sm:col-span-1 sm:row-start-2 md:col-span-2 xl:col-span-3">
         <Label className="text-sm font-medium">Tampilkan Vendor</Label>
-        <Select options={VENDOR} />
+        <Select value={selectedVendor} onChange={handleSelect} options={VENDOR} placeholder="e.g. WIS" />
       </Card>
       <UnitCard
         icon={IoPeople}
-        title="Ketokan"
-        unitValue={0}
+        title={selectedVendor || "Unit Vendor"}
+        unitValue={vendorUnitCount}
         subTitle="Proses Unit"
         className="col-span-full row-start-2 sm:col-span-1"
       />
@@ -30,7 +40,7 @@ const TeamVendorContainer: React.FC = () => {
             wrapperClassName="w-full sm:w-fit"
           />
         </div>
-        <Table data={vendorData} columns={vendorColumns} />
+        <Table data={filteredVendorData} columns={vendorColumns} />
       </Card>
     </ContentWrapper>
   );
