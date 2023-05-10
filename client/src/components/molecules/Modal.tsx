@@ -18,8 +18,8 @@ const Modal: React.FC<Props> = props => {
   useLockBodyScroll(isOpen);
 
   return (
-    <div className={"fixed inset-0 z-50 backdrop-blur-sm"}>
-      <div className={"flex h-full items-center overflow-y-auto py-6"}>
+    <div className="fixed inset-0 z-50 bg-gray-800/30 backdrop-blur-sm dark:bg-gray-800/50">
+      <div className="flex h-full items-center overflow-y-auto py-6">
         <div
           ref={modalRef}
           className={clsx(
@@ -28,17 +28,12 @@ const Modal: React.FC<Props> = props => {
           )}
           {...rest}
         >
-          <div className={"flex"}>
-            <Heading className={"grow text-xl font-semibold"}>{modalTitle}</Heading>
+          <div className="flex">
+            <Heading className="grow text-xl font-semibold">{modalTitle}</Heading>
             <Button
               icon={IoClose}
               onClick={onToggle}
-              className={clsx(
-                "border-[1.6px] p-1 text-sm",
-                "bg-button-bg-light dark:bg-button-bg-dark",
-                "border-gray-200 dark:border-gray-700",
-                "text-typo-light dark:text-typo-dark"
-              )}
+              className="bg-button-bg-light dark:bg-button-bg-dark text-typo-light dark:text-typo-dark border-[1.6px] border-gray-200 p-1 text-sm dark:border-gray-700"
             />
           </div>
           {children}
