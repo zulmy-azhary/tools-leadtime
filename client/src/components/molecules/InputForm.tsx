@@ -37,7 +37,10 @@ const InputForm: React.FC<Props> = props => {
           {...register(inputName)}
           icon={icon}
           autoComplete="off"
-          className={clsx(errors[inputName] ? "border-rose-500" : "border-slate-300")}
+          className={clsx(
+            "read-only:text-slate-500 read-only:opacity-75",
+            errors[inputName] ? "!border-rose-500" : "border-slate-300"
+          )}
           wrapperClassName="w-full"
           type={type}
           {...rest}

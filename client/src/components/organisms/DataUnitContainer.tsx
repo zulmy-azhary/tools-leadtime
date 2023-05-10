@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContentWrapper, Header, Modal, Table } from "../molecules";
 import clsx from "clsx";
 import { Button, Card, Heading, Input } from "../atoms";
@@ -39,8 +39,12 @@ const DataUnitContainer: React.FC = () => {
     }
   });
 
+  useEffect(() => {
+    methods.clearErrors();
+  }, [isOpen]);
+
   return (
-    <FormProvider {...methods}>
+    <>
       <ContentWrapper>
         <Header headerTitle="Unit" description="Leadtime & Paint" className="col-span-full" />
         <Card className="col-span-full flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
@@ -64,12 +68,14 @@ const DataUnitContainer: React.FC = () => {
           <Table data={unit} columns={unitColumns} action={action} />
         </Card>
       </ContentWrapper>
-      {isOpen && (
-        <Modal isOpen={isOpen} onToggle={onToggle} modalTitle="Input Data Unit">
-          <UnitForm onToggle={onToggle} />
-        </Modal>
-      )}
-    </FormProvider>
+      <FormProvider {...methods}>
+        {isOpen && (
+          <Modal isOpen={isOpen} onToggle={onToggle} modalTitle="Input Data Unit">
+            <UnitForm onToggle={onToggle} />
+          </Modal>
+        )}
+      </FormProvider>
+    </>
   );
 };
 
