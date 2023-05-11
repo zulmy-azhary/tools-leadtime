@@ -10,7 +10,7 @@ import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateUnitSchema } from "../../schemas";
 import { format } from "date-fns";
-import { useMutation } from "react-query";
+import { useMutation, useQueryClient } from "react-query";
 import { updateUnitById } from "../../api/unit";
 import type { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-hot-toast";
@@ -23,14 +23,14 @@ interface Props {
 const UpdateUnit: React.FC<Props> = props => {
   const { dataUnit, onToggle } = props;
   const methods = useForm<TUnitData>({ resolver: yupResolver(updateUnitSchema) });
+  const queryClient = useQueryClient();
   const waitingProcess = dataUnit.currentProcess === "Tunggu Part" || dataUnit.currentProcess === "Tunggu Teknisi";
 
   const { mutate: mutateUpdateUnit } = useMutation({
     mutationFn: updateUnitById,
     onSuccess: (res: AxiosResponse<TResponse>) => {
+      queryClient.invalidateQueries(["unit", "getAll"]);
       toast.success(res.data.message);
-      // eslint-disable-next-line no-console
-      console.log(res.data);
       (onToggle as () => void)();
     },
     onError: ({ response }: AxiosError<TResponse>) => {
