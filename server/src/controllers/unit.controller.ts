@@ -1,8 +1,9 @@
 import type { Request, Response } from "express";
 import { createUnitValidation, updateUnitValidation } from "../validations";
 import { logger } from "../utils/logger";
+import { handleWaitingProcess } from "../utils/functions";
 import { createUnit, deleteUnitById, getAllUnit, getUnitByWorkOrder, updateUnitById } from "../services/unit.service";
-import type { TProcessItem } from "../types";
+import type { TMainProcess, TProcessItem, TUnitData } from "../types";
 
 export const create = async (req: Request, res: Response) => {
   const { error, value } = createUnitValidation(req.body);
@@ -21,13 +22,13 @@ export const create = async (req: Request, res: Response) => {
         .send({ status: false, statusCode: 422, message: `Unit ${value.workOrder} already exists.` });
     }
 
-    const noWaitingProcess = value.currentProcess !== "Tunggu Teknisi" && value.currentProcess !== "Tunggu Part";
+    const isWaitingProcess = handleWaitingProcess(value.currentProcess);
 
     // Create Unit
     await createUnit({
       ...value,
       currentStatus: "Menunggu",
-      processList: noWaitingProcess
+      processList: !isWaitingProcess
         ? ([{ processName: value.currentProcess, status: "Menunggu" }] as TProcessItem[])
         : []
     });
@@ -61,18 +62,18 @@ export const updateUnit = async (req: Request, res: Response) => {
   }
 
   try {
-    const { currentProcess, ...rest } = value;
-    const waitingProcess = currentProcess === "Tunggu Teknisi" || currentProcess === "Tunggu Part";
+    const { currentProcess } = value;
+    const isWaitingProcess = handleWaitingProcess(currentProcess);
 
-    await updateUnitById(
-      _id,
-      currentProcess && !waitingProcess
-        ? { ...rest, currentProcess, processList: [{ processName: currentProcess, status: "Menunggu" }] }
-        : rest
-    );
+    const payload: Partial<TUnitData> =
+      currentProcess && !isWaitingProcess
+        ? { ...value, processList: [{ processName: currentProcess as TMainProcess, status: "Menunggu" }] }
+        : value;
+
+    await updateUnitById(_id, payload);
 
     logger.info("UNIT -> UPDATE = Unit updated successfully!!");
-    return res.status(200).send({ status: true, statusCode: 200, message: "Unit updated successfully!!", data: value });
+    return res.status(200).send({ status: true, statusCode: 200, message: "Unit updated successfully!!" });
   } catch (err) {
     logger.error(`UNIT -> UPDATE = ${(err as Error).message}`);
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
