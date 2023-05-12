@@ -1,7 +1,7 @@
 import jwt from "jsonwebtoken";
 import CONFIG from "../config/environment";
 
-export const signJWT = (payload: Record<string, unknown>, options?: jwt.SignOptions | undefined) => {
+export const signJWT = (payload: Record<string, unknown>, options?: jwt.SignOptions) => {
   return jwt.sign(payload, CONFIG.jwt_private as jwt.Secret, {
     ...(options && options),
     algorithm: "RS256",

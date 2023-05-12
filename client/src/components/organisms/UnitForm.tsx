@@ -21,7 +21,7 @@ interface Props {
 }
 
 const UnitForm: React.FC<Props> = ({ onToggle }) => {
-  const methods = useFormContext<TUnitData & { code: string }>();
+  const methods = useFormContext<Omit<TUnitData, "currentStatus" | "processList"> & { code: string }>();
   const queryClient = useQueryClient();
 
   const { mutate: mutateUnit } = useMutation({
@@ -43,8 +43,7 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
 
     mutateUnit({
       ...rest,
-      workOrder: workOrderData,
-      currentStatus: "Menunggu"
+      workOrder: workOrderData
     });
   });
 

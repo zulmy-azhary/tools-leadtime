@@ -12,3 +12,14 @@ export const unitSchemas = object({
   currentProcess: string().required("Proses is required.").oneOf(ALL_PROCESS, "Select options first."),
   serviceAdvisor: string().required("Service advisor is required.").oneOf(SERVICE_ADVISOR, "Select options first.")
 });
+
+export const updateUnitSchema = object({
+  plateNumber: string().required("Nomor polisi is required."),
+  carType: string().required("Tipe kendaraan is required."),
+  entryDate: date().required("Tanggal masuk is required.").typeError("Please choose date."),
+  handOver: date().required("Janji penyerahan is required.").typeError("Please choose date."),
+  damageType: string().required("Jenis kerusakan is required.").oneOf(DAMAGE_TYPE, "Select options first."),
+  vendor: string().required("Team vendor is required.").oneOf(VENDOR, "Select options first."),
+  currentProcess: string().oneOf(ALL_PROCESS, "Select options first."),
+  serviceAdvisor: string().required("Service advisor is required.").oneOf(SERVICE_ADVISOR, "Select options first.")
+});

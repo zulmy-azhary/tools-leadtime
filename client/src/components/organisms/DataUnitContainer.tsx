@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ContentWrapper, Header, Modal, Table } from "../molecules";
 import clsx from "clsx";
 import { Button, Card, Heading, Input } from "../atoms";
-import { IoAdd, IoSearch } from "react-icons/io5";
+import { IoAdd, IoRefresh, IoSearch } from "react-icons/io5";
 import { useToggle } from "../../hooks";
-import { DeleteUnit, DetailUnit, UnitForm } from ".";
+import { DeleteUnit, DetailUnit, UnitForm, UpdateUnit } from ".";
 import { unitColumns } from "../../helpers/tableColumns";
 import { useQuery } from "react-query";
 import { getAllUnit } from "../../api/unit";
@@ -39,8 +39,12 @@ const DataUnitContainer: React.FC = () => {
     }
   });
 
+  useEffect(() => {
+    methods.clearErrors();
+  }, [isOpen]);
+
   return (
-    <FormProvider {...methods}>
+    <>
       <ContentWrapper>
         <Header headerTitle="Unit" description="Leadtime & Paint" className="col-span-full" />
         <Card className="col-span-full flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
@@ -66,12 +70,14 @@ const DataUnitContainer: React.FC = () => {
           <Table data={unit} columns={unitColumns} action={action} />
         </Card>
       </ContentWrapper>
-      {isOpen && (
-        <Modal isOpen={isOpen} onToggle={onToggle} modalTitle="Input Data Unit">
-          <UnitForm onToggle={onToggle} />
-        </Modal>
-      )}
-    </FormProvider>
+      <FormProvider {...methods}>
+        {isOpen && (
+          <Modal isOpen={isOpen} onToggle={onToggle} modalTitle="Input Data Unit">
+            <UnitForm onToggle={onToggle} />
+          </Modal>
+        )}
+      </FormProvider>
+    </>
   );
 };
 
@@ -80,6 +86,7 @@ const action: ColumnDef<TUnitData> = {
   cell: ({ row }) => (
     <>
       <DetailUnit dataUnit={row.original} modalTitle="Detail Data Unit" icon={IoMdInformationCircle} />
+      <UpdateUnit dataUnit={row.original} modalTitle="Update Unit" icon={IoRefresh} className="text-teal-500" />
       <DeleteUnit dataUnit={row.original} modalTitle="Delete Unit" icon={IoMdTrash} className="text-red-500" />
     </>
   )
