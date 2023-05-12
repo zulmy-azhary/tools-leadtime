@@ -1,7 +1,7 @@
 import type { Request, Response } from "express";
-import { createUnitValidation } from "../validations";
+import { createUnitValidation, updateUnitValidation } from "../validations";
 import { logger } from "../utils/logger";
-import { createUnit, deleteUnitById, getAllUnit, getUnitByWorkOrder } from "../services/unit.service";
+import { createUnit, deleteUnitById, getAllUnit, getUnitByWorkOrder, updateUnitById } from "../services/unit.service";
 import type { TProcessItem } from "../types";
 
 export const create = async (req: Request, res: Response) => {
@@ -26,8 +26,9 @@ export const create = async (req: Request, res: Response) => {
     // Create Unit
     await createUnit({
       ...value,
+      currentStatus: "Menunggu",
       processList: noWaitingProcess
-        ? ([{ processName: value.currentProcess, status: value.currentStatus }] as TProcessItem[])
+        ? ([{ processName: value.currentProcess, status: "Menunggu" }] as TProcessItem[])
         : []
     });
 
@@ -52,8 +53,26 @@ export const getAll = async (req: Request, res: Response) => {
 };
 
 export const updateUnit = async (req: Request, res: Response) => {
+  const { _id, ...rest } = req.body;
+  const { error, value } = updateUnitValidation(rest);
+  if (error) {
+    logger.error(`UNIT -> UPDATE = ${error.details[0].message}`);
+    return res.status(422).send({ status: false, statusCode: 422, message: error.details[0].message });
+  }
+
   try {
-    // Not implemented yet
+    const { currentProcess, ...rest } = value;
+    const waitingProcess = currentProcess === "Tunggu Teknisi" || currentProcess === "Tunggu Part";
+
+    await updateUnitById(
+      _id,
+      currentProcess && !waitingProcess
+        ? { ...rest, currentProcess, processList: [{ processName: currentProcess, status: "Menunggu" }] }
+        : rest
+    );
+
+    logger.info("UNIT -> UPDATE = Unit updated successfully!!");
+    return res.status(200).send({ status: true, statusCode: 200, message: "Unit updated successfully!!", data: value });
   } catch (err) {
     logger.error(`UNIT -> UPDATE = ${(err as Error).message}`);
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
