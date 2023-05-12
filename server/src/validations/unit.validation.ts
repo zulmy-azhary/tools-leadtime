@@ -13,7 +13,9 @@ const unit = {
   serviceAdvisor: Joi.string().valid(...SERVICE_ADVISOR)
 };
 
-export const createUnitValidation = (payload: TUnitData): Joi.ValidationResult<TUnitData> => {
+export const createUnitValidation = (
+  payload: Omit<TUnitData, "currentStatus">
+): Joi.ValidationResult<Omit<TUnitData, "currentStatus">> => {
   const schema = Joi.object({
     workOrder: Joi.string().required().length(21),
     ...unit
@@ -22,7 +24,9 @@ export const createUnitValidation = (payload: TUnitData): Joi.ValidationResult<T
   return schema.validate(payload);
 };
 
-export const updateUnitValidation = (payload: TUnitData): Joi.ValidationResult<TUnitData> => {
+export const updateUnitValidation = (
+  payload: Omit<TUnitData, "currentStatus">
+): Joi.ValidationResult<Omit<TUnitData, "currentStatus">> => {
   const schema = Joi.object({
     ...unit
   });
