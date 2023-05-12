@@ -70,7 +70,7 @@ const Sidebar: React.FC<Props> = props => {
         </div>
         <SidebarList onClosed={onClosed} />
       </div>
-      <Button onClick={onLogout} className="w-full bg-blue-500 py-3 text-sm !text-white">
+      <Button onClick={onLogout} className="bg-primary text-typo-white w-full py-3 text-sm">
         Logout
       </Button>
     </aside>

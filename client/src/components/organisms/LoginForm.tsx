@@ -72,7 +72,7 @@ const LoginForm: React.FC = () => {
             />
           }
         />
-        <Button disabled={isLoading} type="submit" className="col-span-2 mt-12 bg-blue-500 py-3 !text-white">
+        <Button disabled={isLoading} type="submit" className="bg-primary text-typo-white col-span-2 mt-12 py-3">
           Login
         </Button>
       </form>

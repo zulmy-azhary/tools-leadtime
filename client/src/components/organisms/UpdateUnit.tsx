@@ -4,12 +4,11 @@ import type { TResponse, TUnitData } from "../../types";
 import clsx from "clsx";
 import { IoAdd } from "react-icons/io5";
 import { Button } from "../atoms";
-import { InputForm, SelectForm } from "../molecules";
+import { DatePickerForm, InputForm, SelectForm } from "../molecules";
 import { DAMAGE_TYPE, ALL_PROCESS, VENDOR, SERVICE_ADVISOR } from "../../helpers/constants";
 import { useForm, FormProvider } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { updateUnitSchema } from "../../schemas";
-import { format } from "date-fns";
 import { useMutation, useQueryClient } from "react-query";
 import { updateUnitById } from "../../api/unit";
 import type { AxiosError, AxiosResponse } from "axios";
@@ -107,25 +106,19 @@ const UpdateUnit: React.FC<Props> = props => {
           className="col-span-full md:col-span-2"
           defaultValue={dataUnit.serviceAdvisor}
         />
-        <InputForm
-          type="date"
+        <DatePickerForm
           inputName="entryDate"
           label="Tanggal Masuk"
           className="col-span-full"
-          defaultValue={format(new Date(dataUnit.entryDate), "yyyy-MM-dd")}
+          defaultValue={dataUnit.entryDate}
         />
-        <InputForm
-          type="date"
+        <DatePickerForm
           inputName="handOver"
           label="Janji Penyerahan"
           className="col-span-full"
-          defaultValue={format(new Date(dataUnit.handOver), "yyyy-MM-dd")}
+          defaultValue={dataUnit.handOver}
         />
-        <Button
-          type="submit"
-          icon={IoAdd}
-          className={clsx("col-span-full bg-teal-500 p-3 text-sm text-white dark:text-slate-900")}
-        >
+        <Button type="submit" icon={IoAdd} className={clsx("bg-success text-typo-white col-span-full p-3 text-sm")}>
           Submit
         </Button>
       </form>

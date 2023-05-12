@@ -15,9 +15,7 @@ const TableItems = <T extends object>(props: Props<T>) => {
         <td
           key={cell.id}
           className={clsx(
-            "whitespace-nowrap border-b-[1.6px] p-4 text-left text-sm font-medium",
-            "text-typo-light dark:text-typo-dark",
-            "border-field-bd-light/40 dark:border-field-bd-dark/40",
+            "text-typo-light dark:text-typo-dark border-field-bd-light/40 dark:border-field-bd-dark/40 whitespace-nowrap border-b-[1.6px] p-4 text-left text-sm font-medium",
             className
           )}
           {...rest}

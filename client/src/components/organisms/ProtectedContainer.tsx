@@ -18,7 +18,7 @@ const ProtectedContainer: React.FC<React.PropsWithChildren> = ({ children }) => 
         className={clsx(
           "flex min-h-screen flex-col gap-y-5 px-8 pb-12 after:fixed after:backdrop-blur-sm after:duration-500",
           isLaptop ? "ml-[300px]" : "ml-[0px]",
-          isOpen && !isLaptop ? "after:inset-0 after:bg-gray-800/30 dark:after:bg-gray-800/50" : "after:bg-transparent"
+          isOpen && !isLaptop ? "after:bg-base-dark/30 after:inset-0" : "after:bg-transparent"
         )}
       >
         <Navbar toggle={toggle} isLaptop={isLaptop} />

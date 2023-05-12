@@ -55,7 +55,7 @@ const ChartProcessUnit: React.FC = () => {
           <XAxis dataKey="name" fontSize={10} />
           <Tooltip
             formatter={(value, name) => [value, capitalize(name as string)]}
-            wrapperClassName="dark:!bg-slate-800"
+            wrapperClassName="bg-card-bg-light border-card-bd-light dark:!bg-card-bg-dark dark:!border-card-bd-dark rounded-md outline-none"
           />
           <Legend formatter={value => capitalize(value)} iconSize={12} wrapperStyle={{ fontSize: "12px" }} />
           <Bar dataKey="unit" fill="#8884d8">

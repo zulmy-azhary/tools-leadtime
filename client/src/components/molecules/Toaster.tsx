@@ -8,7 +8,8 @@ const Toaster: React.FC = () => {
       position="bottom-left"
       reverseOrder={false}
       toastOptions={{
-        className: "rounded-lg shadow-md max-w-xs w-full bg-bgLight dark:bg-bgDark",
+        className:
+          "rounded-lg shadow-md max-w-xs w-full bg-field-bg-light dark:bg-field-bg-dark border-[1.6px] dark:border-field-bd-dark border-field-bd-light",
         success: {
           duration: 5000
         }

@@ -21,10 +21,7 @@ const Navbar: React.FC<Props> = props => {
       <div>{isLaptop ? <Breadcrumb paths={currentPath} /> : <Button onClick={toggle} icon={IoMenu} />}</div>
       <ul className="flex items-center gap-x-5">
         <Toggle />
-        <Avatar
-          name={user?.fullName}
-          className="bg-primary font-semibold text-white"
-        />
+        <Avatar name={user?.fullName} className="bg-primary font-semibold text-white" />
         <BsFillBellFill className="dark:text-primary cursor-pointer text-xl text-slate-600" />
       </ul>
     </nav>

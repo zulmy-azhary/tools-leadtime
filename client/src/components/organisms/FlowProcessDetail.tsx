@@ -137,7 +137,7 @@ const FlowProcessDetail: React.FC<Props> = props => {
         <Button
           type="button"
           onClick={handleClockOn}
-          className="bg-blue-500 px-3 py-2 text-white disabled:opacity-75"
+          className="bg-primary text-typo-white px-3 py-2"
           disabled={isActive || currentStatus !== "Menunggu"}
         >
           Clock On
@@ -166,11 +166,7 @@ const FlowProcessDetail: React.FC<Props> = props => {
           ))}
         </div>
       </div>
-      <Button
-        type="submit"
-        className="bg-teal-500 p-3 text-sm text-white dark:text-slate-900"
-        disabled={!isApproved || isLoading}
-      >
+      <Button type="submit" className="bg-success text-typo-white p-3 text-sm" disabled={!isApproved || isLoading}>
         Submit
       </Button>
     </form>

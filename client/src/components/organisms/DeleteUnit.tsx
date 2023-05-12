@@ -33,13 +33,13 @@ const DeleteUnit: React.FC<Props> = props => {
     <div className="flex flex-col items-center justify-center gap-y-12">
       <div className="flex flex-col gap-y-0.5 text-center">
         <p>Are you sure you want to delete this unit?</p>
-        <span className="text-lg font-semibold text-blue-500 dark:text-teal-400">{dataUnit.workOrder}</span>
+        <span className="text-primary text-lg font-semibold">{dataUnit.workOrder}</span>
         <p>
           This action <strong>cannot</strong> be undone.
         </p>
       </div>
       <div className="flex w-full justify-center gap-x-6">
-        <Button onClick={handleDelete} className="bg-red-500 px-3 py-2 text-sm text-slate-800 dark:text-blue-200">
+        <Button onClick={handleDelete} className="text-base-dark bg-red-500 px-3 py-2 text-sm">
           Delete
         </Button>
         <Button onClick={onToggle} className="bg-gray-300 px-3 py-2 text-sm dark:bg-slate-800">

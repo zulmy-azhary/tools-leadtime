@@ -5,7 +5,6 @@ export { default as Input } from "./Input";
 export { default as Select } from "./Select";
 export { default as Breadcrumb } from "./BreadCrumb";
 export { default as Label } from "./Label";
-export { default as InputSelectForm } from "./InputSelectForm";
 export { default as ImageBanner } from "./ImageBanner";
 export { default as Toggle } from "./Toggle";
 export { default as NavLink } from "./NavLink";

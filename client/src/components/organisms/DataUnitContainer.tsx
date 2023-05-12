@@ -59,9 +59,7 @@ const DataUnitContainer: React.FC = () => {
               icon={IoAdd}
               onClick={onToggle}
               className={clsx(
-                "w-full cursor-pointer p-3 text-sm font-semibold md:w-fit",
-                "border-button-bd-light dark:border-button-bd-dark border-[1.6px]",
-                "bg-button-bg-light dark:bg-button-bg-dark"
+                "border-button-bd-light dark:border-button-bd-dark bg-button-bg-light dark:bg-button-bg-dark w-full cursor-pointer border-[1.6px] p-3 text-sm font-semibold md:w-fit"
               )}
             >
               Add New Data

@@ -26,7 +26,7 @@ const InputForm: React.FC<Props> = props => {
           <Input
             icon={icon}
             autoComplete="off"
-            className={"grow read-only:text-slate-500 read-only:opacity-75"}
+            className={"read-only:text-typo-light dark:read-only:text-typo-dark grow read-only:opacity-60"}
             type={"text"}
             {...register("code")}
             value={additionalValue}
@@ -37,10 +37,7 @@ const InputForm: React.FC<Props> = props => {
           {...register(inputName)}
           icon={icon}
           autoComplete="off"
-          className={clsx(
-            "read-only:text-slate-500 read-only:opacity-75",
-            errors[inputName] && "!border-error"
-          )}
+          className={clsx(errors[inputName] && "!border-error")}
           wrapperClassName="w-full"
           type={type}
           {...rest}

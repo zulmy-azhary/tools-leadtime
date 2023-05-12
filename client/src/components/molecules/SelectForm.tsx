@@ -11,7 +11,7 @@ interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
 }
 
 const SelectForm: React.FC<Props> = props => {
-  const { inputName, className, options, label, ...rest } = props;
+  const { inputName, className, options, label, defaultValue, ...rest } = props;
 
   const {
     control,
@@ -24,9 +24,10 @@ const SelectForm: React.FC<Props> = props => {
       <Controller
         control={control}
         name={inputName}
+        defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => (
           <Select
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChange(e.target.value)}
+            onChange={onChange}
             options={options}
             value={value}
             className={clsx(errors[inputName] && "!border-error")}

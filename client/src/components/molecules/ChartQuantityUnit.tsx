@@ -77,7 +77,7 @@ const QuantityUnit: React.FC = () => {
           <YAxis fontSize={12} />
           <Tooltip
             formatter={(value, name) => [value, capitalize(name as string)]}
-            wrapperClassName="dark:!bg-slate-800"
+            wrapperClassName="bg-card-bg-light border-card-bd-light dark:!bg-card-bg-dark dark:!border-card-bd-dark rounded-md outline-none"
           />
           <Legend formatter={value => capitalize(value)} wrapperStyle={{ fontSize: "12px" }} />
           <Line type="monotone" dataKey="total" stroke="#8884d8" activeDot={{ r: 6 }} />

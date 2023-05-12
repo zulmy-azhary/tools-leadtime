@@ -65,6 +65,7 @@ const RegisterForm: React.FC = () => {
           label="Role"
           className="col-span-full"
           options={["Ketok", "Preparation", "Pengecatan", "Inspection"]}
+          defaultValue={"Ketok"}
         />
         <InputForm
           type={passwordType}
@@ -88,7 +89,7 @@ const RegisterForm: React.FC = () => {
           placeholder="Enter confirm password..."
           className="col-span-full"
         />
-        <Button disabled={isLoading} type="submit" className="col-span-2 mt-12 bg-blue-500 py-3 !text-white">
+        <Button disabled={isLoading} type="submit" className="bg-primary text-typo-white col-span-2 mt-12 py-3">
           Register
         </Button>
       </form>

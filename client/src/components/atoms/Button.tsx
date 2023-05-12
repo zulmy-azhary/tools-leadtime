@@ -13,7 +13,6 @@ const Button: React.FC<React.PropsWithChildren<Props>> = props => {
     <button
       className={clsx(
         "flex cursor-pointer items-center justify-center gap-1.5 rounded disabled:cursor-not-allowed disabled:opacity-60",
-        "text-typo-light dark:text-typo-dark",
         className
       )}
       {...rest}

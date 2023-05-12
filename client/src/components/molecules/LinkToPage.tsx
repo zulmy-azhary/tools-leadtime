@@ -13,7 +13,7 @@ const LinkToPage: React.FC<React.PropsWithChildren<Props>> = props => {
   return (
     <p className={clsx("flex items-center gap-x-1 text-sm", className)} {...rest}>
       {desc}
-      <Link to={to} className={clsx("text-blue-500", linkClassName)}>
+      <Link to={to} className={clsx("text-primary", linkClassName)}>
         {children}
       </Link>
     </p>

@@ -18,7 +18,7 @@ interface Props extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "onCha
 registerLocale("id", id);
 
 const DatePickerForm: React.FC<Props> = props => {
-  const { inputName, label, placeholder, className, fieldClassName } = props;
+  const { inputName, label, className, fieldClassName, defaultValue } = props;
   const {
     control,
     formState: { errors }
@@ -30,13 +30,14 @@ const DatePickerForm: React.FC<Props> = props => {
       <Controller
         name={inputName}
         control={control}
+        defaultValue={defaultValue}
         render={({ field: { onChange, value } }) => (
           <ReactDatePicker
             onChange={(date: Date) => onChange(date)}
-            placeholderText={placeholder}
+            placeholderText="e.g. 25/12/2022"
             dateFormat={"dd/MM/yyyy"}
             showPopperArrow={false}
-            selected={value}
+            selected={value ? new Date(value) : null}
             locale={"id"}
             customInput={
               <Input
@@ -45,7 +46,7 @@ const DatePickerForm: React.FC<Props> = props => {
               />
             }
             calendarClassName={clsx(
-              "!bg-field-bg-light dark:!bg-field-bg-dark !border-field-bd-light dark:!border-field-bd-dark/70 !border-[1.6px] p-3"
+              "!bg-field-bg-light dark:!bg-field-bg-dark !border-field-bd-light dark:!border-field-bd-dark/70 text-typo-light dark:text-typo-dark !border-[1.6px] p-3"
             )}
             renderCustomHeader={({
               date,

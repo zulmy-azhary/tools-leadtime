@@ -99,22 +99,12 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
         placeholder="e.g. Ahmad Supardi"
         className="col-span-full md:col-span-2"
       />
-      <DatePickerForm
-        placeholder="e.g. dd/mm/yyyy"
-        inputName="entryDate"
-        label="Tanggal Masuk"
-        className="col-span-full"
-      />
-      <DatePickerForm
-        placeholder="e.g. dd/mm/yyyy"
-        inputName="handOver"
-        label="Janji Penyerahan"
-        className="col-span-full"
-      />
+      <DatePickerForm inputName="entryDate" label="Tanggal Masuk" className="col-span-full" />
+      <DatePickerForm inputName="handOver" label="Janji Penyerahan" className="col-span-full" />
       <Button
         type="submit"
         icon={IoAdd}
-        className={clsx("col-span-full mt-5 bg-teal-500 p-3 text-sm font-semibold !text-white")}
+        className={clsx("bg-success text-typo-white col-span-full mt-5 p-3 text-sm font-semibold")}
       >
         Submit
       </Button>

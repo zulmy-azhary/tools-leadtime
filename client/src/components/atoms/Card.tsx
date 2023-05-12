@@ -9,10 +9,7 @@ const Card: React.FC<Props> = props => {
   return (
     <div
       className={clsx(
-        "relative rounded-lg",
-        "border-[1.6px] border-gray-200 dark:border-gray-800 ",
-        "shadow-lg shadow-gray-200 dark:shadow-gray-900",
-        "bg-card-bg-light dark:bg-card-bg-dark",
+        "dark:border-card-bd-dark border-card-bd-light bg-card-bg-light dark:bg-card-bg-dark relative rounded-lg border-[1.6px] shadow-lg shadow-gray-200 dark:shadow-gray-900",
         className
       )}
       {...rest}
