@@ -1,46 +1,58 @@
+/* eslint-disable @typescript-eslint/consistent-type-assertions */
 import clsx from "clsx";
-import { Button } from ".";
-import { IoCaretDown } from "react-icons/io5";
-import React from "react";
+import { IoCaretDown, IoClose } from "react-icons/io5";
+import React, { type ChangeEvent } from "react";
 import { useToggle, useOnClickOutside } from "../../hooks";
 
-interface Props extends React.SelectHTMLAttributes<HTMLSelectElement> {
-  options?: string[];
+interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
+  onChange: (e: ChangeEvent<HTMLInputElement>) => void;
+  options: string[];
 }
 
-const Select: React.ForwardRefRenderFunction<HTMLSelectElement, Props> = (props, ref) => {
-  const { options, className, ...rest } = props;
-  const [isOpen, onToggle, setOpen] = useToggle();
+const Select: React.ForwardRefRenderFunction<HTMLInputElement, Props> = (props, forwardRef) => {
+  const { value, options, onChange, className, ...rest } = props;
+  const [isOpen, toggle, setOpen] = useToggle();
   const selectRef = useOnClickOutside<HTMLDivElement>(isOpen, () => setOpen(false));
 
+  const handleClear = () => onChange({ target: { value: "" } } as ChangeEvent<HTMLInputElement>);
+  const handleOption = (optValue: string) => onChange({ target: { value: optValue } } as ChangeEvent<HTMLInputElement>);
+
   return (
-    <div className="relative" ref={selectRef}>
-      <div className={clsx("relative flex items-center")}>
-        <select
-          ref={ref}
-          onClick={onToggle}
-          className={clsx(
-            "flex w-full cursor-pointer appearance-none items-center gap-2 rounded border-[1.5px] bg-slate-50 py-3 px-5 pr-16 text-sm capitalize outline-none dark:border-slate-600 dark:bg-slate-800",
-            className
-          )}
-          {...rest}
-        >
-          <option value="" disabled>
-            Choose an option :
-          </option>
-          {options?.map((item, idx) => (
-            <option key={idx} value={item} className="capitalize">
+    <div
+      ref={selectRef}
+      onClick={toggle}
+      className={clsx("text-typo-light dark:text-typo-dark relative flex items-center")}
+    >
+      <input
+        readOnly
+        ref={forwardRef}
+        value={value ?? ""}
+        className={clsx(
+          "placeholder:text-typo-light/70 dark:placeholder:text-typo-dark/50 border-field-bd-light dark:border-field-bd-dark/70 bg-field-bg-light dark:bg-field-bg-dark text-typo-black dark:text-typo-white flex w-full cursor-pointer appearance-none items-center gap-2 rounded border-[1.6px] py-3 px-5 pr-20 text-sm outline-none",
+          className
+        )}
+        {...rest}
+      />
+      {isOpen && (
+        <ul className="border-field-bd-light dark:border-field-bd-dark/70 bg-field-bg-light dark:bg-field-bg-dark text-typo-light dark:text-typo-dark absolute top-14 z-20 flex w-full cursor-pointer flex-col rounded border-[1.6px] py-3 text-sm">
+          {options.map((item, idx) => (
+            <li
+              key={idx}
+              onClick={() => handleOption(item)}
+              className="hover:bg-primary p-2 duration-150 hover:text-white"
+            >
               {item}
-            </option>
+            </li>
           ))}
-        </select>
-        <Button
-          type="button"
-          icon={IoCaretDown}
-          onClick={onToggle}
-          className={clsx("absolute right-5 text-xs text-slate-600", isOpen && "rotate-180")}
-          tabIndex={-1}
-        />
+        </ul>
+      )}
+      <div className="absolute right-5 flex items-center gap-x-2">
+        {value && (
+          <button type="button" onClick={handleClear}>
+            {<IoClose className="text-xl" />}
+          </button>
+        )}
+        <IoCaretDown className={clsx("text-xl duration-150", isOpen && "rotate-180")} />
       </div>
     </div>
   );

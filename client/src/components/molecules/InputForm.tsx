@@ -37,14 +37,14 @@ const InputForm: React.FC<Props> = props => {
           {...register(inputName)}
           icon={icon}
           autoComplete="off"
-          className={clsx(errors[inputName] ? "border-rose-500" : "border-slate-300")}
+          className={clsx(errors[inputName] && "!border-error")}
           wrapperClassName="w-full"
           type={type}
           {...rest}
         />
       </div>
       {errors[inputName]?.message && (
-        <Text className="text-xs font-medium tracking-wide text-red-500">{`${errors[inputName]?.message}`}</Text>
+        <Text className="text-error text-xs font-medium tracking-wide">{`${errors[inputName]?.message}`}</Text>
       )}
     </div>
   );
