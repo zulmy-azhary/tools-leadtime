@@ -1,7 +1,7 @@
 import React from "react";
 import withModal from "../../HOC/withModal";
 import type { TUnitData } from "../../types";
-import { formatTime } from "../../helpers/functions";
+import { formatTime, handleWaitingProcess } from "../../helpers/functions";
 import { LabelContent } from "../atoms";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 const DetailUnit: React.FC<Props> = props => {
   const { dataUnit } = props;
-  const waitingProcess = dataUnit.currentProcess === "Tunggu Part" || dataUnit.currentProcess === "Tunggu Teknisi";
+  const isWaitingProcess = handleWaitingProcess(dataUnit.currentProcess);
 
   return (
     <div className="grid grid-cols-3 place-items-center gap-y-6">
@@ -28,9 +28,9 @@ const DetailUnit: React.FC<Props> = props => {
       <LabelContent label="Service Advisor" value={dataUnit.serviceAdvisor} />
       <LabelContent className="col-span-3" label="Janji Penyerahan" value={dataUnit.handOver} />
       <p className="col-span-3 text-lg">Flow Proses</p>
-      {waitingProcess && <p className="col-span-3">Sedang menunggu part atau teknisi</p>}
-      {!waitingProcess && (
-        <div className="col-span-3 grid w-full grid-cols-3 justify-items-center">
+      {isWaitingProcess && <p className="col-span-3">Sedang menunggu part atau teknisi</p>}
+      {!isWaitingProcess && (
+        <div className="col-span-3 grid w-full grid-cols-3 justify-items-center gap-y-4">
           {dataUnit.processList.map(processItem => (
             <div key={processItem._id} className="flex flex-col items-center">
               <p className="font-semibold">{processItem.processName}</p>
