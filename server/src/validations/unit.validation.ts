@@ -1,7 +1,6 @@
 import Joi from "joi";
-import type { TProcessItem, TUnitData } from "../types";
-import { DAMAGE_TYPE, PROCESS, SERVICE_ADVISOR, STATUS, VENDOR } from "../utils/constants";
-import { processItem } from "./flowProcess.validation";
+import type { TUnitData } from "../types";
+import { DAMAGE_TYPE, PROCESS, SERVICE_ADVISOR, VENDOR } from "../utils/constants";
 
 const unit = {
   plateNumber: Joi.string().required(),
@@ -11,14 +10,12 @@ const unit = {
   damageType: Joi.string().valid(...DAMAGE_TYPE),
   vendor: Joi.string().valid(...VENDOR),
   currentProcess: Joi.string().valid(...PROCESS),
-  serviceAdvisor: Joi.string().valid(...SERVICE_ADVISOR),
-  currentStatus: Joi.string().valid(...STATUS)
+  serviceAdvisor: Joi.string().valid(...SERVICE_ADVISOR)
 };
 
 export const createUnitValidation = (payload: TUnitData): Joi.ValidationResult<TUnitData> => {
   const schema = Joi.object({
     workOrder: Joi.string().required().length(21),
-    processList: Joi.array<TProcessItem>().items(processItem),
     ...unit
   });
 
