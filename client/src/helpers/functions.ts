@@ -1,7 +1,6 @@
 import { minutesToHours } from "date-fns";
-import type { TMainProcess, TUserRole } from "../types";
+import type { TMainProcess, TProcess, TUserRole, TManageRole } from "../types";
 import { firstQualityCheck, secondQualityCheck, thirdQualityCheck, fourthQualityCheck } from "./constants";
-import type { TManageRole } from "../types/auth";
 
 export const manageRole = <T>(
   role: TUserRole,
@@ -55,6 +54,10 @@ export const handleProcess = (process: TMainProcess) => {
   }
 
   return fourthQualityCheck;
+};
+
+export const handleWaitingProcess = (process: TProcess) => {
+  return process === "Tunggu Part" || process === "Tunggu Teknisi";
 };
 
 export const getNextProcess = (allProcess: TMainProcess[], currentProcess: TMainProcess) => {
