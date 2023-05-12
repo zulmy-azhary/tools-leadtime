@@ -1,6 +1,6 @@
 import React from "react";
 import { useFormContext } from "react-hook-form";
-import { InputForm, SelectForm } from "../molecules";
+import { DatePickerForm, InputForm, SelectForm } from "../molecules";
 import type { TResponse, TUnitData } from "../../types";
 import { Button } from "../atoms";
 import clsx from "clsx";
@@ -72,30 +72,49 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
         className="col-span-full"
       />
       <SelectForm
+        placeholder="e.g. Ringan"
         className="col-span-full md:col-span-2"
         inputName="damageType"
         label="Jenis Kerusakan"
         options={DAMAGE_TYPE}
       />
       <SelectForm
+        placeholder="e.g. Ketokan"
         className="col-span-full md:col-span-2"
         inputName="currentProcess"
         label="Proses"
         options={ALL_PROCESS}
       />
-      <SelectForm className="col-span-full md:col-span-2" inputName="vendor" label="Team Vendor" options={VENDOR} />
+      <SelectForm
+        placeholder="e.g. WIS"
+        className="col-span-full md:col-span-2"
+        inputName="vendor"
+        label="Team Vendor"
+        options={VENDOR}
+      />
       <SelectForm
         inputName="serviceAdvisor"
         label="Service Advisor"
         options={SERVICE_ADVISOR}
+        placeholder="e.g. Ahmad Supardi"
         className="col-span-full md:col-span-2"
       />
-      <InputForm type="date" inputName="entryDate" label="Tanggal Masuk" className="col-span-full" />
-      <InputForm type="date" inputName="handOver" label="Janji Penyerahan" className="col-span-full" />
+      <DatePickerForm
+        placeholder="e.g. dd/mm/yyyy"
+        inputName="entryDate"
+        label="Tanggal Masuk"
+        className="col-span-full"
+      />
+      <DatePickerForm
+        placeholder="e.g. dd/mm/yyyy"
+        inputName="handOver"
+        label="Janji Penyerahan"
+        className="col-span-full"
+      />
       <Button
         type="submit"
         icon={IoAdd}
-        className={clsx("col-span-full bg-teal-500 p-3 text-sm text-white dark:text-slate-900")}
+        className={clsx("col-span-full mt-5 bg-teal-500 p-3 text-sm font-semibold !text-white")}
       >
         Submit
       </Button>

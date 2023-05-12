@@ -12,12 +12,13 @@ const Button: React.FC<React.PropsWithChildren<Props>> = props => {
   return (
     <button
       className={clsx(
-        "flex items-center justify-center gap-1.5 rounded font-medium transition-all duration-150 disabled:opacity-60",
+        "flex cursor-pointer items-center justify-center gap-1.5 rounded disabled:cursor-not-allowed disabled:opacity-60",
+        "text-typo-light dark:text-typo-dark",
         className
       )}
       {...rest}
     >
-      {Icon && <Icon size="1.5em" />}
+      {Icon && <Icon size={"1.4em"} />}
       {children}
     </button>
   );

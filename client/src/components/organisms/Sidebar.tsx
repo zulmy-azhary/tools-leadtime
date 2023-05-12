@@ -46,9 +46,8 @@ const Sidebar: React.FC<Props> = props => {
     <aside
       ref={sidebarRef}
       className={clsx(
-        "bg-bgLight fixed inset-y-0 z-10 flex w-[300px] flex-col justify-between overflow-hidden px-6 pb-6 transition-all duration-500 dark:bg-slate-800",
-        isOpen ? "left-0" : "-left-full",
-        !isLaptop && "shadow-lg"
+        "bg-base-light dark:bg-base-dark fixed inset-y-0 z-10 flex w-[300px] flex-col justify-between overflow-hidden px-6 pb-6 transition-all duration-500",
+        isOpen ? "left-0" : "-left-full"
       )}
     >
       <div className="flex flex-col gap-y-5">
@@ -65,18 +64,13 @@ const Sidebar: React.FC<Props> = props => {
             <Button
               icon={IoClose}
               onClick={() => setOpen(false)}
-              className={clsx(
-                "bg-gray-50 p-1 text-sm text-gray-600 dark:border-gray-700 dark:bg-gray-800 dark:text-blue-200"
-              )}
+              className="bg-button-bg-light dark:bg-button-bg-dark text-typo-light dark:text-typo-dark border-button-bd-light dark:border-button-bd-dark border-[1.6px] p-1 text-sm"
             />
           )}
         </div>
         <SidebarList onClosed={onClosed} />
       </div>
-      <Button
-        onClick={onLogout}
-        className="w-full bg-blue-500 py-3 text-sm text-white dark:bg-teal-400 dark:text-slate-900"
-      >
+      <Button onClick={onLogout} className="w-full bg-blue-500 py-3 text-sm !text-white">
         Logout
       </Button>
     </aside>

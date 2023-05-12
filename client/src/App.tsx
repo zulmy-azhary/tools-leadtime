@@ -37,7 +37,7 @@ const DataUnit = React.lazy(
 const App: React.FC = () => {
   return (
     <>
-      <div className="min-h-screen bg-slate-50 text-slate-600 transition-colors dark:bg-slate-800 dark:text-blue-200">
+      <div className="bg-base-light text-typo-light dark:bg-base-dark dark:text-typo-dark min-h-screen transition-colors">
         <Suspense fallback={<Loading />}>
           <RouterProvider router={router} />
         </Suspense>

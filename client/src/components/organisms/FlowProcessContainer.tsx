@@ -40,7 +40,7 @@ const FlowProcessContainer: React.FC = () => {
     inspection: MAIN_PROCESS.slice(6, 8)
   });
 
-  const handleSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelect = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedProcess(e.target.value as TMainProcess);
   };
 
@@ -86,7 +86,7 @@ const FlowProcessContainer: React.FC = () => {
       <Header headerTitle="Flow Proses" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-full row-start-3 flex flex-col gap-y-2 px-8 py-6 sm:col-span-1 sm:row-start-2 md:col-span-2 xl:col-span-3">
         <Label className="text-sm font-medium">Tampilkan Proses</Label>
-        <Select onChange={handleSelect} options={options} />
+        <Select placeholder="e.g. Ketokan" value={selectedProcess} onChange={handleSelect} options={options} />
       </Card>
       <UnitCard
         icon={IoBuild}

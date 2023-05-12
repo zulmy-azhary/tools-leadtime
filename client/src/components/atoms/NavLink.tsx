@@ -15,21 +15,19 @@ const NavLink: React.ForwardRefRenderFunction<HTMLAnchorElement, Props> = (props
       {({ isActive }) => (
         <div
           className={clsx(
-            "flex items-center gap-x-4 rounded p-[10px] text-sm",
-            isActive && "bg-blue-500/30 text-blue-500 dark:bg-teal-400/30 dark:text-teal-400"
+            "text-typo-light dark:text-typo-dark flex items-center gap-x-4 rounded p-2 text-sm font-medium",
+            isActive && "bg-primary/30 !text-primary"
           )}
         >
           <div
             className={clsx(
-              "rounded p-2",
-              isActive
-                ? "bg-blue-500 text-white drop-shadow-none dark:bg-teal-400 dark:text-slate-900"
-                : "bg-white shadow-md dark:bg-slate-900"
+              "bg-card-bg-light border-button-bd-light dark:bg-button-bg-dark dark:border-button-bd-dark rounded border-[1.6px] p-2 shadow-md shadow-gray-200 dark:shadow-gray-900",
+              isActive && "!bg-primary !text-typo-white !border-primary !shadow-none"
             )}
           >
             <Icon className="text-lg" />
           </div>
-          <span>{children}</span>
+          <span className="font-semibold">{children}</span>
         </div>
       )}
     </BaseNavLink>

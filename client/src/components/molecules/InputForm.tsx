@@ -39,7 +39,7 @@ const InputForm: React.FC<Props> = props => {
           autoComplete="off"
           className={clsx(
             "read-only:text-slate-500 read-only:opacity-75",
-            errors[inputName] ? "!border-rose-500" : "border-slate-300"
+            errors[inputName] && "!border-error"
           )}
           wrapperClassName="w-full"
           type={type}
@@ -47,7 +47,7 @@ const InputForm: React.FC<Props> = props => {
         />
       </div>
       {errors[inputName]?.message && (
-        <Text className="text-xs font-medium tracking-wide text-red-500">{`${errors[inputName]?.message}`}</Text>
+        <Text className="text-error text-xs font-medium tracking-wide">{`${errors[inputName]?.message}`}</Text>
       )}
     </div>
   );

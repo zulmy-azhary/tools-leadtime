@@ -3,42 +3,144 @@
 @tailwind utilities;
 
 :root {
-  --bgDark: #202637;
-  --bgLight: #ebf0ff;
+  /* custom color */
+  --base-light: 249, 251, 252;
+  /* gray-950 */
+  --base-dark: 3, 7, 18;
+  /* white */
+  --card-bg-light: 255, 255, 255;
+  /* gray-900 */
+  --card-bg-dark: 17, 24, 39;
+  /* gray-200 */
+  --card-bd-light: 229, 231, 235;
+  /* gray-800 */
+  --card-bd-dark: 31, 41, 55;
+  /* custom color */
+  --field-bg-light: 249, 251, 252;
+  /* gray-800 */
+  --field-bg-dark: 31, 41, 55;
+  /* gray-300 */
+  --field-bd-light: 209, 213, 219;
+  /* gray-700 */
+  --field-bd-dark: 55, 65, 81;
+  /* gray-600 */
+  --typo-light: 75, 85, 99;
+  /* gray-500 */
+  --typo-dark: 156, 163, 175;
+  /* gray-900 */
+  --typo-black: 17, 24, 39;
+  /* white */
+  --typo-white: 255, 255, 255;
+
+  /* blue-500 */
+  --primary: 59, 130, 246;
+  /* indigo-500 */
+  --secondary: 99, 102, 241;
+  /* teal-500 */
+  --success: 20, 184, 166;
+  /* yellow-500 */
+  --warning: 234, 179, 8;
+  /* rose-500 */
+  --error: 244, 63, 94;
   font-family: "Inter", sans-serif;
+}
+
+html {
+  background-color: rgb(var(--base-light));
+}
+
+html.dark {
+  background-color: rgb(var(--base-dark));
 }
 
 ::-webkit-scrollbar {
   width: 12px;
   height: 12px;
-  background-color: var(--bgLight);
+  /* background-color: rgb(var(--base-light)); */
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
   border: 3px solid transparent;
   border-radius: 0.75rem;
   background-clip: padding-box;
-  background-color: #3b82f6; /* blue-500 */
+  background-color: rgb(var(--primary));
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: #3b82f6aa;
+  background-color: rgba(var(--primary), 0.67);
 }
 
 html.dark ::-webkit-scrollbar {
-  background-color: var(--bgDark);
-}
-
-html.dark ::-webkit-scrollbar-thumb {
-  background-color: #2dd4bf; /* teal-400 */
-}
-
-html.dark ::-webkit-scrollbar-thumb:hover {
-  background-color: #2dd4bfaa;
+  /* background-color: rgb(var(--base-dark)); */
+  background-color: transparent;
 }
 
 *:not(.recharts-tooltip-wrapper):focus-visible {
-  outline: 1px dashed #3b82f6;
+  outline: 1px dashed rgb(var(--primary));
   outline-offset: 2px;
   transition-duration: 300ms;
+}
+
+.react-datepicker {
+  font-family: "Inter", sans-serif;
+}
+
+.react-datepicker-popper[data-placement^="top"] {
+  padding-bottom: 3px;
+}
+
+.react-datepicker__header {
+  background-color: rgb(var(--field-bg-light));
+  border: none;
+}
+
+.react-datepicker__week,
+.react-datepicker__day-names {
+  display: flex;
+  justify-content: center;
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+  justify-content: center;
+  align-items: center;
+  padding: 1.1rem;
+  display: flex;
+  height: 0;
+  width: 0;
+}
+
+.react-datepicker__day,
+.react-datepicker__day-name {
+  color: rgb(var(--typo-light));
+  border-radius: 100%;
+}
+
+html.dark .react-datepicker__day,
+html.dark .react-datepicker__day-name {
+  color: rgb(var(--typo-dark));
+}
+
+.react-datepicker__day:hover,
+html.dark .react-datepicker__day:hover {
+  background-color: rgba(var(--primary), 30%);
+  color: rgb(var(--primary));
+  border-radius: 100%;
+}
+
+.react-datepicker__day--keyboard-selected,
+.react-datepicker__day--selected {
+  background: rgb(var(--primary));
+  color: rgb(var(--typo-white));
+}
+
+html.dark .react-datepicker__day--keyboard-selected,
+html.dark .react-datepicker__day--selected {
+  background: rgb(var(--primary));
+  color: rgb(var(--typo-white));
+}
+
+html.dark .react-datepicker__header {
+  background-color: var(--field-bg-dark);
 }

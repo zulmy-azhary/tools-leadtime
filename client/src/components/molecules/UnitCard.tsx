@@ -14,9 +14,9 @@ const UnitCard: React.FC<Props> = props => {
   const { title, unitValue, className, subTitle, icon: Icon, ...rest } = props;
   return (
     <Card className={clsx("flex items-center justify-between overflow-hidden p-5", className)} {...rest}>
-      <div className="flex flex-col">
+      <div className="flex flex-col gap-1">
         <Text className="text-lg font-semibold">{title}</Text>
-        <Heading className="text-5xl font-semibold">{unitValue}</Heading>
+        <Heading className="text-4xl font-semibold">{unitValue}</Heading>
         <Text className="text-sm font-medium">{subTitle}</Text>
       </div>
       <IconWrapper>
