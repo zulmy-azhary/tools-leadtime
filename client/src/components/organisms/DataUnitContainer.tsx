@@ -21,7 +21,7 @@ const DataUnitContainer: React.FC = () => {
   const methods = useForm<TUnitData & { code: string }>({ resolver: yupResolver(unitSchemas) });
   const [unit, setUnit] = useState<TUnitData[]>([]);
 
-  useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["unit", "getAll"],
     queryFn: getAllUnit,
     onSuccess: data => {
@@ -65,7 +65,7 @@ const DataUnitContainer: React.FC = () => {
               Add New Data
             </Button>
           </div>
-          <Table data={unit} columns={unitColumns} action={action} />
+          <Table data={unit} columns={unitColumns} action={action} isLoading={isLoading} />
         </Card>
       </ContentWrapper>
       <FormProvider {...methods}>

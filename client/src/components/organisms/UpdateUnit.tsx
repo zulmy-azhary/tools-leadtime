@@ -26,7 +26,7 @@ const UpdateUnit: React.FC<Props> = props => {
   const queryClient = useQueryClient();
   const isWaitingProcess = handleWaitingProcess(dataUnit.currentProcess);
 
-  const { mutate: mutateUpdateUnit } = useMutation({
+  const { mutate: mutateUpdateUnit, isLoading } = useMutation({
     mutationFn: updateUnitById,
     onSuccess: (res: AxiosResponse<TResponse>) => {
       queryClient.invalidateQueries(["unit", "getAll"]);
@@ -118,7 +118,12 @@ const UpdateUnit: React.FC<Props> = props => {
           className="col-span-full"
           defaultValue={dataUnit.handOver}
         />
-        <Button type="submit" icon={IoAdd} className={clsx("bg-success text-typo-white col-span-full p-3 text-sm")}>
+        <Button
+          type="submit"
+          icon={IoAdd}
+          className={clsx("bg-success text-typo-white col-span-full p-3 text-sm")}
+          disabled={isLoading}
+        >
           Submit
         </Button>
       </form>

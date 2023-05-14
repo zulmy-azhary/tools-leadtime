@@ -7,10 +7,11 @@ import { useToggle, useOnClickOutside } from "../../hooks";
 interface Props extends React.InputHTMLAttributes<HTMLInputElement> {
   onChange: (e: ChangeEvent<HTMLInputElement>) => void;
   options: string[];
+  clearable?: boolean;
 }
 
 const Select: React.ForwardRefRenderFunction<HTMLInputElement, Props> = (props, forwardRef) => {
-  const { value, options, onChange, className, ...rest } = props;
+  const { value, options, onChange, className, clearable = true, ...rest } = props;
   const [isOpen, onToggle, setOpen] = useToggle();
   const selectRef = useOnClickOutside<HTMLDivElement>(isOpen, () => setOpen(false));
   const isDisabled = rest.disabled;
@@ -62,7 +63,7 @@ const Select: React.ForwardRefRenderFunction<HTMLInputElement, Props> = (props, 
           isDisabled ? "cursor-not-allowed" : "cursor-pointer"
         )}
       >
-        {value && (
+        {value && clearable && (
           <button type="button" onClick={handleClear} className={isDisabled ? "cursor-not-allowed" : "cursor-pointer"}>
             {<IoClose className="text-xl" />}
           </button>

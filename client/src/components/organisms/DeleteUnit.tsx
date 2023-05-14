@@ -4,7 +4,7 @@ import { useMutation, useQueryClient } from "react-query";
 import withModal from "../../HOC/withModal";
 import { Button } from "../atoms";
 import { deleteUnitById } from "../../api/unit";
-import type { AxiosResponse } from "axios";
+import type { AxiosError, AxiosResponse } from "axios";
 import { toast } from "react-hot-toast";
 
 interface Props {
@@ -22,6 +22,9 @@ const DeleteUnit: React.FC<Props> = props => {
       toast.success(res.data.message);
       queryClient.invalidateQueries(["unit", "getAll"]);
       (onToggle as () => void)();
+    },
+    onError: ({ response }: AxiosError<TResponse>) => {
+      toast.error(response?.data.message as string);
     }
   });
 

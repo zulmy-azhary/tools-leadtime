@@ -22,11 +22,11 @@ const TeamVendorContainer: React.FC = () => {
       <Header headerTitle="Team Vendor" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-full row-start-3 flex flex-col gap-y-2 px-8 py-6 sm:col-span-1 sm:row-start-2 md:col-span-2 xl:col-span-3">
         <Label className="text-sm font-medium">Tampilkan Vendor</Label>
-        <Select value={selectedVendor} onChange={handleSelect} options={VENDOR} placeholder="e.g. WIS" />
+        <Select value={selectedVendor} onChange={handleSelect} options={VENDOR} clearable={false} />
       </Card>
       <UnitCard
         icon={IoPeople}
-        title={selectedVendor || "Unit Vendor"}
+        title={selectedVendor}
         unitValue={vendorUnitCount}
         subTitle="Proses Unit"
         className="col-span-full row-start-2 sm:col-span-1"

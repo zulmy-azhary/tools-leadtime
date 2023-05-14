@@ -9,7 +9,7 @@ import { SERVICE_ADVISOR, DAMAGE_TYPE, ALL_PROCESS, VENDOR } from "../../helpers
 import { useMutation, useQueryClient } from "react-query";
 import { createUnit } from "../../api/unit";
 import { toast } from "react-hot-toast";
-import type { AxiosError } from "axios";
+import type { AxiosError, AxiosResponse } from "axios";
 
 const date = new Date();
 const currentMonth = (date.getMonth() + 1).toString().padStart(2, "0");
@@ -24,9 +24,9 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
   const methods = useFormContext<Omit<TUnitData, "currentStatus" | "processList"> & { code: string }>();
   const queryClient = useQueryClient();
 
-  const { mutate: mutateUnit } = useMutation({
+  const { mutate: mutateUnit, isLoading } = useMutation({
     mutationFn: createUnit,
-    onSuccess: res => {
+    onSuccess: (res: AxiosResponse<TResponse>) => {
       queryClient.invalidateQueries(["unit", "getAll"]);
       toast.success(res.data.message);
       methods.reset();
@@ -56,6 +56,7 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
         placeholder="e.g. 12345"
         className="col-span-full"
         additionalValue={workOrder}
+        autoFocus
       />
       <InputForm
         type="text"
@@ -105,6 +106,7 @@ const UnitForm: React.FC<Props> = ({ onToggle }) => {
         type="submit"
         icon={IoAdd}
         className={clsx("bg-success text-typo-white col-span-full mt-5 p-3 text-sm font-semibold")}
+        disabled={isLoading}
       >
         Submit
       </Button>

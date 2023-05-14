@@ -44,7 +44,7 @@ const FlowProcessContainer: React.FC = () => {
     setSelectedProcess(e.target.value as TMainProcess);
   };
 
-  useQuery({
+  const { isLoading } = useQuery({
     queryKey: ["flowProcess", "getAll"],
     queryFn: getAllFlowProcess,
     onSuccess: data => {
@@ -86,7 +86,7 @@ const FlowProcessContainer: React.FC = () => {
       <Header headerTitle="Flow Proses" description="Leadtime & Paint" className="col-span-full" />
       <Card className="col-span-full row-start-3 flex flex-col gap-y-2 px-8 py-6 sm:col-span-1 sm:row-start-2 md:col-span-2 xl:col-span-3">
         <Label className="text-sm font-medium">Tampilkan Proses</Label>
-        <Select placeholder="e.g. Ketokan" value={selectedProcess} onChange={handleSelect} options={options} />
+        <Select value={selectedProcess} onChange={handleSelect} options={options} clearable={false} />
       </Card>
       <UnitCard
         icon={IoBuild}
@@ -104,7 +104,7 @@ const FlowProcessContainer: React.FC = () => {
             wrapperClassName="w-full sm:w-fit"
           />
         </div>
-        <Table data={filteredFlowProcessData} columns={flowProcessColumns} action={action} />
+        <Table data={filteredFlowProcessData} columns={flowProcessColumns} action={action} isLoading={isLoading} />
       </Card>
     </ContentWrapper>
   );

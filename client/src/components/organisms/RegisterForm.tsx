@@ -9,7 +9,7 @@ import { registerSchema } from "../../schemas";
 import { useMutation } from "react-query";
 import { registerUser } from "../../api/auth";
 import { toast } from "react-hot-toast";
-import type { AxiosError } from "axios";
+import type { AxiosError, AxiosResponse } from "axios";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 
 const RegisterForm: React.FC = () => {
@@ -19,7 +19,7 @@ const RegisterForm: React.FC = () => {
 
   const { mutate: mutateRegister, isLoading } = useMutation({
     mutationFn: registerUser,
-    onSuccess: res => {
+    onSuccess: (res: AxiosResponse<TResponse>) => {
       methods.reset();
       toast.success(res.data.message);
       navigate("/");

@@ -61,7 +61,7 @@ const FlowProcessDetail: React.FC<Props> = props => {
 
   const { mutate: mutateSubmitFlowProcess, isLoading } = useMutation({
     mutationFn: submitFlowProcess,
-    onSuccess: (res: AxiosResponse<TResponse>, variables) => {
+    onSuccess: (res: AxiosResponse<TResponse>) => {
       invalidateQueries();
       (onToggle as () => void)();
 
