@@ -1,4 +1,4 @@
-import { minutesToHours } from "date-fns";
+import { format, minutesToHours } from "date-fns";
 import type { TMainProcess, TProcess, TUserRole, TManageRole } from "../types";
 import { firstQualityCheck, secondQualityCheck, thirdQualityCheck, fourthQualityCheck } from "./constants";
 
@@ -68,4 +68,24 @@ export const getNextProcess = (allProcess: TMainProcess[], currentProcess: TMain
 export const getPreviousProcess = (allProcess: TMainProcess[], currentProcess: TMainProcess) => {
   const index = allProcess.indexOf(currentProcess);
   return index > 0 && index < allProcess.length ? allProcess[index - 1] : allProcess[index];
+};
+
+// This might be changed in the future
+export const getDateFormattedData = <T>(
+  data: Array<
+    Omit<T, "entryDate" | "handOver"> & {
+      entryDate: string;
+      handOver: string;
+    }
+  >
+) => {
+  return data.map(unit => {
+    const { entryDate, handOver, ...rest } = unit;
+
+    return {
+      ...rest,
+      entryDate: format(new Date(entryDate), "dd MMMM yyyy"),
+      handOver: format(new Date(handOver), "dd MMMM yyyy")
+    };
+  });
 };

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ContentWrapper, Header, Modal, Table } from "../molecules";
 import clsx from "clsx";
 import { Button, Card, Heading, Input } from "../atoms";
@@ -8,34 +8,24 @@ import { DeleteUnit, DetailUnit, UnitForm, UpdateUnit } from ".";
 import { unitColumns } from "../../helpers/tableColumns";
 import { useQuery } from "react-query";
 import { getAllUnit } from "../../api/unit";
-import { format } from "date-fns";
 import type { TUnitData } from "../../types";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchemas } from "../../schemas";
 import type { ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle, IoMdTrash } from "react-icons/io";
+import { getDateFormattedData } from "../../helpers/functions";
 
 const DataUnitContainer: React.FC = () => {
   const [isOpen, onToggle] = useToggle();
   const methods = useForm<TUnitData & { code: string }>({ resolver: yupResolver(unitSchemas) });
-  const [unit, setUnit] = useState<TUnitData[]>([]);
 
-  const { isLoading } = useQuery({
+  const { data, isLoading } = useQuery<TUnitData[]>({
     queryKey: ["unit", "getAll"],
-    queryFn: getAllUnit,
-    onSuccess: data => {
-      const filteredData = data.map(unit => {
-        const { entryDate, handOver, ...rest } = unit;
+    queryFn: async () => {
+      const data = await getAllUnit();
 
-        return {
-          ...rest,
-          entryDate: format(new Date(entryDate), "dd MMMM yyyy"),
-          handOver: format(new Date(handOver), "dd MMMM yyyy")
-        };
-      });
-
-      setUnit(filteredData);
+      return getDateFormattedData<TUnitData>(data);
     }
   });
 
@@ -65,7 +55,7 @@ const DataUnitContainer: React.FC = () => {
               Add New Data
             </Button>
           </div>
-          <Table data={unit} columns={unitColumns} action={action} isLoading={isLoading} />
+          <Table data={data ?? []} columns={unitColumns} action={action} isLoading={isLoading} />
         </Card>
       </ContentWrapper>
       <FormProvider {...methods}>

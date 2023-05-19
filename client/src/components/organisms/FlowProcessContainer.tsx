@@ -6,10 +6,9 @@ import { flowProcessColumns } from "../../helpers/tableColumns";
 import type { TMainProcess, TFlowProcessDataUnit, TUserRole, TStatus } from "../../types";
 import { MAIN_PROCESS } from "../../helpers/constants";
 import { useAuth } from "../../context";
-import { getPreviousProcess, manageRole } from "../../helpers/functions";
+import { getDateFormattedData, getPreviousProcess, manageRole } from "../../helpers/functions";
 import { useQuery } from "react-query";
 import { getAllFlowProcess } from "../../api/flowProcess";
-import { format } from "date-fns";
 import { type ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle } from "react-icons/io";
 
@@ -19,7 +18,6 @@ const FlowProcessDetail = React.lazy(
 
 const FlowProcessContainer: React.FC = () => {
   const { user } = useAuth();
-  const [flowProcess, setFlowProcess] = useState<TFlowProcessDataUnit[]>([]);
   const [processCount, setProcessCount] = useState<number>(0);
   const [selectedProcess, setSelectedProcess] = useState<TMainProcess>(
     manageRole<TMainProcess>(user?.role as TUserRole, {
@@ -30,7 +28,6 @@ const FlowProcessContainer: React.FC = () => {
       inspection: "Assembling"
     })
   );
-  const filteredFlowProcessData = flowProcess.filter(item => item.currentProcess === selectedProcess);
 
   const options = manageRole<TMainProcess[]>(user?.role as TUserRole, {
     admin: MAIN_PROCESS,
@@ -44,19 +41,12 @@ const FlowProcessContainer: React.FC = () => {
     setSelectedProcess(e.target.value as TMainProcess);
   };
 
-  const { isLoading } = useQuery({
+  const { data, isLoading } = useQuery<TFlowProcessDataUnit[]>({
     queryKey: ["flowProcess", "getAll"],
-    queryFn: getAllFlowProcess,
-    onSuccess: data => {
-      const formattedData = data.map(item => {
-        const { entryDate, handOver, ...rest } = item;
+    queryFn: async () => {
+      const data = await getAllFlowProcess();
 
-        return {
-          ...rest,
-          entryDate: format(new Date(entryDate), "dd MMMM yyyy"),
-          handOver: format(new Date(handOver), "dd MMMM yyyy")
-        };
-      });
+      const formattedData = getDateFormattedData<TFlowProcessDataUnit>(data);
 
       formattedData.filter(item => {
         if (item.currentStatus === "Menunggu" && item.currentProcess !== "Ketokan") {
@@ -67,19 +57,21 @@ const FlowProcessContainer: React.FC = () => {
             currentProcess: processItem?.processName as TMainProcess,
             currentStatus: processItem?.status as TStatus
           };
-
           formattedData.push(nextProcess);
         }
 
         return item;
       });
-      setFlowProcess(formattedData);
+
+      return formattedData;
     }
   });
 
+  const filteredFlowProcessData = (data ?? []).filter(item => item.currentProcess === selectedProcess);
+
   useEffect(() => {
-    setProcessCount(flowProcess.filter(item => item.currentProcess === selectedProcess).length);
-  }, [selectedProcess, flowProcess]);
+    setProcessCount((data ?? []).filter(item => item.currentProcess === selectedProcess).length);
+  }, [selectedProcess, data]);
 
   return (
     <ContentWrapper className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4">
