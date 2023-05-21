@@ -1,7 +1,7 @@
-import React, { useEffect, useState, Suspense } from "react";
-import { ContentWrapper, Header, Table, UnitCard } from "../molecules";
-import { Card, Heading, Input, Label, Select } from "../atoms";
-import { IoSearch, IoBuild } from "react-icons/io5";
+import React, { useEffect, useState, useMemo, Suspense } from "react";
+import { ContentWrapper, Filter, Header, Pagination, Table, UnitCard } from "../molecules";
+import { Card, Heading, Label, Select } from "../atoms";
+import { IoBuild } from "react-icons/io5";
 import { flowProcessColumns } from "../../helpers/tableColumns";
 import type { TMainProcess, TFlowProcessDataUnit, TUserRole, TStatus } from "../../types";
 import { MAIN_PROCESS } from "../../helpers/constants";
@@ -11,6 +11,7 @@ import { useQuery } from "react-query";
 import { getAllFlowProcess } from "../../api/flowProcess";
 import { type ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle } from "react-icons/io";
+import { useTableInstance } from "../../hooks";
 
 const FlowProcessDetail = React.lazy(
   async () => await import(".").then(({ FlowProcessDetail }) => ({ default: FlowProcessDetail }))
@@ -67,7 +68,16 @@ const FlowProcessContainer: React.FC = () => {
     }
   });
 
-  const filteredFlowProcessData = (data ?? []).filter(item => item.currentProcess === selectedProcess);
+  const filteredFlowProcessData = useMemo(
+    () => (data ?? []).filter(item => item.currentProcess === selectedProcess),
+    [data, selectedProcess]
+  );
+
+  const instanceTable = useTableInstance({
+    data: filteredFlowProcessData,
+    columns: flowProcessColumns,
+    action
+  });
 
   useEffect(() => {
     setProcessCount((data ?? []).filter(item => item.currentProcess === selectedProcess).length);
@@ -90,13 +100,15 @@ const FlowProcessContainer: React.FC = () => {
       <Card className="col-span-full flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
         <div className="flex flex-wrap items-center gap-4">
           <Heading className="grow text-center text-xl font-semibold sm:text-left">Summary Table</Heading>
-          <Input
+          <Filter
+            instance={instanceTable}
             placeholder="Search Work Order"
-            icon={<IoSearch className="absolute right-5" />}
-            wrapperClassName="w-full sm:w-fit"
+            wrapperClassName="w-full md:w-fit"
+            clearable
           />
         </div>
-        <Table data={filteredFlowProcessData} columns={flowProcessColumns} action={action} isLoading={isLoading} />
+        <Table instance={instanceTable} isLoading={isLoading} />
+        <Pagination instance={instanceTable} />
       </Card>
     </ContentWrapper>
   );

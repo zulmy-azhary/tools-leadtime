@@ -1,34 +1,24 @@
-import React, { useMemo } from "react";
+import React from "react";
 import { TableRow, TableHeading } from "../atoms";
 import clsx from "clsx";
-import { useReactTable, getCoreRowModel, type ColumnDef } from "@tanstack/react-table";
+import type { HeadersInstance, CoreInstance } from "@tanstack/react-table";
 import { ImSpinner4 } from "react-icons/im";
 
 interface Props<T> extends React.HTMLAttributes<HTMLDivElement> {
-  data: T[];
-  columns: Array<ColumnDef<T>>;
-  action?: ColumnDef<T>;
+  instance: HeadersInstance<T> & CoreInstance<T>;
   isLoading?: boolean;
 }
 
 const Table = <T extends object>(props: Props<T>) => {
-  const { data, columns, action, className, isLoading, ...rest } = props;
-  const datas = useMemo(() => data, [data]);
-  const headerColumns = useMemo(() => (action ? [...columns, action] : columns), []);
-
-  const table = useReactTable({
-    data: datas,
-    columns: headerColumns,
-    getCoreRowModel: getCoreRowModel()
-  });
-
-  const rows = table.getRowModel().rows;
+  const { instance, className, isLoading, ...rest } = props;
+  const headerColumns = instance.getHeaderGroups();
+  const rows = instance.getRowModel().rows;
 
   return (
     <div className={clsx("relative overflow-x-auto", className)} {...rest}>
       <table className="w-full text-left text-sm">
         <thead>
-          {table.getHeaderGroups().map(headerGroup => (
+          {headerColumns.map(headerGroup => (
             <TableHeading key={headerGroup.id} headerGroup={headerGroup} />
           ))}
         </thead>
