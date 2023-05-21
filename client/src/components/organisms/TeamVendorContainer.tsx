@@ -1,15 +1,25 @@
-import React, { type ChangeEvent, useState, useEffect } from "react";
-import { ContentWrapper, Header, Table, UnitCard } from "../molecules";
-import { Card, Heading, Input, Label, Select } from "../atoms";
-import { IoSearch, IoPeople } from "react-icons/io5";
+import React, { type ChangeEvent, useState, useEffect, useMemo } from "react";
+import { ContentWrapper, Filter, Header, Pagination, Table, UnitCard } from "../molecules";
+import { Card, Heading, Label, Select } from "../atoms";
+import { IoPeople } from "react-icons/io5";
 import type { TVendor, TVendorData } from "../../types";
 import { vendorColumns } from "../../helpers/tableColumns";
 import { VENDOR } from "../../helpers/constants";
+import { useInstanceTable } from "../../hooks";
 
 const TeamVendorContainer: React.FC = () => {
   const [selectedVendor, setSelectedVendor] = useState<TVendor>("WIS");
   const [vendorUnitCount, setVendorUnitCount] = useState<number>(0);
-  const filteredVendorData = vendorData.filter(item => item.vendor === selectedVendor);
+
+  const filteredVendorData = useMemo(
+    () => vendorData.filter(item => item.vendor === selectedVendor),
+    [selectedVendor, vendorData]
+  );
+
+  const instancedTable = useInstanceTable({
+    data: filteredVendorData,
+    columns: vendorColumns
+  });
 
   const handleSelect = (e: ChangeEvent<HTMLInputElement>) => setSelectedVendor(e.target.value as TVendor);
 
@@ -34,13 +44,16 @@ const TeamVendorContainer: React.FC = () => {
       <Card className="col-span-full flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
         <div className="flex flex-wrap items-center gap-4">
           <Heading className="grow text-center text-xl font-semibold sm:text-left">Team Vendor Table</Heading>
-          <Input
+          <Filter
+            instance={instancedTable}
             placeholder="Search Work Order"
-            icon={<IoSearch className="absolute right-5" />}
             wrapperClassName="w-full sm:w-fit"
+            delay={1000}
+            clearable
           />
         </div>
-        <Table data={filteredVendorData} columns={vendorColumns} />
+        <Table instance={instancedTable} />
+        <Pagination instance={instancedTable} />
       </Card>
     </ContentWrapper>
   );

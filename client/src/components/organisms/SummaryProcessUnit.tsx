@@ -1,24 +1,32 @@
 import React from "react";
-import { ContentWrapper, Header, Table } from "../molecules";
-import { Button, Card, Heading, Input } from "../atoms";
-import { IoSearch } from "react-icons/io5";
+import { ContentWrapper, Filter, Header, Pagination, Table } from "../molecules";
+import { Button, Card, Heading } from "../atoms";
 import type { TSummaryData } from "../../types";
 import { summaryColumns } from "../../helpers/tableColumns";
 import clsx from "clsx";
 import type { ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle } from "react-icons/io";
+import { useInstanceTable } from "../../hooks";
 
 const SummaryProcessUnit: React.FC = () => {
+  const instancedTable = useInstanceTable({
+    data: summaryData,
+    columns: summaryColumns,
+    action
+  });
+
   return (
     <ContentWrapper className="overflow-hidden">
       <Header headerTitle="Summary Process Unit" description="Leadtime & Paint" className="col-span-full" />
       <Card className="flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
         <div className="flex flex-wrap items-center gap-4">
           <Heading className="grow text-center text-xl font-semibold md:text-left">Summary Table</Heading>
-          <Input
+          <Filter
+            instance={instancedTable}
             placeholder="Search Work Order"
-            icon={<IoSearch className="absolute right-5" />}
             wrapperClassName="w-full md:w-fit"
+            delay={1000}
+            clearable
           />
           <Button
             className={clsx(
@@ -28,7 +36,8 @@ const SummaryProcessUnit: React.FC = () => {
             Export CSV
           </Button>
         </div>
-        <Table data={summaryData} columns={summaryColumns} action={action} />
+        <Table instance={instancedTable} />
+        <Pagination instance={instancedTable} />
       </Card>
     </ContentWrapper>
   );

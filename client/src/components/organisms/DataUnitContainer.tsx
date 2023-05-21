@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { ContentWrapper, Header, Modal, Table } from "../molecules";
+import { ContentWrapper, Filter, Header, Modal, Pagination, Table } from "../molecules";
 import clsx from "clsx";
-import { Button, Card, Heading, Input } from "../atoms";
-import { IoAdd, IoRefresh, IoSearch } from "react-icons/io5";
-import { useToggle } from "../../hooks";
+import { Button, Card, Heading } from "../atoms";
+import { IoAdd, IoRefresh } from "react-icons/io5";
+import { useInstanceTable, useToggle } from "../../hooks";
 import { DeleteUnit, DetailUnit, UnitForm, UpdateUnit } from ".";
 import { unitColumns } from "../../helpers/tableColumns";
 import { useQuery } from "react-query";
@@ -20,6 +20,8 @@ const DataUnitContainer: React.FC = () => {
   const [isOpen, onToggle] = useToggle();
   const methods = useForm<TUnitData & { code: string }>({ resolver: yupResolver(unitSchemas) });
   const [unit, setUnit] = useState<TUnitData[]>([]);
+
+  const instancedTable = useInstanceTable({ data: unit, columns: unitColumns, action });
 
   const { isLoading } = useQuery({
     queryKey: ["unit", "getAll"],
@@ -50,10 +52,12 @@ const DataUnitContainer: React.FC = () => {
         <Card className="col-span-full flex flex-col gap-y-8 overflow-y-auto px-8 py-6">
           <div className="flex flex-wrap items-center justify-center gap-3">
             <Heading className="grow text-center text-xl font-semibold md:text-left">Data Unit Table</Heading>
-            <Input
+            <Filter
+              instance={instancedTable}
               placeholder="Search Work Order"
-              icon={<IoSearch className="absolute right-5" />}
               wrapperClassName="w-full md:w-fit"
+              delay={1000}
+              clearable
             />
             <Button
               icon={IoAdd}
@@ -65,7 +69,8 @@ const DataUnitContainer: React.FC = () => {
               Add New Data
             </Button>
           </div>
-          <Table data={unit} columns={unitColumns} action={action} isLoading={isLoading} />
+          <Table instance={instancedTable} isLoading={isLoading} />
+          <Pagination instance={instancedTable} />
         </Card>
       </ContentWrapper>
       <FormProvider {...methods}>
