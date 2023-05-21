@@ -52,7 +52,7 @@ const summaryData: TSummaryData[] = [
     vendor: "WIS",
     entryDate: "04 April 2023",
     endDate: "06 April 2023",
-    duration: "18 Jam"
+    totalDuration: "18 Jam"
   },
   {
     workOrder: "20204/SWO/23/04/00002",
@@ -60,7 +60,7 @@ const summaryData: TSummaryData[] = [
     vendor: "SPA",
     entryDate: "01 April 2023",
     endDate: "03 April 2023",
-    duration: "2 Hari 6 Jam"
+    totalDuration: "2 Hari 6 Jam"
   },
   {
     workOrder: "20204/SWO/23/04/00003",
@@ -68,7 +68,7 @@ const summaryData: TSummaryData[] = [
     vendor: "WIS",
     entryDate: "03 April 2023",
     endDate: "04 April 2023",
-    duration: "1 Hari 4 Jam"
+    totalDuration: "1 Hari 4 Jam"
   }
 ];
 

@@ -8,8 +8,8 @@ const endDateColumn = {
 };
 
 const durationColumn = {
-  header: "Durasi",
-  accessorKey: "duration"
+  header: "Total Durasi",
+  accessorKey: "totalDuration"
 };
 
 export const summaryColumns: Array<ColumnDef<TSummaryData>> = [

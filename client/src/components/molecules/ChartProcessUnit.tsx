@@ -49,7 +49,7 @@ const data = [
 const ChartProcessUnit: React.FC = () => {
   return (
     <Card className="grid min-h-[24rem] place-items-center gap-y-8 px-8 py-6">
-      <Heading className="text-lg font-semibold">Proces Unit Chart</Heading>
+      <Heading className="text-lg font-semibold">Process Unit Chart</Heading>
       <ResponsiveContainer width={"100%"} height={"100%"}>
         <BarChart data={data} barSize={20}>
           <XAxis dataKey="name" fontSize={10} />
