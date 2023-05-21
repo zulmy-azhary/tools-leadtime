@@ -4,12 +4,16 @@ import { entryDateColumn, serviceAdvisorColumn, vendorColumn, workOrderColumn } 
 
 const endDateColumn = {
   header: "Tanggal Selesai",
-  accessorKey: "endDate"
+  accessorKey: "endDate",
+  enableGlobalFilter: false,
+  enableSorting: true
 };
 
 const durationColumn = {
   header: "Durasi",
-  accessorKey: "duration"
+  accessorKey: "duration",
+  enableGlobalFilter: false,
+  enableSorting: false
 };
 
 export const summaryColumns: Array<ColumnDef<TSummaryData>> = [
