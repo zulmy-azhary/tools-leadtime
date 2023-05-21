@@ -7,6 +7,8 @@ export { default as SelectForm } from "./SelectForm";
 export { default as DatePickerForm } from "./DatepickerForm";
 export { default as Header } from "./Header";
 export { default as Table } from "./Table";
+export { default as Filter } from "./Filter";
+export { default as Pagination } from "./Pagination";
 export { default as Modal } from "./Modal";
 
 export { default as SidebarList } from "./SidebarList";
