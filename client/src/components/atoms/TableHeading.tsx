@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import React from "react";
 import { type HeaderGroup, flexRender } from "@tanstack/react-table";
+import { IoArrowDown, IoArrowUp, IoSwapVertical } from "react-icons/io5";
 
 interface Props<T> extends React.TableHTMLAttributes<HTMLTableCellElement> {
   headerGroup: HeaderGroup<T>;
@@ -20,7 +21,17 @@ const TableHeading = <T extends object>(props: Props<T>) => {
           )}
           {...rest}
         >
-          {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+          <span
+            onClick={header.column.getToggleSortingHandler()}
+            className={clsx("flex items-center gap-x-2", header.column.getCanSort() && "cursor-pointer")}
+          >
+            {header.isPlaceholder ? null : flexRender(header.column.columnDef.header, header.getContext())}
+            {(header.column.getCanSort() &&
+              {
+                asc: <IoArrowDown size={"1.1rem"} />,
+                desc: <IoArrowUp size={"1.1rem"} />
+              }[header.column.getIsSorted() as string]) ?? <IoSwapVertical size={"1.1rem"} />}
+          </span>
         </th>
       ))}
     </tr>
