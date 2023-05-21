@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { ContentWrapper, Filter, Header, Modal, Pagination, Table } from "../molecules";
 import clsx from "clsx";
 import { Button, Card, Heading } from "../atoms";
@@ -8,36 +8,26 @@ import { DeleteUnit, DetailUnit, UnitForm, UpdateUnit } from ".";
 import { unitColumns } from "../../helpers/tableColumns";
 import { useQuery } from "react-query";
 import { getAllUnit } from "../../api/unit";
-import { format } from "date-fns";
 import type { TUnitData } from "../../types";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { unitSchemas } from "../../schemas";
 import type { ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle, IoMdTrash } from "react-icons/io";
+import { getDateFormattedData } from "../../helpers/functions";
 
 const DataUnitContainer: React.FC = () => {
   const [isOpen, onToggle] = useToggle();
   const methods = useForm<TUnitData & { code: string }>({ resolver: yupResolver(unitSchemas) });
-  const [unit, setUnit] = useState<TUnitData[]>([]);
 
   const instancedTable = useInstanceTable({ data: unit, columns: unitColumns, action });
 
-  const { isLoading } = useQuery({
+  const { data, isLoading } = useQuery<TUnitData[]>({
     queryKey: ["unit", "getAll"],
-    queryFn: getAllUnit,
-    onSuccess: data => {
-      const filteredData = data.map(unit => {
-        const { entryDate, handOver, ...rest } = unit;
+    queryFn: async () => {
+      const data = await getAllUnit();
 
-        return {
-          ...rest,
-          entryDate: format(new Date(entryDate), "dd MMMM yyyy"),
-          handOver: format(new Date(handOver), "dd MMMM yyyy")
-        };
-      });
-
-      setUnit(filteredData);
+      return getDateFormattedData<TUnitData>(data);
     }
   });
 

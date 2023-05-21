@@ -12,14 +12,14 @@
     "check-types": "cd server & tsc --pretty --noEmit & cd ../client & tsc --pretty --noEmit",
     "check-format": "prettier --check .",
     "check-lint": "eslint . --ext ts --ext tsx --ext js",
-    "check-all": "npm run check-format && npm run check-lint && npm run check-types",
+    "check-all": "npm run check-format & npm run check-lint & npm run check-types",
     "build-server": "npm run build --prefix server",
     "build-client": "npm run build --prefix client",
     "build": "npm run build-server & npm run build-client",
-    "preview-server": "npm run build-server && npm run start --prefix server",
-    "preview-client": "npm run build-client && npm run preview --prefix client",
+    "preview-server": "npm run build-server & npm run start --prefix server",
+    "preview-client": "npm run build-client & npm run preview --prefix client",
     "preview-all": "concurrently \"npm run preview-server\" \"npm run preview-client\"",
-    "install-all": "npm i && concurrently \"cd ./client && npm i\" \"cd ./server && npm i\""
+    "install-all": "npm i & concurrently \"cd ./client & npm i\" \"cd ./server & npm i\""
   },
   "husky": {
     "hooks": {
