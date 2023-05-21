@@ -1,13 +1,6 @@
 import type { ColumnDef } from "@tanstack/react-table";
 import type { TSummaryData } from "../../types";
-import { entryDateColumn, serviceAdvisorColumn, vendorColumn, workOrderColumn } from "./globalColumns";
-
-const endDateColumn = {
-  header: "Tanggal Selesai",
-  accessorKey: "endDate",
-  enableGlobalFilter: false,
-  enableSorting: true
-};
+import { entryDateColumn, handOverColumn, serviceAdvisorColumn, vendorColumn, workOrderColumn } from "./globalColumns";
 
 const durationColumn = {
   header: "Total Durasi",
@@ -21,6 +14,6 @@ export const summaryColumns: Array<ColumnDef<TSummaryData>> = [
   serviceAdvisorColumn,
   vendorColumn,
   entryDateColumn,
-  endDateColumn,
+  handOverColumn,
   durationColumn
 ];

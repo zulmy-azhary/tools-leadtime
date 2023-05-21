@@ -59,7 +59,7 @@ const summaryData: TSummaryData[] = [
     serviceAdvisor: "Ahmad Supardi",
     vendor: "WIS",
     entryDate: "04 April 2023",
-    endDate: "06 April 2023",
+    handOver: "06 April 2023",
     totalDuration: "18 Jam"
   },
   {
@@ -67,7 +67,7 @@ const summaryData: TSummaryData[] = [
     serviceAdvisor: "Reza",
     vendor: "SPA",
     entryDate: "01 April 2023",
-    endDate: "03 April 2023",
+    handOver: "03 April 2023",
     totalDuration: "2 Hari 6 Jam"
   },
   {
@@ -75,7 +75,7 @@ const summaryData: TSummaryData[] = [
     serviceAdvisor: "Syamsuryanan Amir",
     vendor: "WIS",
     entryDate: "03 April 2023",
-    endDate: "04 April 2023",
+    handOver: "04 April 2023",
     totalDuration: "1 Hari 4 Jam"
   }
 ];
