@@ -4,7 +4,9 @@ import { entryDateColumn, handOverColumn, plateNumberColumn, processColumn, work
 
 const statusColumn = {
   header: "Status",
-  accessorKey: "currentStatus"
+  accessorKey: "currentStatus",
+  enableGlobalFilter: false,
+  enableSorting: false
 };
 
 export const flowProcessColumns: Array<ColumnDef<TFlowProcessDataUnit>> = [
