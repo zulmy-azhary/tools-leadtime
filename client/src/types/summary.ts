@@ -1,8 +1,7 @@
 import type { TBaseData, TServiceAdvisor, TVendor } from ".";
 
-export interface TSummaryData extends Pick<Record<TBaseData, string>, "workOrder" | "entryDate"> {
+export interface TSummaryData extends Pick<Record<TBaseData, string>, "workOrder" | "entryDate" | "handOver"> {
   serviceAdvisor: TServiceAdvisor;
   vendor: TVendor;
-  endDate: string;
-  totalDuration: string;
+  totalDuration: string | number;
 }
