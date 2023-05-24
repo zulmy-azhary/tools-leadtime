@@ -6,8 +6,10 @@ export type {
   TProcess,
   TServiceAdvisor,
   TVendor,
-  TStatus
+  TStatus,
+  DocumentResult
 } from "./common";
 export type { TUserData } from "./user";
 export type { TUnitData } from "./unit";
 export type { TProcessItem } from "./flowProcess";
+export type { TSummaryData } from "./summary";
