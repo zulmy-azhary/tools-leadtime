@@ -78,6 +78,7 @@ const UpdateUnit: React.FC<Props> = props => {
           defaultValue={dataUnit.carType}
         />
         <SelectForm
+          placeholder="e.g. Ringan"
           className="col-span-full md:col-span-2"
           inputName="damageType"
           label="Jenis Kerusakan"
@@ -85,6 +86,7 @@ const UpdateUnit: React.FC<Props> = props => {
           defaultValue={dataUnit.damageType}
         />
         <SelectForm
+          placeholder="e.g. Ketokan"
           className="col-span-full md:col-span-2"
           inputName="currentProcess"
           label="Proses"
@@ -93,6 +95,7 @@ const UpdateUnit: React.FC<Props> = props => {
           disabled={!isWaitingProcess}
         />
         <SelectForm
+          placeholder="e.g. WIS"
           className="col-span-full md:col-span-2"
           inputName="vendor"
           label="Team Vendor"
@@ -100,6 +103,7 @@ const UpdateUnit: React.FC<Props> = props => {
           defaultValue={dataUnit.vendor}
         />
         <SelectForm
+          placeholder="e.g. Ahmad Supardi"
           inputName="serviceAdvisor"
           label="Service Advisor"
           options={SERVICE_ADVISOR}
