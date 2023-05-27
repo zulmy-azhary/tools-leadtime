@@ -1,5 +1,5 @@
 import UnitModel from "../models/unit.model";
-import type { TUnitData } from "../types";
+import type { DocumentResult, TUnitData } from "../types";
 
 export const createUnit = async (payload: TUnitData) => {
   return await UnitModel.create(payload);
@@ -9,7 +9,7 @@ export const getAllUnit = async () => {
   return await UnitModel.find().sort({ createdAt: "descending" });
 };
 
-export const getUnitByWorkOrder = async (workOrder: string) => {
+export const getUnitByWorkOrder = async (workOrder: string): Promise<DocumentResult<TUnitData> | null> => {
   return await UnitModel.findOne({ workOrder });
 };
 
