@@ -82,10 +82,11 @@ export const getDateFormattedData = <T>(
   return data.map(unit => {
     const { entryDate, handOver, ...rest } = unit;
 
+    // eslint-disable-next-line @typescript-eslint/consistent-type-assertions
     return {
       ...rest,
       entryDate: format(new Date(entryDate), "dd MMMM yyyy"),
       handOver: format(new Date(handOver), "dd MMMM yyyy")
-    };
+    } as T;
   });
 };
