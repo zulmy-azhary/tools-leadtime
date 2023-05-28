@@ -1,9 +1,10 @@
 import type { Request, Response } from "express";
 import { logger } from "../utils/logger";
-import { getAllUnit } from "../services/unit.service";
+import { deleteUnitById, getAllUnit, getUnitByWorkOrder } from "../services/unit.service";
 import { updateFlowProcessValidation } from "../validations";
 import { pushProcess, updateProcess } from "../services/flowProcess.service";
-import type { TProcessItem } from "../types";
+import type { TProcessItem, TSummaryData, TUnitData } from "../types";
+import { createSummary } from "../services/summary.service";
 
 export const getAllFlowProcess = async (req: Request, res: Response) => {
   try {
@@ -33,10 +34,8 @@ export const updateFlowProcess = async (req: Request, res: Response) => {
       { currentProcess: value.processName, currentStatus: value.status },
       value
     ).then(() => {
-      logger.info(`FLOW_PROCESS -> UPDATE = Update flow process for ${workOrder} successfully!!`);
-      res
-        .status(200)
-        .send({ status: true, statusCode: 200, message: `Update flow process for ${workOrder} successfully!!` });
+      logger.info(`FLOW_PROCESS -> UPDATE = Clock on for ${workOrder} started.`);
+      res.status(200).send({ status: true, statusCode: 200, message: `Clock on for ${workOrder} started.` });
     });
   } catch (err) {
     logger.error(`FLOW_PROCESS -> UPDATE = ${(err as Error).message}`);
@@ -67,10 +66,36 @@ export const submitFlowProcess = async (req: Request, res: Response) => {
       },
       value
     );
-    if (nextProcess) await pushProcess(_id, nextProcess);
 
-    logger.info(`FLOW_PROCESS -> SUBMIT = Process ${workOrder} are finished.`);
-    return res.status(200).send({ status: true, statusCode: 200, message: `Process ${workOrder} are finished.` });
+    // If this is the last process, then duplicate unit into summary
+    if (!nextProcess) {
+      const getSelectedUnit = await getUnitByWorkOrder(workOrder);
+      const { currentProcess, currentStatus, ...rest } = getSelectedUnit?._doc as TUnitData;
+
+      const totalDuration = (rest.processList as TProcessItem[]).reduce(
+        (total, process) => total + (process.duration as number),
+        0
+      );
+
+      const payload: TSummaryData = {
+        ...rest,
+        totalDuration
+      };
+
+      await createSummary(payload);
+      await deleteUnitById(_id);
+
+      const message =
+        "All flow processes have been completed. Please see the entire process of WorkOrder in the summary table.";
+
+      logger.info(`FLOW_PROCESS -> SUBMIT = ${message}`);
+      return res.status(200).send({ status: true, statusCode: 200, message });
+    }
+
+    const message = `Process ${workOrder} are finished.`;
+    await pushProcess(_id, nextProcess);
+    logger.info(`FLOW_PROCESS -> SUBMIT = ${message}`);
+    return res.status(200).send({ status: true, statusCode: 200, message });
   } catch (err) {
     logger.error(`FLOW_PROCESS -> SUBMIT = ${(err as Error).message}`);
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
