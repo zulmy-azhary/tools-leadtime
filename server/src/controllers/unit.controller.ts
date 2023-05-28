@@ -33,7 +33,7 @@ export const create = async (req: Request, res: Response) => {
         : []
     });
 
-    logger.info(`UNIT -> CREATE = Data Unit ${value.workOrder} created!!`);
+    logger.info(`UNIT -> CREATE = Unit ${value.workOrder} created!!`);
     return res.status(201).send({ status: true, statusCode: 201, message: `Unit ${value.workOrder} created!!` });
   } catch (err) {
     logger.error(`UNIT -> CREATE = ${(err as Error).message}`);
@@ -45,7 +45,7 @@ export const getAll = async (req: Request, res: Response) => {
   try {
     const retrievedUnit = await getAllUnit();
 
-    logger.info("UNIT -> GET_ALL = Data Unit retrieved!!");
+    logger.info("UNIT -> GET_ALL = Unit retrieved!!");
     return res.status(200).send({ status: true, statusCode: 200, data: retrievedUnit });
   } catch (err) {
     logger.error(`UNIT -> GET_ALL = ${(err as Error).message}`);
@@ -84,8 +84,8 @@ export const deleteUnit = async (req: Request, res: Response) => {
   try {
     await deleteUnitById(req.params.id);
 
-    logger.info("UNIT -> DELETE = Data Unit deleted successfully!!");
-    return res.status(200).send({ status: true, statusCode: 200, message: "Data Unit deleted successfully!!" });
+    logger.info("UNIT -> DELETE = Unit deleted successfully!!");
+    return res.status(200).send({ status: true, statusCode: 200, message: "Unit deleted successfully!!" });
   } catch (err) {
     logger.error(`UNIT -> DELETE = ${(err as Error).message}`);
     return res.status(500).send({ status: false, statusCode: 500, message: (err as Error).message });
