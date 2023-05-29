@@ -50,9 +50,9 @@ const FlowProcessDetail: React.FC<Props> = props => {
 
   const { mutate: mutateClockOnFlowProcess } = useMutation({
     mutationFn: updateFlowProcess,
-    onSuccess: (_, flowProcess) => {
+    onSuccess: (res: AxiosResponse<TResponse>) => {
       invalidateQueries();
-      toast.success(`Clock on for ${flowProcess.workOrder} started.`);
+      toast.success(res.data.message);
     },
     onError: ({ response }: AxiosError<TResponse>) => {
       toast.error(response?.data.message as string);
@@ -67,11 +67,8 @@ const FlowProcessDetail: React.FC<Props> = props => {
 
       if (currentProcess !== "Polishing") {
         toast.success(res.data.message);
-      }
-      if (currentProcess === "Polishing") {
-        alert(
-          "All flow processes have been completed. Please see the entire process of WorkOrder in the summary table."
-        );
+      } else {
+        alert(res.data.message);
       }
     },
     onError: ({ response }: AxiosError<TResponse>) => {

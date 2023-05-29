@@ -29,3 +29,7 @@ export type TServiceAdvisor =
   | "Syamsuryanan Amir";
 
 export type TStatus = "Menunggu" | "Dikerjakan" | "Selesai";
+
+export interface DocumentResult<T> {
+  _doc: T;
+}

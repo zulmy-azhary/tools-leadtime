@@ -24,5 +24,5 @@ export type {
 export type { TUnitProps, TUnitData } from "./unit";
 export type { TFlowProcessDataUnit, TFlowProcessData, TProcessItem } from "./flowProcess";
 export type { TSummaryData } from "./summary";
-export type { Theme } from "./misc";
+export type { Theme, DocumentResult } from "./misc";
 export type { TVendorData } from "./vendor";

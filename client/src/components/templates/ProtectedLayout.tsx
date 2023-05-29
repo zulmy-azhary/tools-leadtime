@@ -17,8 +17,8 @@ const ProtectedLayout: React.FC = () => {
     queryKey: ["user", "getMe"],
     queryFn: getMe,
     onSuccess: () => {
-      const jwtParsed = parseJwt(Cookies.get("accessToken") as string);
-      const currentUser = jwtParsed?._doc as TUserProfile;
+      const jwtParsed = parseJwt<TUserProfile>(Cookies.get("accessToken") as string);
+      const currentUser = jwtParsed._doc;
       setUser(currentUser);
     },
     onError: err => {

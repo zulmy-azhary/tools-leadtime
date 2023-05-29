@@ -1,10 +1,12 @@
-import type { TJwtInfos } from "../types";
+import type { DocumentResult, TJwtInfos } from "../types";
 
-export const parseJwt = (token: string) => {
+export const parseJwt = <T = string>(
+  token: string
+): T extends string ? T : T extends object ? DocumentResult<T> : never => {
   try {
     return JSON.parse(atob(token.split(".")[1]));
-  } catch (e) {
-    return null;
+  } catch (err) {
+    throw new Error((err as Error).message);
   }
 };
 

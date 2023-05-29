@@ -7,10 +7,29 @@ import clsx from "clsx";
 import type { ColumnDef } from "@tanstack/react-table";
 import { IoMdInformationCircle } from "react-icons/io";
 import { useTableInstance } from "../../hooks";
+import { useQuery } from "react-query";
+import { getAllSummary } from "../../api/summary";
+import { formatTime, getDateFormattedData } from "../../helpers/functions";
 
 const SummaryProcessUnit: React.FC = () => {
+  const { data, isLoading } = useQuery({
+    queryKey: ["summary", "getAll"],
+    queryFn: async () => {
+      let data = await getAllSummary();
+
+      data = getDateFormattedData<TSummaryData>(data);
+
+      return data.map(item => {
+        return {
+          ...item,
+          totalDuration: formatTime(+item.totalDuration)
+        };
+      });
+    }
+  });
+
   const instanceTable = useTableInstance({
-    data: summaryData,
+    data: data ?? [],
     columns: summaryColumns,
     action
   });
@@ -35,7 +54,7 @@ const SummaryProcessUnit: React.FC = () => {
             Export CSV
           </Button>
         </div>
-        <Table instance={instanceTable} />
+        <Table instance={instanceTable} isLoading={isLoading} />
         <Pagination instance={instanceTable} />
       </Card>
     </ContentWrapper>
@@ -52,32 +71,5 @@ const action: ColumnDef<TSummaryData> = {
     />
   )
 };
-
-const summaryData: TSummaryData[] = [
-  {
-    workOrder: "20204/SWO/23/04/00001",
-    serviceAdvisor: "Ahmad Supardi",
-    vendor: "WIS",
-    entryDate: "04 April 2023",
-    handOver: "06 April 2023",
-    totalDuration: "18 Jam"
-  },
-  {
-    workOrder: "20204/SWO/23/04/00002",
-    serviceAdvisor: "Reza",
-    vendor: "SPA",
-    entryDate: "01 April 2023",
-    handOver: "03 April 2023",
-    totalDuration: "2 Hari 6 Jam"
-  },
-  {
-    workOrder: "20204/SWO/23/04/00003",
-    serviceAdvisor: "Syamsuryanan Amir",
-    vendor: "WIS",
-    entryDate: "03 April 2023",
-    handOver: "04 April 2023",
-    totalDuration: "1 Hari 4 Jam"
-  }
-];
 
 export default SummaryProcessUnit;
